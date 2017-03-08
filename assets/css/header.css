@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+}
+
+#header {
+    top: 0px;
+    position: fixed;
+    background-color: #ED575D;
+    width: 100%;
+    height: 150px;
+    z-index: 1;
+    text-align: center;
+    display: block;
+    border-bottom: 2px solid black;
+}
