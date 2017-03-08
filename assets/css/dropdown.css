@@ -184,6 +184,47 @@ select {
 
 @media (max-width: 1350px) {
   
+  .custom-dropdown .btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 10px;
+    background-color: #ffffff;
+    transition: all .25s ease;
+  }  
+  
+  .query {
+    float: left;
+    font-size: 12px;
+    width: 15%;
+    background-color: #ED575D;
+    margin-top: -15px;
+    margin-left: 20px;
+  }
+
+  .city {
+    float: left;
+    font-size: 12px;
+    width: 15%;
+    background-color: #ED575D;
+    margin-top: -15px;
+    margin-left: 20px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  
+  
+  .custom-dropdown .btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 10px;
+    background-color: #ffffff;
+    transition: all .25s ease;
+  }
+  
   .query {
     float: left;
     font-size: 12px;
