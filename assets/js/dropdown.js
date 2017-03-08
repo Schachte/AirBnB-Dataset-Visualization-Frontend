@@ -34,7 +34,7 @@ $(function(){
   var $options = $select.children('option');
   var $options = $(".query-select");
   var $picked = $('.picked-query');
-  for(var i = 0; i < 3; i++) {
+  for(var i = 0; i < 4; i++) {
     $('.custom-list').append('<li>'+$options.eq(i).val()+'</li>');
   }
   
@@ -55,8 +55,21 @@ $(function() {
     
     switch(parseInt(selectedQuery)+1) {
       case 1:
-        $.scrollify.move(parseInt(selectedQuery)+1);
+        $.scrollify.move(parseInt(selectedQuery));
         break;
+        
+      case 2:
+        $.scrollify.move(parseInt(selectedQuery));
+        break;
+        
+      case 3:
+        $.scrollify.move(parseInt(selectedQuery));
+        break;
+          
+      case 4:
+        $.scrollify.move(parseInt(selectedQuery));
+        break;
+
       default:
         alert('Not implemeneted');
         break;

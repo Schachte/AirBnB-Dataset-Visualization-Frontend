@@ -5,6 +5,7 @@ $("#header").html('\
     <span style="float: left">Show Me: </span>\
     <div class="query body cf">\
       <select class="query-selector">\
+        <option class="query-select">Take Me Home</option>\
         <option class="query-select">Daily Fluctuations &amp; Why</option>\
         <option class="query-select">The Effect of Amenities on Rentals</option>\
         <option class="query-select">Reviewer Word Cloud Analysis</option>\

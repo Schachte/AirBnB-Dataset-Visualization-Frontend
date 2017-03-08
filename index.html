@@ -9,9 +9,11 @@
           <!-- Internal  -->
           <link rel="stylesheet" type="text/css" href="./assets/css/sections.css">
           <link rel="stylesheet" type="text/css" href="./assets/css/dropdown.css">
+          <link rel="stylesheet" type="text/css" href="./assets/css/choropleth.css">
           <link rel="stylesheet" type="text/css" href="./assets/css/header.css">
           <script src="./assets/js/jquery.scrollify.js"></script>
           <script src="./assets/js/searchRender.js"></script>
+          <script src="./assets/js/amenityRender.js"></script>
           <script src="./assets/js/dropdown.js"></script>
           <script>
               $(function() {
@@ -59,6 +61,21 @@
               
               <div class="section" id="choropleth" style="padding-top: 160px;">
                 <div class="sub-header">The Effect of Amenities on Rentals</div>
+                
+                <div class="selection">
+                  <div id="amenity-grid"></div>
+                </div>
+                <div class="map">
+                  
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBq9LX3eFYuTPfPA4eTuBcMKxyHZIuD5o4
+                      &q=Tempe+AZ" allowfullscreen>
+                  </iframe>
+                  
+                </div>
                 <!-- INSERT VISUALIZATION HERE -->
                 <!-- TIP: Render visualization code in a separate file and render here like a component -->
               </div>
