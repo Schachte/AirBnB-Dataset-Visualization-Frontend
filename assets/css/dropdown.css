@@ -20,7 +20,7 @@ select {
 .query {
   float: left;
   font-size: 20px;
-  width: 400px;
+  width: 25%;
   background-color: #ED575D;
   margin-top: -15px;
   margin-left: 20px;
@@ -29,7 +29,7 @@ select {
 .city {
   float: left;
   font-size: 20px;
-  width: 400px;
+  width: 25%;
   background-color: #ED575D;
   margin-top: -15px;
   margin-left: 20px;
@@ -73,7 +73,7 @@ select {
   color: white;
   margin-top: 10px;
   position: relative;
-  width: 400px;
+  width: 100%;
   float: left;
 }
 .custom-dropdown input {
@@ -125,7 +125,7 @@ select {
 }
 
 .custom-dropdown .custom-list.show {
-  max-height: 300px;
+  max-height: 20%;
   overflow: scroll;
   /*border-bottom: 5px solid #ffffff;*/
 }
@@ -179,4 +179,26 @@ select {
   color: #ffffff;
   border-color: #FFFFFF;
   border-color: #FFFFFF;
+}
+
+
+@media (max-width: 1350px) {
+  
+  .query {
+    float: left;
+    font-size: 12px;
+    width: 15%;
+    background-color: #ED575D;
+    margin-top: -15px;
+    margin-left: 20px;
+  }
+
+  .city {
+    float: left;
+    font-size: 12px;
+    width: 15%;
+    background-color: #ED575D;
+    margin-top: -15px;
+    margin-left: 20px;
+  }
 }

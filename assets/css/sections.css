@@ -34,7 +34,7 @@ span.blogger-small{
 
 #welcome_div {
   position: relative;
-  width: 100em;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
   display: block;
@@ -61,7 +61,7 @@ span.blogger-small{
 #selection_div {
   width: 90%;
   /*border: 1px solid white;*/
-  float: left;
+  float: right;
   font-family: bloggerSansRegular;
   color: white;
   position: absolute;
@@ -73,7 +73,7 @@ span.blogger-small{
 .button-search {
   height: 100%;
   padding: 10px;
-  width: 200px;
+  width: 20%;
   border: 1px solid white;
   font-size: 30px;
   float: left;
@@ -85,7 +85,7 @@ span.blogger-small{
 .button-search:hover {
   height: 100%;
   padding: 10px;
-  width: 200px;
+  width: 20%;
   border: 1px solid white;
   font-size: 30px;
   float: left;
@@ -108,4 +108,73 @@ span.blogger-small{
   width: 100%;
   margin: 0 auto;
   /*border: 1px solid white;*/
+}
+
+@media (max-width: 1350px) {
+  .button-search {
+    height: 100%;
+    padding: 10px;
+    width: 5%;
+    border: 1px solid white;
+    font-size: 10px;
+    float: left;
+    text-align: center;
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+  
+  .button-search:hover {
+    height: 100%;
+    padding: 10px;
+    width: 5%;
+    border: 1px solid white;
+    font-size: 10px;
+    float: left;
+    text-align: center;
+    margin-left: 20px;
+    margin-top: 5px;
+    background-color: #fa8666;
+  }
+  
+  span.blogger{
+    font-family: bloggerSansBold;
+    vertical-align: middle;
+    color: white;
+    font-size: 3em;
+  }
+
+  span.blogger-small{
+    font-family: bloggerSansRegular;
+    vertical-align: middle;
+    color: white;
+    font-size: 25px;
+  }
+  
+  #welcome_div img {
+    float: left;
+    margin: 0 auto;
+    width: 20%;
+    z-index: 0;
+    margin-top: 60px;
+  }
+  
+  #selection_div {
+    width: 90%;
+    float: right;
+    font-family: bloggerSansRegular;
+    color: white;
+    position: absolute;
+    font-size: 2em;
+    margin-top: 12em;
+    margin-left: 1.5em;
+  }
+  
+  #selection_div_header {
+    width: 90%;
+    font-family: bloggerSansRegular;
+    color: white;
+    font-size: 1.5em;
+    margin-left: 20%;
+    margin-top: 1em;
+
 }
