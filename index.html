@@ -14,12 +14,19 @@
           <link rel="stylesheet" type="text/css" href="./assets/css/choropleth.css">
           <link rel="stylesheet" type="text/css" href="./assets/css/header.css">
           <link rel="stylesheet" type="text/css" href="./assets/css/calendar-heatmap.css">
+          <link rel="stylesheet" type="text/css" href="./assets/css/d3.parcoords.css">
+          <script src="./assets/js/d3.svg.multibrush.js"></script>
+          <script src="./assets/js/d3.parcoords.js"></script>
           <script src="./assets/js/jquery.scrollify.js"></script>
           <script src="./assets/js/searchRender.js"></script>
           <script src="./assets/js/amenityRender.js"></script>
           <script src="./assets/js/heatmapRender.js"></script>
+          <script src="./assets/js/parallelCoorPlotRender.js"></script>
           <script src="./assets/js/dropdown.js"></script>
           <script src="./assets/js/calendar-heatmap.js"></script>
+          <!-- <script type="text/javascript" src="./assets/js/us-states"></script>
+          <script src="./assets/js/choroplethMapRender.js"></script> -->
+
           <script>
               $(function() {
                   $.scrollify({
@@ -62,6 +69,7 @@
                 <div class="sub-header">Daily Price Fluctuations and Their Meaning</div>
                 <!-- INSERT VISUALIZATION HERE -->
                 <!-- TIP: Render visualization code in a separate file and render here like a component -->
+                <div id="example" class="parcoords" style="width:960px;height:200px;"></div>
                 <div class='heatmap'></div>
               </div>
 
@@ -90,6 +98,7 @@
                 <div class="sub-header">Review Comment Word Cloud Analysis</div>
                 <!-- INSERT VISUALIZATION HERE -->
                 <!-- TIP: Render visualization code in a separate file and render here like a component -->
+                <div id='map'></div>
               </div>
 
             </div>

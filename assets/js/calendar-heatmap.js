@@ -13,6 +13,7 @@ function calendarHeatmap() {
   var startDate = null;
   var data = [];
   var max = null;
+  var min = null;
   var colorRange = ['#D8E6E7', '#218380'];
   var tooltipEnabled = true;
   var tooltipUnit = 'contribution';
@@ -97,12 +98,16 @@ function calendarHeatmap() {
     var dateRange = d3.time.days(yearAgo, now); // generates an array of date objects within the specified range
     var monthRange = d3.time.months(moment(yearAgo).startOf('month').toDate(), now); // it ignores the first month if the 1st date is after the start of the month
     var firstDate = moment(dateRange[0]);
-    if (max === null) { max = d3.max(chart.data(), function (d) { return d.count; }); } // max data value
+    if (max === null) { max = d3.max(chart.data(), function (d) { return d.average_price; }); } // max data value
+    if (min === null) { min = d3.min(chart.data(), function (d) { return d.average_price; });}
 
     // color range
     var color = d3.scale.linear()
       .range(chart.colorRange())
-      .domain([0, max]);
+      .domain([min, max]);
+
+    console.log('HERE!!!')
+    console.log(chart.colorRange())
 
     var tooltip;
     var dayRects;
@@ -138,7 +143,7 @@ function calendarHeatmap() {
       if (typeof onClick === 'function') {
         dayRects.on('click', function (d) {
           var count = countForDate(d);
-          onClick({ date: d, count: count});
+          onClick({ date: d, average_price: count});
         });
       }
 
@@ -249,7 +254,7 @@ function calendarHeatmap() {
         return moment(element.date).isSame(d, 'day');
       });
       if (match) {
-        count = match.count;
+        count = match.average_price;
       }
       return count;
     }
@@ -272,7 +277,7 @@ function calendarHeatmap() {
     dayRects.filter(function (d) {
       return daysOfChart.indexOf(d.toDateString()) > -1;
     }).attr('fill', function (d, i) {
-      return color(chart.data()[i].count);
+      return color(chart.data()[i].average_price);
     });
   }
 
