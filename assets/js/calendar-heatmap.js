@@ -91,6 +91,32 @@ function calendarHeatmap() {
     return chart;
   };
 
+  //Suhasini
+  var price_data
+  var total_avg_price=0
+  $.getJSON('http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/summaries/daily/Vienna/', function(data) {
+    //data is the JSON string
+    console.log('HI hello!!!')
+    console.log(data)
+    price_data = data.map((obj) => {
+      obj.date = new Date(obj.date)
+      return obj
+    })
+
+    console.log("Suhasini")
+    for (i=0; i< price_data.length;i++) {
+      total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
+      // console.log(total_avg_price)
+    }
+
+    avg_tot_avg = total_avg_price/i;
+
+
+
+    console.log("bla bla bla average price of entire city is -")
+    console.log(avg_tot_avg)
+  });
+
   function chart() {
 
     d3.select(chart.selector()).selectAll('svg.calendar-heatmap').remove(); // remove the existing chart, if it exists
@@ -101,10 +127,23 @@ function calendarHeatmap() {
     if (max === null) { max = d3.max(chart.data(), function (d) { return d.average_price; }); } // max data value
     if (min === null) { min = d3.min(chart.data(), function (d) { return d.average_price; });}
 
+
+
     // color range
+    //Suhasini
+    midpt = (min+max)/2;
     var color = d3.scale.linear()
       .range(chart.colorRange())
-      .domain([min, max]);
+      // .domain([min, midpt, max]);
+      .domain([min,avg_tot_avg,max])
+
+    // var color = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"]
+    // export {default as interpolateRdBu, scheme as schemeRdBu} from "./d3-scale-chromatic-master/src/diverging/RdBu";
+    //
+    // var color = d3.interpolateRdBu()
+    //             .range(chart.colorRange())
+    //             .domain([min, max]);;
+
 
     console.log('HERE!!!')
     console.log(chart.colorRange())
@@ -162,11 +201,21 @@ function calendarHeatmap() {
           tooltip.remove();
         });
       }
+      //Suhasini
+      // if (chart.legendEnabled()) {
+      //   var colorRange = [color(0)];
+      //   for (var i = 3; i > 0; i--) {
+      //     colorRange.push(color(max / i));
+      //   }
+
+
 
       if (chart.legendEnabled()) {
-        var colorRange = [color(0)];
-        for (var i = 3; i > 0; i--) {
-          colorRange.push(color(max / i));
+        var colorRange = [color(2)];
+        console.log("color color color")
+        console.log(colorRange)
+        for (var i = 4; i > 0; i--) {
+          colorRange.push(color(avg_tot_avg/i));
         }
 
         var legendGroup = svg.append('g');
@@ -245,7 +294,7 @@ function calendarHeatmap() {
     function tooltipHTMLForDate(d) {
       var dateStr = moment(d).format('ddd, MMM Do YYYY');
       var count = countForDate(d);
-      return '<span><strong>' + (count ? count : locale.No) + ' ' + pluralizedTooltipUnit(count) + '</strong> ' + locale.on + ' ' + dateStr + '</span>';
+      return '<span><strong>' + (count ? count : locale.No) + ' ' + pluralizedTooltipUnit(count) + '</strong> ' + locale.on + ' ' + dateStr + ' ' + color(countForDate(d)) + '</span>';
     }
 
     function countForDate(d) {
