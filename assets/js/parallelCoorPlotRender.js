@@ -1,9 +1,21 @@
 $(function() {
 
   var m2 = [
-    [6,2,8],
-    [9,1,3],
-    [0,7,6]
+    {
+      'price': 6,
+      'stay count': 2,
+      'est monthly income': 8
+    },
+    {
+      'price': 9,
+      'stay count': 1,
+      'est monthly income': 3
+    },
+    {
+      'price': 0,
+      'stay count': 7,
+      'est monthly income': 6
+    }
   ];
 
   var blue_to_brown = d3.scale.linear()
@@ -12,27 +24,28 @@ $(function() {
     .interpolate(d3.interpolateLab);
   var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
   var parcoords = d3.parcoords()("#example")
-      // .color(color)
+      .color(color)
       .alpha(0.4)
-      // .data(m2)
-      // .hideAxis(["name"])
-      // .composite("darker")
-      // .render()
-      // .shadows()
-      // .reorderable()
-      // .brushMode("1D-axes");  // enable brushing
-  // load csv file and create the chart
-  d3.csv('./cars.csv', function(data) {
-    parcoords
-      .data(data)
+      .data(m2)
       .hideAxis(["name"])
       .composite("darker")
       .render()
       .shadows()
+      .mode("queue")
       .reorderable()
-      .brushMode("1D-axes")  // enable brushing
-      .alpha(0.4)
-  });
+      .brushMode("1D-axes");  // enable brushing
+  // load csv file and create the chart
+  // d3.csv('./cars.csv', function(data) {
+  //   parcoords
+  //     .data(data)
+  //     .hideAxis(["name"])
+  //     .composite("darker")
+  //     .render()
+  //     .shadows()
+  //     .reorderable()
+  //     .brushMode("1D-axes")  // enable brushing
+  //     .alpha(0.4)
+  // });
   var sltBrushMode = d3.select('#sltBrushMode')
   sltBrushMode.selectAll('option')
     .data(parcoords.brushModes())
