@@ -36,19 +36,20 @@ div.amenity-grid-text{
   position: relative;
   padding-top: 80%;
   text-align: center;
+  font-size: 12px;
 }
 
 .amenity-box {
   float: left;
-  width: 135px;
-  height: 135px;
+  width: 100px;
+  height: 100px;
   box-shadow: 0px 0px 15px #888888;
   border-radius: 4px;
   background-repeat: no-repeat;
   background-size: 55%; 
   background-position: center;
-  margin-right: 20px;
-  margin-top: 20px;
+  margin-right: 10px;
+  margin-top: 10px;
   -o-transition:.5s;
   -ms-transition:.5s;
   -moz-transition:.5s;
@@ -57,9 +58,38 @@ div.amenity-grid-text{
   transition:.5s;
 }
 
+
 .amenity-box:hover {
-  width: 135px;
-  height: 135px;
+  box-shadow: 0px 0px 15px #888888;
+  border-radius: 4px;
+  background-color: #fa8666;
+  opacity: .7;
+}
+
+
+.tester {
+  float: left;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0px 0px 15px #888888;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-size: 55%; 
+  background-position: center;
+  margin-right: 10px;
+  margin-top: 10px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  background-color: #ed575d;
+  opacity: 1;
+  transition:.5s;
+}
+
+
+.tester:hover {
   box-shadow: 0px 0px 15px #888888;
   border-radius: 4px;
   background-color: #fa8666;
