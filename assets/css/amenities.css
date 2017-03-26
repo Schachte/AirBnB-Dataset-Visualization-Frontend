@@ -1,0 +1,97 @@
+@font-face {
+    font-family: bloggerSansBold;
+    src: url(../fonts/blogger_sans_bold.otf);
+}
+
+@font-face {
+    font-family: bloggerSansRegular;
+    src: url(../fonts/blogger_sans_regular.otf);
+}
+
+.selection {
+  float: left;
+  border-right: 1px solid black;
+  width: 50%;
+  height: 100%;
+}
+
+.map {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+#amenity-grid {
+  width: 90%;
+  height: 300px;
+  margin: 0px auto;
+  margin-top: 20px;
+  position: relative;
+}
+
+div.amenity-grid-text{
+  font-family: bloggerSansBold;
+  width: 100%;
+  height: 90%;
+  position: relative;
+  padding-top: 80%;
+  text-align: center;
+  font-size: 12px;
+}
+
+.amenity-box {
+  float: left;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0px 0px 15px #888888;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-size: 55%; 
+  background-position: center;
+  margin-right: 10px;
+  margin-top: 10px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.5s;
+}
+
+
+.amenity-box:hover {
+  box-shadow: 0px 0px 15px #888888;
+  border-radius: 4px;
+  background-color: #fa8666;
+  opacity: .7;
+}
+
+
+.tester {
+  float: left;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0px 0px 15px #888888;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-size: 55%; 
+  background-position: center;
+  margin-right: 10px;
+  margin-top: 10px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  background-color: #ed575d;
+  opacity: 1;
+  transition:.5s;
+}
+
+
+.tester:hover {
+  box-shadow: 0px 0px 15px #888888;
+  border-radius: 4px;
+  background-color: #fa8666;
+  opacity: .7;
+}

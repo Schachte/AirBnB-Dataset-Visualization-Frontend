@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>AirBnB - Data Visualization</title>
+	<meta name="description" content="fullPage full-screen backgrounds." />
+	<meta name="keywords"  content="fullpage,jquery,demo,screen,fullscreen,backgrounds,full-screen" />
+	<meta name="Resource-type" content="Document" />
+  
+  <link rel="icon" 
+      type="image/png" 
+      href="http://www.iconninja.com/files/608/626/549/airbnb-icon.png">
+
+	<link rel="stylesheet" type="text/css" href="assets/css/jquery.fullPage.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/video.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/amenities.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
+	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+      
+      $(".continue" ).click(function() {
+        $.fn.fullpage.moveSectionDown();
+      })
+      
+      
+			$('#fullpage').fullpage({
+				verticalCentered: true,
+				sectionsColor: ['#1bbc9b', '#fff', '#7BAABE'],
+        scrollOverflow: true
+			});
+		});
+	</script>
+</head>
+<body>
+
+<div id="fullpage">
+	<div class="section " id="section0">
+		<video id="myVideo" loop muted data-autoplay>
+			<source src="/Users/schachte/Desktop/timelapse.mp4" type="video/mp4">
+		</video>
+		<div class="layer">
+      <img src="https://amex.withairbnb.com/images/airbnb_logo_white.png" height="400px"/>
+		</div>
+    
+    <div class="welcome-text">
+      <span class="blogger-small">Welcome to the AirBnB data exploration tool. This data tool will help in exploring the deep facets of AirBnB and their data throughout cities around the world. As a homeowner, 
+        you'll be able to understand monthly income, helpful amenities and overall neighborhood pricing trends through 40+ cities around the world. This tool is experimental tool not associated with AirBnB.</span>
+      <div class="continue">Continue To Visualization</div>
+  </div>
+	</div>
+  
+	<div class="section" id="section1">
+    
+    <div class = "polar-split">
+      [ POLAR COORDINATE PLOT HERE ]
+    </div>
+    
+    <div class="amentity-section">  
+      <div id = "amenity-split">
+        <div id = "amenity-grid">
+        <!-- GRID ITEMS WILL GET RENDERED HERE   -->
+        </div>
+      </div>
+      
+      <div id = "choropleth-split">
+        <iframe
+          width="100%"
+          height="100%"
+          frameborder="0" style="border:0"
+          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCG38TWTK2KjZkTXnt01bgi8Ycx2MuAxW8
+            &q=Space+Needle,Seattle+WA" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  
+    <div class="heatmap-section">
+      <div class = "heatmap-split">
+        [ HEATMAP  HERE ]
+      </div>
+    </div>
+    
+    <div class="wordcloud-section">
+      <div class = "wordcloud-split">
+        [ WORDCLOUD HERE ]
+      </div>
+    </div>
+	</div>
+</div>
+
+</body>
+</html>

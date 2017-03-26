@@ -1,0 +1,116 @@
+/* Style for our header texts
+* --------------------------------------- */
+@font-face {
+    font-family: bloggerSansBold;
+    src: url(../fonts/blogger_sans_bold.otf);
+}
+
+h1{
+  font-size: 5em;
+  font-family: arial,helvetica;
+  color: #fff;
+  margin:0;
+  padding:0;
+}
+
+/* Centered texts in each section
+* --------------------------------------- */
+.section{
+  text-align:center;
+  overflow: hidden;
+}
+
+#myVideo{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top:0;
+  right:0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-color: black; /* in case the video doesn't fit the whole page*/
+    background-image: /* our video */;
+    background-position: center center;
+    background-size: contain;
+    object-fit: cover; /*cover video background */
+    z-index:3;
+}
+
+
+
+/* Layer with position absolute in order to have it over the video
+* --------------------------------------- */
+#section0 .layer{
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  left: 0;
+
+  /* 
+  * Preventing flicker on some browsers 
+  * See http://stackoverflow.com/a/36671466/1081396  or issue #183
+  */
+  -webkit-transform: translate3d(0,0,0);
+  -ms-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+/*solves problem with overflowing video in Mac with Chrome */
+#section0{
+  overflow: hidden;
+}
+
+#section0 .welcome-text{
+  position: relative;
+  z-index: 4;
+  width: 70%;
+  left: 0;
+  opacity: .8;
+  text-align: left !important;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.continue {
+  width: 40%;
+  height: 50px;
+  border: 3px solid white;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  font-family: bloggerSansBold;
+  color: white;
+  font-size: 2em;
+  transition: 1.0s ease-out;
+  -moz-transition: 1.0s ease-out;
+  -webkit-transition: 1.0s ease-out;
+  -o-transition: 1.0s ease-out;
+}
+
+.continue:hover {
+  opacity: 0.9;
+  border: 8px solid white;
+}
+
+/* Bottom menu
+* --------------------------------------- */
+#infoMenu li a {
+  color: #fff;
+}
+
+
+#section1 {
+  height: auto !important;
+}
+
+
+/* Hiding video controls 
+* See: https://css-tricks.com/custom-controls-in-html5-video-full-screen/
+* --------------------------------------- */
+video::-webkit-media-controls {
+  display:none !important;
+}

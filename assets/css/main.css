@@ -1,0 +1,39 @@
+#amenity-split {
+  float: left;
+  height: 70%;
+  width: 45%;
+  padding-left: 30px;
+}
+
+#choropleth-split {
+  float: right;
+  height: 100%;
+  width: 52%;
+}
+
+.polar-split {
+  height: 300px;
+  width: 100%;
+  border: 1px solid black;
+  /*margin-top: 30px;*/
+}
+
+.heatmap-split {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  border: 1px solid black;
+  float: left;
+}
+
+.wordcloud-split {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  border: 1px solid black;
+  float: left;
+}
+
+.amentity-section {
+  height: 700px !important; 
+}

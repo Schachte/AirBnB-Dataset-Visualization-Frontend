@@ -1,0 +1,23 @@
+@font-face {
+    font-family: bloggerSansBold;
+    src: url(../fonts/blogger_sans_bold.otf);
+}
+
+@font-face {
+    font-family: bloggerSansRegular;
+    src: url(../fonts/blogger_sans_regular.otf);
+}
+
+span.blogger{
+  font-family: bloggerSansBold;
+  vertical-align: middle;
+  color: white;
+  font-size: 5em;
+}
+
+span.blogger-small{
+  font-family: bloggerSansRegular;
+  vertical-align: middle;
+  color: white;
+  font-size: 30px;
+}
