@@ -1,5 +1,12 @@
 $(function() {
+    let selected_city = 'Toronto'
+    let filter_string='has_internet,has_pool'
+    $.post( 'http://localhost:8000/parallelcoord/', { neighborhood: null, city_name: selected_city, filters: filter_string} ) .done(function( data ) {
+      renderPCPlot(data)
+    }, "json");
+})
 
+function renderPCPlot(data) {
   var m2 = [
     [6,2,8],
     [9,1,3],
@@ -12,27 +19,27 @@ $(function() {
     .interpolate(d3.interpolateLab);
   var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
   var parcoords = d3.parcoords()("#example")
-      // .color(color)
+      .color(color)
       .alpha(0.4)
-      // .data(m2)
-      // .hideAxis(["name"])
-      // .composite("darker")
-      // .render()
-      // .shadows()
-      // .reorderable()
-      // .brushMode("1D-axes");  // enable brushing
-  // load csv file and create the chart
-  d3.csv('./cars.csv', function(data) {
-    parcoords
       .data(data)
       .hideAxis(["name"])
       .composite("darker")
       .render()
       .shadows()
       .reorderable()
-      .brushMode("1D-axes")  // enable brushing
-      .alpha(0.4)
-  });
+      .brushMode("1D-axes");  // enable brushing
+  // load csv file and create the chart
+  // d3.csv('./cars.csv', function(data) {
+  //   parcoords
+  //     .data(data)
+  //     .hideAxis(["name"])
+  //     .composite("darker")
+  //     .render()
+  //     .shadows()
+  //     .reorderable()
+  //     .brushMode("1D-axes")  // enable brushing
+  //     .alpha(0.4)
+  // });
   var sltBrushMode = d3.select('#sltBrushMode')
   sltBrushMode.selectAll('option')
     .data(parcoords.brushModes())
@@ -64,4 +71,4 @@ $(function() {
   d3.select('#sltPredicate').on('change', function() {
     parcoords.brushPredicate(this.value);
   });
-})
+}
