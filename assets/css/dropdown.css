@@ -1,0 +1,80 @@
+@import url('http://fonts.googleapis.com/css?family=Oldenburg');
+
+@font-face {
+    font-family: bloggerSansBold;
+    src: url(../fonts/blogger_sans_bold.otf);
+}
+
+@font-face {
+    font-family: bloggerSansRegular;
+    src: url(../fonts/blogger_sans_regular.otf);
+}
+
+
+/* user menu settings */
+#dropdown { 
+  display: block;
+  padding: 13px 16px;
+  width: 266px;
+  margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+  border-left: 4px solid #739cda;
+  background: #fff;
+  font-size: 1.55em;
+  color: #656565;
+  font-weight: normal;
+  -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  -webkit-transition: all 0.15s linear;
+  -moz-transition: all 0.15s linear;
+  -ms-transition: all 0.15s linear;
+  -o-transition: all 0.15s linear;
+  transition: all 0.15s linear;
+}
+#dropdown:hover { color: #898989; }
+
+#dropdown.open {
+  background: #5a90e0;
+  color: #fff;
+  border-left-color: #6c6d70;
+}
+
+#dropdown ul { 
+  position: absolute;
+  top: 100%;
+  left: -4px; /* move content -4px because of container left border */
+  width: 266px;
+  padding: 5px 0px;
+  display: none;
+  border-left: 4px solid #8e9196;
+  background: #fff;
+  -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+#dropdown ul li { font-size: 0.9em; }
+
+#dropdown ul li a { 
+  text-decoration: none;
+  display: block;
+  color: #447dd3;
+  padding: 7px 15px;
+}
+#dropdown ul li a:hover {
+  color: #6fa0e9;
+  background: #e7f0f7;
+}
+
+
+#text{
+ display : inline;
+ padding-right : 4px;
+ font-size: 20px;
+ font-family: bloggerSansBold;
+}
+
+#dd-list{
+ margin-top : 4px;
+}

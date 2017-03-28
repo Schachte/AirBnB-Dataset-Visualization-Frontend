@@ -12,12 +12,16 @@
       type="image/png" 
       href="http://www.iconninja.com/files/608/626/549/airbnb-icon.png">
 
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script> -->
+
 	<link rel="stylesheet" type="text/css" href="assets/css/jquery.fullPage.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/video.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/amenities.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
-
+	<link rel="stylesheet" type="text/css" href="assets/css/dropdown.css" />
+	<!-- <link rel="stylesheet/less" type="text/css" href="assets/css/dropdown.less"/> -->
+  
 	<!--[if IE]>
 		<script type="text/javascript">
 			 var console = { log: function() {} };
@@ -30,6 +34,10 @@
 	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
 	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
+	<script type="text/javascript" src="assets/js/dropdown.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -42,9 +50,69 @@
 			$('#fullpage').fullpage({
 				verticalCentered: true,
 				sectionsColor: ['#1bbc9b', '#fff', '#7BAABE'],
-        scrollOverflow: true
+        fitToSection: false,
+        autoScrolling: false,
 			});
 		});
+    
+    
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", { role: "style" } ],
+        ["$ With Amenities", 8.94, "#87D37C"],
+        ["$ Without Amenities", 10.49, "#fa8666"],
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Average Rental Price Based on Amenities In Brussels",
+        width: 400,
+        height: 150,
+        bar: {groupWidth: "100%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+    }
+    
+    function drawChart2() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", { role: "style" } ],
+        ["$ With Amenities", 8.94, "#87D37C"],
+        ["$ Without Amenities", 10.49, "#fa8666"],
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Average Rental Price Based on Amenities In Brussels",
+        width: 400,
+        height: 150,
+        bar: {groupWidth: "100%"},
+        legend: { position: "none" },
+      };
+      var chart2 = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart2.draw(view, options);
+      console.log('done');
+    }
+    
+    
 	</script>
 </head>
 <body>
@@ -52,7 +120,7 @@
 <div id="fullpage">
 	<div class="section " id="section0">
 		<video id="myVideo" loop muted data-autoplay>
-			<source src="/Users/schachte/Desktop/timelapse.mp4" type="video/mp4">
+			<source src=./timelapse.mp4" type="video/mp4">
 		</video>
 		<div class="layer">
       <img src="https://amex.withairbnb.com/images/airbnb_logo_white.png" height="400px"/>
@@ -65,7 +133,11 @@
   </div>
 	</div>
   
-	<div class="section" id="section1">
+
+
+  
+	<div class="section fp-normal-scroll " id="section1">
+    
     
     <div class = "polar-split">
       [ POLAR COORDINATE PLOT HERE ]
@@ -73,12 +145,26 @@
     
     <div class="amentity-section">  
       <div id = "amenity-split">
+        <div>
+          <h2 align="left" id="text">Select Some Offered Amenities Based On: </h2>
+          <select id="dd-list">
+            <option value="default">Select Correlation Metric</option>
+            <option value="volvo">Price</option>
+            <option value="saab">Average Monthly Income</option>
+            <option value="mercedes">Stay Count</option>
+            <option value="audi">Number of Listings</option>
+          </select>
+        </div>
+        
         <div id = "amenity-grid">
         <!-- GRID ITEMS WILL GET RENDERED HERE   -->
         </div>
+        
+        <div id="barchart_values" style="width: 900px; height: 300px;"></div>
       </div>
       
       <div id = "choropleth-split">
+        
         <iframe
           width="100%"
           height="100%"

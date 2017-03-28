@@ -1,4 +1,5 @@
-let production_endpoint = "http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/amenities/"
+// let production_endpoint = "http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/amenities/"
+let production_endpoint = "http://localhost:8000/amenities/"
 
 function rgb2hex(orig){
  var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
@@ -10,8 +11,6 @@ function rgb2hex(orig){
 
 $(function() {
   
-  
-  alert('The current city is hard-coded as Brussels')
   let amenities = [
     {"name": "Wireless Internet", "url": "wifi.png"},
     {"name": "Super Host", "url": "super.png"},
@@ -51,11 +50,12 @@ $(function() {
     filter_string = getFilterParams(str.split(','))
     let selected_city = $('.picked-city').val();
     
-      console.log("Doing a post for the seelcted city of " + selected_city);
-      
-      selected_city = "Brussels"
-      
-      $.post( production_endpoint, { metric: "price", city_name: selected_city, filters: filter_string} ) .done(function( data ) {
+    selected_city = 'Brussels'; 
+    let metric = $('#dd-list').find(":selected").text();
+    
+    console.log("Doing a post for the seelcted city of " + filter_string);
+    
+      $.post( production_endpoint, { metric: ""+metric.toLowerCase()+"", city_name: selected_city, filters: filter_string} ) .done(function( data ) {
       console.log( data );
     }, "json");
   

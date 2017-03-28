@@ -1,6 +1,14 @@
+html { 
+  background: url(../img/bg.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 #amenity-split {
   float: left;
-  height: 70%;
+  height: 100%;
   width: 45%;
   padding-left: 30px;
 }
@@ -12,28 +20,39 @@
 }
 
 .polar-split {
-  height: 300px;
+  height: 250px;
   width: 100%;
   border: 1px solid black;
-  /*margin-top: 30px;*/
+  opacity: .7;
+  /*background-image: url('../img/polar.png');*/
+  background-repeat: repeat-y; /* for vertical repeat */
+  background-repeat: repeat-x; /* for horizontal repeat */
 }
 
 .heatmap-split {
   position: relative;
-  height: 400px;
+  height: 250px;
   width: 100%;
   border: 1px solid black;
   float: left;
+  opacity: .7;
+  /*background-image: url('../img/heatmap.png');*/
+  background-repeat: repeat-y; /* for vertical repeat */
+  background-repeat: repeat-x; /* for horizontal repeat */
 }
 
 .wordcloud-split {
   position: relative;
-  height: 500px;
+  height: 250px;
   width: 100%;
   border: 1px solid black;
   float: left;
+  opacity: .7;
+  /*background-image: url('../img/wordcloud.png');*/
+  background-repeat: repeat-y; /* for vertical repeat */
+  background-repeat: repeat-x; /* for horizontal repeat */
 }
 
 .amentity-section {
-  height: 700px !important; 
+  height: 550px !important; 
 }
