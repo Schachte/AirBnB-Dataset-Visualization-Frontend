@@ -7,9 +7,9 @@
 	<meta name="description" content="AirBnB Data Analysis - All Around The World" />
 	<meta name="keywords"  content="airbnb visualization data analysis machine learning" />
 	<meta name="Resource-type" content="Document" />
-  
-  <link rel="icon" 
-      type="image/png" 
+
+  <link rel="icon"
+      type="image/png"
       href="http://www.iconninja.com/files/608/626/549/airbnb-icon.png">
 
   <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script> -->
@@ -20,8 +20,10 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/dropdown.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/d3.parcoords.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/calendar-heatmap.css">
 	<!-- <link rel="stylesheet/less" type="text/css" href="assets/css/dropdown.less"/> -->
-  
+
 	<!--[if IE]>
 		<script type="text/javascript">
 			 var console = { log: function() {} };
@@ -30,23 +32,30 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" charset="utf-8"></script>
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
 	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
 	<script type="text/javascript" src="assets/js/dropdown.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="assets/js/d3.svg.multibrush.js"></script>
+  <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
+	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
+	<script type="text/javascript" src="assets/js/calendar-heatmap.js"></script>
+	<script type="text/javascript" src="assets/js/heatmapRender.js"></script>
 
-  
+
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-      
+
       $(".continue" ).click(function() {
         $.fn.fullpage.moveSectionDown();
       })
-      
-      
+
+
 			$('#fullpage').fullpage({
 				verticalCentered: true,
 				sectionsColor: ['#1bbc9b', '#fff', '#7BAABE'],
@@ -54,8 +63,8 @@
         autoScrolling: false,
 			});
 		});
-    
-    
+
+
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     google.charts.setOnLoadCallback(drawChart2);
@@ -84,7 +93,7 @@
       var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
       chart.draw(view, options);
     }
-    
+
     function drawChart2() {
       var data = google.visualization.arrayToDataTable([
         ["Element", "Density", { role: "style" } ],
@@ -111,8 +120,8 @@
       chart2.draw(view, options);
       console.log('done');
     }
-    
-    
+
+
 	</script>
 </head>
 <body>
@@ -125,25 +134,26 @@
 		<div class="layer">
       <img src="https://amex.withairbnb.com/images/airbnb_logo_white.png" height="400px"/>
 		</div>
-    
+
     <div class="welcome-text">
-      <span class="blogger-small">Welcome to the AirBnB data exploration tool. This data tool will help in exploring the deep facets of AirBnB and their data throughout cities around the world. As a homeowner, 
+      <span class="blogger-small">Welcome to the AirBnB data exploration tool. This data tool will help in exploring the deep facets of AirBnB and their data throughout cities around the world. As a homeowner,
         you'll be able to understand monthly income, helpful amenities and overall neighborhood pricing trends through 40+ cities around the world. This tool is experimental tool not associated with AirBnB.</span>
       <div class="continue">Continue To Visualization</div>
   </div>
 	</div>
-  
 
 
-  
+
+
 	<div class="section fp-normal-scroll " id="section1">
-    
-    
+
+
     <div class = "polar-split">
       [ POLAR COORDINATE PLOT HERE ]
+			<div id="example" class="parcoords" style="width:2000px;height:200px;margin: 0px 0px 0px -1200px;"></div>
     </div>
-    
-    <div class="amentity-section">  
+
+    <div class="amentity-section">
       <div id = "amenity-split">
         <div>
           <h2 align="left" id="text">Select Some Offered Amenities Based On: </h2>
@@ -155,16 +165,16 @@
             <option value="audi">Number of Listings</option>
           </select>
         </div>
-        
+
         <div id = "amenity-grid">
         <!-- GRID ITEMS WILL GET RENDERED HERE   -->
         </div>
-        
+
         <div id="barchart_values" style="width: 900px; height: 300px;"></div>
       </div>
-      
+
       <div id = "choropleth-split">
-        
+
         <iframe
           width="100%"
           height="100%"
@@ -174,13 +184,14 @@
         </iframe>
       </div>
     </div>
-  
+
     <div class="heatmap-section">
       <div class = "heatmap-split">
         [ HEATMAP  HERE ]
+				<div class='heatmap'></div>
       </div>
     </div>
-    
+
     <div class="wordcloud-section">
       <div class = "wordcloud-split">
         [ WORDCLOUD HERE ]
