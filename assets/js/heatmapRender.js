@@ -20,6 +20,8 @@ $(function() {
       return obj
     })
 
+    price_data = data
+
     // //console.log("Su")
 
     var i;
