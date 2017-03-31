@@ -24,6 +24,26 @@ function renderPCPlot(data) {
       'est monthly income': 6
     }
   ];
+  
+  function resize() {
+    width = parseInt(d3.select("#example").style("width")) - margin.left - margin.right,
+    height = parseInt(d3.select("#example").style("height")) - margin.top - margin.bottom;
+
+    x.rangePoints([0, width], 1);
+
+    d3.values(y).forEach(function(scale) {
+      scale.range([height, 0])
+    })
+
+    svg.selectAll(".line").attr("d", path);
+
+    g = svg.selectAll(".dimension")
+      .attr("transform", function(d) {
+        return "translate(" + x(d) + ")";
+      });
+
+    g.selectAll(".axis").call(axis.scale(y[d]))
+}
 
   var blue_to_brown = d3.scale.linear()
     .domain([9, 50])
@@ -33,6 +53,7 @@ function renderPCPlot(data) {
   var parcoords = d3.parcoords()("#example")
       .color(color)
       .alpha(0.4)
+      .width(900)
       .data(data)
       .hideAxis(["name"])
       .composite("darker")

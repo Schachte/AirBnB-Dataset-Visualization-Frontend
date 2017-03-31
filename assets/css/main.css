@@ -4,6 +4,7 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-color: #F0F8FF !important;
 }
 
 #amenity-split {
@@ -27,6 +28,7 @@ html {
   /*background-image: url('../img/polar.png');*/
   background-repeat: repeat-y; /* for vertical repeat */
   background-repeat: repeat-x; /* for horizontal repeat */
+  background-color: #F0F8FF !important;
 }
 
 .heatmap-split {

@@ -21,8 +21,13 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/dropdown.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/d3.parcoords.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/cards.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/calendar-heatmap.css">
-	<!-- <link rel="stylesheet/less" type="text/css" href="assets/css/dropdown.less"/> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" charset="utf-8"></script>
 
 	<!--[if IE]>
 		<script type="text/javascript">
@@ -30,23 +35,9 @@
 		</script>
 	<![endif]-->
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" charset="utf-8"></script>
-	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
-	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
-	<script type="text/javascript" src="assets/js/dropdown.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript" src="assets/js/d3.svg.multibrush.js"></script>
-  <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
-	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
-	<script type="text/javascript" src="assets/js/calendar-heatmap.js"></script>
-	<script type="text/javascript" src="assets/js/heatmapRender.js"></script>
-
-
+	<!-- <script type="text/javascript" src="assets/js/calendar-heatmap.js"></script> -->
+	<!-- <script type="text/javascript" src="assets/js/heatmapRender.js"></script> -->
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -63,7 +54,6 @@
         autoScrolling: false,
 			});
 		});
-
 
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
@@ -120,8 +110,8 @@
       chart2.draw(view, options);
       console.log('done');
     }
-
-
+    
+    resize();
 	</script>
 </head>
 <body>
@@ -142,15 +132,19 @@
   </div>
 	</div>
 
-
-
-
 	<div class="section fp-normal-scroll " id="section1">
-
-
-    <div class = "polar-split">
-      [ POLAR COORDINATE PLOT HERE ]
-			<div id="example" class="parcoords" style="width:2000px;height:200px;margin: 0px 0px 0px -1200px;"></div>
+    <div class = "polar-split"  style="height: 500px; padding: 20px;">
+      <div class="card" style="width: 85%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 400px">
+        <div class="card-header">
+          <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
+        </div>
+        <div class="card-block" style="width: 100%">
+          <div style="width: 100%; margin: 0 auto;">
+            <div id="example" class="parcoords" style="width:auto; height:200px;"></div>
+          </div>
+        </div>
+      </div>
+      
     </div>
 
     <div class="amentity-section">
@@ -199,6 +193,17 @@
     </div>
 	</div>
 </div>
-
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
+	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
+	<script type="text/javascript" src="assets/js/dropdown.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="assets/js/d3.svg.multibrush.js"></script>
+  <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
+	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 </body>
+
 </html>
