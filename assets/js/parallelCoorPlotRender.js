@@ -1,5 +1,12 @@
 $(function() {
+    let selected_city = 'Toronto'
+    let filter_string='has_internet,has_pool'
+    $.post( 'http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/parallelcoord/', { neighborhood: null, city_name: selected_city, filters: filter_string} ) .done(function( data ) {
+      renderPCPlot(data)
+    }, "json");
+})
 
+function renderPCPlot(data) {
   var m2 = [
     {
       'price': 6,
@@ -26,7 +33,7 @@ $(function() {
   var parcoords = d3.parcoords()("#example")
       .color(color)
       .alpha(0.4)
-      .data(m2)
+      .data(data)
       .hideAxis(["name"])
       .composite("darker")
       .render()
@@ -77,4 +84,4 @@ $(function() {
   d3.select('#sltPredicate').on('change', function() {
     parcoords.brushPredicate(this.value);
   });
-})
+}

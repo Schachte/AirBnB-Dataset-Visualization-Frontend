@@ -25,8 +25,8 @@ function calendarHeatmap() {
     days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
     No: 'No',
     on: 'on',
-    Less: 'Less',
-    More: 'More'
+    Less: 'Below Average',
+    More: 'Above Average'
   };
 
   // setters and getters
@@ -91,6 +91,34 @@ function calendarHeatmap() {
     return chart;
   };
 
+  //Suhasini
+  var price_data
+  var total_avg_price=0
+  // $.getJSON('http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
+  $.getJSON('http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
+    console.log(data)
+    price_data = data.map((obj) => {
+      // obj.date = new Date(obj.date)
+
+      obj.date = new Date(Date.parse(obj.date)).toUTCString()
+
+      return obj
+    })
+
+
+    for (i=0; i< price_data.length;i++) {
+      total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
+      // console.log(total_avg_price)
+    }
+
+    avg_tot_avg = total_avg_price/i;
+
+
+    //
+    console.log("bla bla bla average price of entire city is -")
+    console.log(avg_tot_avg)
+  });
+
   function chart() {
 
     d3.select(chart.selector()).selectAll('svg.calendar-heatmap').remove(); // remove the existing chart, if it exists
@@ -101,13 +129,26 @@ function calendarHeatmap() {
     if (max === null) { max = d3.max(chart.data(), function (d) { return d.average_price; }); } // max data value
     if (min === null) { min = d3.min(chart.data(), function (d) { return d.average_price; });}
 
+
+
     // color range
+    //Suhasini
+    midpt = (min+max)/2;
     var color = d3.scale.linear()
       .range(chart.colorRange())
-      .domain([min, max]);
+      // .domain([min, midpt, max]);
+      .domain([min,avg_tot_avg,max])
 
-    console.log('HERE!!!')
-    console.log(chart.colorRange())
+    // var color = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"]
+    // export {default as interpolateRdBu, scheme as schemeRdBu} from "./d3-scale-chromatic-master/src/diverging/RdBu";
+    //
+    // var color = d3.interpolateRdBu()
+    //             .range(chart.colorRange())
+    //             .domain([min, max]);;
+
+
+    // //console.log('HERE!!!')
+    // //console.log(chart.colorRange())
 
     var tooltip;
     var dayRects;
@@ -162,12 +203,25 @@ function calendarHeatmap() {
           tooltip.remove();
         });
       }
+      //Suhasini
+      // if (chart.legendEnabled()) {
+      //   var colorRange = [color(0)];
+      //   for (var i = 3; i > 0; i--) {
+      //     colorRange.push(color(max / i));
+      //   }
+
+
 
       if (chart.legendEnabled()) {
-        var colorRange = [color(0)];
-        for (var i = 3; i > 0; i--) {
-          colorRange.push(color(max / i));
-        }
+        var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
+        // //console.log("color color color")
+        // //console.log(colorRange)
+        // colorRange.push("#ff0000")
+        // colorRange.push
+
+        // for (var i = 2; i > 0; i--) {
+        //   colorRange.push(color(max/i));
+        // }
 
         var legendGroup = svg.append('g');
         legendGroup.selectAll('.calendar-heatmap-legend')
@@ -183,7 +237,7 @@ function calendarHeatmap() {
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
-          .attr('x', width - legendWidth - 13)
+          .attr('x', width - legendWidth - 60)
           .attr('y', height + SQUARE_LENGTH)
           .text(locale.Less);
 
@@ -243,21 +297,65 @@ function calendarHeatmap() {
     }
 
     function tooltipHTMLForDate(d) {
+      // //console.log(d)
       var dateStr = moment(d).format('ddd, MMM Do YYYY');
+      // //console.log("after conversion");
+      // //console.log(dateStr)
       var count = countForDate(d);
-      return '<span><strong>' + (count ? count : locale.No) + ' ' + pluralizedTooltipUnit(count) + '</strong> ' + locale.on + ' ' + dateStr + '</span>';
+      //console.log(count);
+      // return '<span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + ' ' + color(countForDate(d)) + '</span>';
+      return '<p><span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + '</span>'+ ' <span> '+'Holidays : '+holidayForDate(d) +'</span><span>'+ 'Events : '+ eventForDate(d)+ '</span></p>';
+      // return '<span>'+count+'</span>'
     }
 
     function countForDate(d) {
       var count = 0;
       var match = chart.data().find(function (element, index) {
-        return moment(element.date).isSame(d, 'day');
+        return moment.utc(element.date).isSame(d, 'day');
+        // return new Date(Date.parse(obj.date)).toUTCString()
+
       });
       if (match) {
         count = match.average_price;
       }
       return count;
     }
+
+    function holidayForDate(d) {
+      var count='No holidays'
+      var match = chart.data().find(function (element, index) {
+        return moment.utc(element.date).isSame(d, 'day');
+        // return new Date(Date.parse(obj.date)).toUTCString()
+
+      });
+      if (match) {
+        if(match.holiday!=null){
+          count = match.holiday.slice(0,-2);
+        }
+
+      }
+      return count;
+    }
+
+    function eventForDate(d) {
+      var count='No events'
+      var match = chart.data().find(function (element, index) {
+        return moment.utc(element.date).isSame(d, 'day');
+        // return new Date(Date.parse(obj.date)).toUTCString()
+
+      });
+      if (match) {
+        if(match.event!=null){
+          count = match.event.trim();
+          count = count.slice(0,-1);
+          if(count==''){
+            count='No events'
+          }
+        }
+      }
+      return count;
+    }
+
 
     function formatWeekday(weekDay) {
       if (weekStart === 1) {
@@ -280,7 +378,6 @@ function calendarHeatmap() {
       return color(chart.data()[i].average_price);
     });
   }
-
   return chart;
 }
 
