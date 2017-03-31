@@ -44,7 +44,7 @@
   <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
 	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
 	<script type="text/javascript" src="assets/js/calendar-heatmap.js"></script>
-	<script type="text/javascript" src="assets/js/heatmapRender.js"></script>
+	<!-- <script type="text/javascript" src="assets/js/heatmapRender.js"></script> -->
 
 
 
@@ -159,11 +159,10 @@
         <div>
           <h2 align="left" id="text">Select Some Offered Amenities Based On: </h2>
           <select id="dd-list">
-            <option value="default">Select Correlation Metric</option>
-            <option value="volvo">Price</option>
-            <option value="saab">Average Monthly Income</option>
-            <option value="mercedes">Stay Count</option>
-            <option value="audi">Number of Listings</option>
+            <option value="num_listings">Number of Listings</option>
+            <option value="price">Price</option>
+            <option value="est_monthly_income">Average Monthly Income</option>
+            <option value="reviews_per_month">Stay Count</option>
           </select>
         </div>
 
