@@ -9,6 +9,7 @@ $(function() {
 function renderPCPlot(data) {
   var parcoords = d3.parcoords()("#example")
       .alpha(0.4)
+      .width(900)
       .data(data)
       .hideAxis(["name"])
       .composite("darker")
