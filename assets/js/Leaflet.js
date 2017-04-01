@@ -1,8 +1,15 @@
 
+/*
+ * The only two functions that should be called from outside of this file are the following:
+ * 
+ *  Use update_city(geojson) to zoom to a new city and draw its neighbourhoods
+ *  Use update_map_criteria(criteria, binData) to color the regions and create the tooltips.
+ */ 
+
 
 
 mapboxAccessToken = 'pk.eyJ1IjoiYXN1c21rcyIsImEiOiJjajBvdG81MXAwMDllMnFtcnljaTNlbDYzIn0.rZRcpOORbLfDgSu8OCz6yA';
-divergentColors = ['#d73027','#fc8d59','#fee090','#ffffbf','#e0f3f8','#91bfdb','#4575b4']; //Red to blue
+divergentColors = ['#b2182b','#ef8a62','#fddbc7','#f7f7f7','#d1e5f0','#67a9cf','#2166ac']
 
 var mymap;
 var info, geojsonLayer
@@ -13,15 +20,11 @@ var currentCityGeojson, neighbourhoodData, currentCriteria;
  */
 
 //TODO:  Modify this potentially to handle initialization
-//create_map();
+create_map();
 function create_map() {
-    mymap = L.map('mapid');
+    mymap = L.map('mapid').setView([37.8, -96], 2);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
         id: 'mapbox.light'
-    }).addTo(mymap);
-    geojsonLayer = L.geoJson(currentCityGeojson, {
-        style: style,
-        onEachFeature: addMouseListeners
     }).addTo(mymap);
 }
 
@@ -32,10 +35,13 @@ function update_city(geojsonData) {
     if(!mymap)
         create_map(geojsonData);
 
-    mymap.removeLayer(geojsonLayer);
-    currentCityGeojson = geojsonData;
-    geojsonLayer = L.geoJson(currentCityGeojson).addTo(mymap);
-    mymap.fitBounds(geojsonLayer.getBounds());
+    if(geojsonLayer)
+        mymap.removeLayer(geojsonLayer);
+
+    geojsonLayer = L.geoJson(currentCityGeojson, {
+        style: style,
+        onEachFeature: addMouseListeners
+    }).addTo(mymap);    mymap.fitBounds(geojsonLayer.getBounds());
 }
 
 //Remove the map and redraw it with the new data that we're given.
@@ -58,7 +64,7 @@ function modifyData( newNeighbourhoodData ) {
     dataDict = [];
 
     for(var i = 0; i < newNeighbourhoodData.length; i++ ) {
-        regionData = newNeighbourhoodData[i];
+        var regionData = newNeighbourhoodData[i];
         dataDict[regionData.neighborhood] = regionData;
     }
     return dataDict;
@@ -67,7 +73,7 @@ function modifyData( newNeighbourhoodData ) {
 
 //Called for each neighbourhood to define its style
 function style(feature) {
-    var binNumber = 1;
+    var binNumber = 4;
 
     //Get the bin number for the region we are looking at
     if( neighbourhoodData ){
@@ -118,18 +124,25 @@ info.update = function (region) {
 
     var html = "";
 
-    if( region && region.neighbourhood && neighbourhoodData[region.neighbourhood] ) {
-        regionName = region.neighbourhood;
-        regionData = neighbourhoodData[regionName];
-        withCrit = regionData.averageWithCriteria;
-        withoutCrit = regionData.averageWithoutCriteria;
 
-        html = '<h4>' + regionName + '</h4>' +
-        '<b>Average ' + currentCriteria + ' with the chosen criteria:</b> ' + withCrit + '<br/>' +
-        '<b>Average ' + currentCriteria + ' without the chosen criteria:</b> ' + withoutCrit + '<br/>';
+    if( region ) {
+        //If it's a valid region that we could find in the geojson
+        if( region.neighbourhood && neighbourhoodData[region.neighbourhood] ) {
+            regionName = region.neighbourhood;
+            regionData = neighbourhoodData[regionName];
+            withCrit = regionData.averageWithCriteria;
+            withoutCrit = regionData.averageWithoutCriteria;
+
+            html = '<h4>' + regionName + '</h4>' +
+            '<b>Average ' + currentCriteria + ' with the chosen criteria:</b> ' + withCrit + '<br/>' +
+            '<b>Average ' + currentCriteria + ' without the chosen criteria:</b> ' + withoutCrit + '<br/>';
+        //If we couldn't find it in the geojson then there were no listings in that region..... or special chars messed up the finding
+        } else {
+            html = 'No listings found in this neighbourhood.';
+        }
+    //Nothing has been selected
     } else {
-        html = 'Unable to find the data for the neighbourhood.';
-        console.log(region);
+        html = 'Please hover over a region to see details.';
     }
 
     this._div.innerHTML = html;
