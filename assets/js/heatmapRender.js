@@ -1,36 +1,37 @@
 
 $(function() {
 
-  var now = moment().endOf('day').toDate();
-  var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
+  // var now = moment().endOf('day').toDate();
+  // var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
 
-  //console.log(chartData)
+  console.log("start heat-map")
 
   var price_data;
 
-  // $.getJSON('http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
-    //data is the JSON string
-
-    $.getJSON('http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
+    $.getJSON('http:localhost:8000/summaries/daily/Toronto/All', function(data) {
       console.log("heatmap data")
-      console.log(data)
+      // console.log(data.dataPoints)
+      console.log("average of average")
+      // console.log(data.avgPrice)
 
-    price_data = data.map((obj) => {
+    price_data = data.dataPoints.map((obj) => {
       obj.date = new Date(obj.date)
+      // obj.date = new Date(Date.parse(obj.date)).toUTCString()
       return obj
     })
 
-    // //console.log("Su")
+    console.log("Su data fetched and date converted")
+    // console.log(price_data)
 
-    var i;
-    var total_avg_price=0;
-    // //console.log("Su")
-    for (i=0; i< price_data.length;i++) {
-      total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
-      // //console.log(total_avg_price)
-    }
-
-    avg_tot_avg = total_avg_price/i;
+    // var i;
+    // var total_avg_price=0;
+    // // //console.log("Su")
+    // for (i=0; i< price_data.length;i++) {
+    //   total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
+    //   // //console.log(total_avg_price)
+    // }
+    //
+    // avg_tot_avg = total_avg_price/i;
 
     //console.log("Suhasini prints date")
     //console.log(price_data[0].date)
@@ -39,10 +40,10 @@ $(function() {
     //console.log(avg_tot_avg)
 
     console.log("epoch date is")
-    console.log(new Date(2017,06,27).getTime() / 1000)
+    // console.log(new Date(2017,06,27).getTime() / 1000)
 
     var heatmap = calendarHeatmap()
-                    .data(price_data)
+                    .data(data)
                     .selector('.heatmap')
                     .tooltipEnabled(true)
                     // .colorRange(['#D8E6E7', '#218380'])

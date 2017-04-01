@@ -1,7 +1,7 @@
 
 function calendarHeatmap() {
   // defaults
-  var width = 750; 
+  var width = 750;
   var height = 110;
   var legendWidth = 150;
   var selector = 'body';
@@ -33,6 +33,8 @@ function calendarHeatmap() {
   chart.data = function (value) {
     if (!arguments.length) { return data; }
     data = value;
+    // console.log("check data in calendar-heatmap")
+    // console.log(data)
     return chart;
   };
 
@@ -92,32 +94,37 @@ function calendarHeatmap() {
   };
 
   //Suhasini
-  var price_data
+
   var total_avg_price=0
-  // $.getJSON('http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
-  $.getJSON('http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
-    console.log(data)
-    price_data = data.map((obj) => {
-      // obj.date = new Date(obj.date)
+  var avg_tot_avg=0
 
-      obj.date = new Date(Date.parse(obj.date)).toUTCString()
+  console.log("inside calendar-heatmap now. Calling JSON")
 
-      return obj
-    })
+  // var price_data
 
-
-    for (i=0; i< price_data.length;i++) {
-      total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
-      // console.log(total_avg_price)
-    }
-
-    avg_tot_avg = total_avg_price/i;
-
-
-    //
-    console.log("bla bla bla average price of entire city is -")
-    console.log(avg_tot_avg)
-  });
+  // $.getJSON('http:localhost:8000/summaries/daily/Toronto/University', function(data) {
+  //   // console.log(data)
+  //   averageOfAverage = data.avgPrice;
+  //
+  //   price_data = data.dataPoints.map((obj) => {
+  //     // obj.date = new Date(obj.date)
+  //
+  //     obj.date = new Date(Date.parse(obj.date)).toUTCString()
+  //
+  //     return obj
+  //   })
+  //
+  //
+  //   // for (i=0; i< price_data.length;i++) {
+  //   //   total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
+  //   //   // console.log(total_avg_price)
+  //   // }
+  //   //
+  //   // avg_tot_avg = total_avg_price/i;
+  //
+  //   console.log("bla bla bla average price of entire city is -")
+  //   console.log(averageOfAverage)
+  // });
 
   function chart() {
 
@@ -126,18 +133,32 @@ function calendarHeatmap() {
     var dateRange = d3.time.days(yearAgo, now); // generates an array of date objects within the specified range
     var monthRange = d3.time.months(moment(yearAgo).startOf('month').toDate(), now); // it ignores the first month if the 1st date is after the start of the month
     var firstDate = moment(dateRange[0]);
-    if (max === null) { max = d3.max(chart.data(), function (d) { return d.average_price; }); } // max data value
-    if (min === null) { min = d3.min(chart.data(), function (d) { return d.average_price; });}
+    if (max === null)
+      { max = d3.max(chart.data().dataPoints, function (d) { return d.average_price; }); } // max data value
+    if (min === null)
+      { min = d3.min(chart.data().dataPoints, function (d) { return d.average_price; });}
 
+    console.log("min is")
+    console.log(chart.data().maxPrice)
+    console.log("max is ")
+    console.log(chart.data().minPrice)
+
+//     var max = d3.max(data, function(d) {
+//   return d3.max(d.Checkintimes, function(e) { return d3.max(e); });
+// });
+
+    console.log("chart.data is")
+    console.log(chart.data().dataPoints)
 
 
     // color range
     //Suhasini
-    midpt = (min+max)/2;
+    // midpt = (min+max)/2;
     var color = d3.scale.linear()
       .range(chart.colorRange())
       // .domain([min, midpt, max]);
-      .domain([min,avg_tot_avg,max])
+      .domain([chart.data().minPrice,chart.data().avgPrice,chart.data().maxPrice])
+
 
     // var color = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"]
     // export {default as interpolateRdBu, scheme as schemeRdBu} from "./d3-scale-chromatic-master/src/diverging/RdBu";
@@ -310,7 +331,7 @@ function calendarHeatmap() {
 
     function countForDate(d) {
       var count = 0;
-      var match = chart.data().find(function (element, index) {
+      var match = chart.data().dataPoints.find(function (element, index) {
         return moment.utc(element.date).isSame(d, 'day');
         // return new Date(Date.parse(obj.date)).toUTCString()
 
@@ -323,7 +344,7 @@ function calendarHeatmap() {
 
     function holidayForDate(d) {
       var count='No holidays'
-      var match = chart.data().find(function (element, index) {
+      var match = chart.data().dataPoints.find(function (element, index) {
         return moment.utc(element.date).isSame(d, 'day');
         // return new Date(Date.parse(obj.date)).toUTCString()
 
@@ -339,7 +360,7 @@ function calendarHeatmap() {
 
     function eventForDate(d) {
       var count='No events'
-      var match = chart.data().find(function (element, index) {
+      var match = chart.data().dataPoints.find(function (element, index) {
         return moment.utc(element.date).isSame(d, 'day');
         // return new Date(Date.parse(obj.date)).toUTCString()
 
@@ -368,14 +389,15 @@ function calendarHeatmap() {
       return weekDay;
     }
 
-    var daysOfChart = chart.data().map(function (day) {
+    var daysOfChart = chart.data().dataPoints.map(function (day) {
       return day.date.toDateString();
+      // return day.date;
     });
 
     dayRects.filter(function (d) {
       return daysOfChart.indexOf(d.toDateString()) > -1;
     }).attr('fill', function (d, i) {
-      return color(chart.data()[i].average_price);
+      return color(chart.data().dataPoints[i].average_price);
     });
   }
   return chart;
