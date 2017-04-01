@@ -1,9 +1,10 @@
-html { 
-  background: url(../img/bg.jpeg) no-repeat center center fixed; 
+html {
+  background: url(../img/bg.jpeg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-color: #F0F8FF !important;
 }
 
 #amenity-split {
@@ -27,6 +28,7 @@ html {
   /*background-image: url('../img/polar.png');*/
   background-repeat: repeat-y; /* for vertical repeat */
   background-repeat: repeat-x; /* for horizontal repeat */
+  background-color: #F0F8FF !important;
 }
 
 .heatmap-split {
@@ -54,5 +56,20 @@ html {
 }
 
 .amentity-section {
-  height: 550px !important; 
+  height: 550px !important;
+}
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
 }
