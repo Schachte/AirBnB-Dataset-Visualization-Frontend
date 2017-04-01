@@ -8,7 +8,7 @@ $(function() {
 
   var price_data;
 
-    $.getJSON('http:localhost:8000/summaries/daily/Toronto/All', function(data) {
+    $.getJSON('http:localhost:8000/summaries/daily/Toronto/University', function(data) {
       console.log("heatmap data")
       // console.log(data.dataPoints)
       console.log("average of average")
@@ -21,23 +21,8 @@ $(function() {
     })
 
     console.log("Su data fetched and date converted")
-    // console.log(price_data)
+    
 
-    // var i;
-    // var total_avg_price=0;
-    // // //console.log("Su")
-    // for (i=0; i< price_data.length;i++) {
-    //   total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
-    //   // //console.log(total_avg_price)
-    // }
-    //
-    // avg_tot_avg = total_avg_price/i;
-
-    //console.log("Suhasini prints date")
-    //console.log(price_data[0].date)
-
-    //console.log("average price of entire city is -")
-    //console.log(avg_tot_avg)
 
     console.log("epoch date is")
     // console.log(new Date(2017,06,27).getTime() / 1000)
