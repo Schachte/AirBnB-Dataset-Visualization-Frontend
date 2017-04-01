@@ -12,18 +12,20 @@ html {
   height: 100%;
   width: 45%;
   padding-left: 30px;
+  background-color: #F0F8FF !important;
 }
 
 #choropleth-split {
   float: right;
   height: 100%;
   width: 52%;
+  background-color: #F0F8FF !important;
 }
 
 .polar-split {
   height: 250px;
   width: 100%;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   opacity: .7;
   /*background-image: url('../img/polar.png');*/
   background-repeat: repeat-y; /* for vertical repeat */
@@ -35,12 +37,13 @@ html {
   position: relative;
   height: 250px;
   width: 100%;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   float: left;
   opacity: .7;
   /*background-image: url('../img/heatmap.png');*/
   background-repeat: repeat-y; /* for vertical repeat */
   background-repeat: repeat-x; /* for horizontal repeat */
+  background-color: #F0F8FF !important;
 }
 
 .wordcloud-split {
@@ -53,8 +56,10 @@ html {
   /*background-image: url('../img/wordcloud.png');*/
   background-repeat: repeat-y; /* for vertical repeat */
   background-repeat: repeat-x; /* for horizontal repeat */
+  background-color: #F0F8FF !important;
 }
 
 .amentity-section {
   height: 550px !important; 
+  background-color: #F0F8FF !important;
 }
