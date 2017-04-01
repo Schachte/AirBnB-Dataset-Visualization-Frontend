@@ -14,6 +14,7 @@ divergentColors = ['#b2182b','#ef8a62','#fddbc7','#f7f7f7','#d1e5f0','#67a9cf','
 var mymap;
 var info, geojsonLayer
 var currentCityGeojson, neighbourhoodData, currentCriteria;
+var legend, currentLegendData;
 
 /*
  * Functions to create and update the map
@@ -56,6 +57,13 @@ function update_map_criteria(criteria, newNeighbourhoodData) {
         }).addTo(mymap);
         info.addTo(mymap);
     }
+}
+
+//Set the new legend data, remove the legend, and readd it which will put the new values in the legend.
+function update_legend(legendData) {
+    currentLegendData = legendData;
+    mymap.removeControl(legend);
+    legend.addTo(mymap);
 }
 
 
@@ -178,6 +186,27 @@ function addMouseListeners(feature, layer) {
     });
 }
 
+/*
+ *  Add the legend 
+ */
+legend = L.control({position:'bottomright'});
 
 
+legend.onAdd = function (map) {
 
+    var div = L.DomUtil.create('div', 'info legend')
+
+    div.innerHTML += '<h4 style="word-wrap: break-word;">Percent difference of listings<br>' +
+                        'with the chosen criteria from the total<br>' +
+                        ' average of all listings<h4>'
+                        
+    //Loop through each color in the bin        
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(i + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? ' to ' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+}
+legend.addTo(mymap);
