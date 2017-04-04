@@ -23,11 +23,15 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/d3.parcoords.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/cards.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/calendar-heatmap.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/leaflet.css">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" charset="utf-8"></script>
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
 	<!--[if IE]>
 		<script type="text/javascript">
@@ -169,13 +173,15 @@
 
       <div id = "choropleth-split">
 
-        <iframe
+        <div id="mapid" style="width: 100%; height: 100%;"></div>
+
+        <!--<iframe
           width="100%"
           height="100%"
           frameborder="0" style="border:0"
           src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCG38TWTK2KjZkTXnt01bgi8Ycx2MuAxW8
             &q=Space+Needle,Seattle+WA" allowfullscreen>
-        </iframe>
+        </iframe>-->
       </div>
     </div>
 
@@ -202,6 +208,8 @@
 	<script type="text/javascript" src="assets/js/d3.svg.multibrush.js"></script>
   <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
 	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
+  <script src="assets/js/Leaflet.js"></script> 
+
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 </body>

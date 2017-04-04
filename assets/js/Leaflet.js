@@ -14,7 +14,7 @@ divergentColors = ['#b2182b','#ef8a62','#fddbc7','#f7f7f7','#d1e5f0','#67a9cf','
 var mymap;
 var info, geojsonLayer
 var currentCityGeojson, neighbourhoodData, currentCriteria;
-var legend, currentLegendData;
+var legend, currentLegendData = new Array();
 
 /*
  * Functions to create and update the map
@@ -42,7 +42,8 @@ function update_city(geojsonData) {
     geojsonLayer = L.geoJson(currentCityGeojson, {
         style: style,
         onEachFeature: addMouseListeners
-    }).addTo(mymap);    mymap.fitBounds(geojsonLayer.getBounds());
+    }).addTo(mymap);    
+    mymap.fitBounds(geojsonLayer.getBounds());
 }
 
 //Remove the map and redraw it with the new data that we're given.
@@ -50,18 +51,27 @@ function update_map_criteria(criteria, newNeighbourhoodData) {
     currentCriteria = criteria;
     if( newNeighbourhoodData ) {
         mymap.removeLayer(geojsonLayer);
-        neighbourhoodData = modifyData( newNeighbourhoodData );
+        neighbourhoodData = modifyData( newNeighbourhoodData.Data );
         geojsonLayer = L.geoJson(currentCityGeojson, {
             style : style,
             onEachFeature: addMouseListeners
         }).addTo(mymap);
         info.addTo(mymap);
+
+        update_legend(newNeighbourhoodData.Summary);
     }
 }
 
 //Set the new legend data, remove the legend, and readd it which will put the new values in the legend.
 function update_legend(legendData) {
-    currentLegendData = legendData;
+    currentLegendData = new Array();
+    //Create an array that holds the bin intervals
+    minValue = parseInt(legendData.min);
+    interval = parseInt(legendData.interval);
+    for(var i = 0; i <= 7; i++)
+        currentLegendData.push(minValue + interval * i);
+
+    //Remove the legend then add it back with the new values
     mymap.removeControl(legend);
     legend.addTo(mymap);
 }
@@ -195,18 +205,19 @@ legend = L.control({position:'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend')
+    
+    if( currentLegendData.length == 8 ) {
 
-    div.innerHTML += '<h4 style="word-wrap: break-word;">Percent difference of listings<br>' +
-                        'with the chosen criteria from the total<br>' +
-                        ' average of all listings<h4>'
-                        
-    //Loop through each color in the bin        
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(i + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? ' to ' + grades[i + 1] + '<br>' : '+');
+        div.innerHTML += 'Percent difference above average<br>'
+                            
+        //Loop through each color in the bin        
+        for (var i = 0; i < currentLegendData.length - 1; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(i + 1) + '"></i> ' + currentLegendData[i] + ' to ' + currentLegendData[i + 1] + '<br>';
+        }
+
     }
-
     return div;
+
 }
 legend.addTo(mymap);
