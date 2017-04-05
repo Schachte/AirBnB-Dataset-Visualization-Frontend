@@ -1,8 +1,8 @@
 
 <p align="center">
   <img src ="http://i.imgur.com/7dLa81i.png" />
-  <br><br>
-
+  <br><br><br><br>
+  <center>
   <b>Relevant Links:</b><br>
   <a href="https://www.airbnb.com/">AirBnB</a> |
   <a href="http://insideairbnb.com/">Data Set</a> |
