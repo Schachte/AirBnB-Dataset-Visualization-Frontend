@@ -10,7 +10,7 @@ function rgb2hex(orig){
 }
 
 $(function() {
-  
+
   let amenities = [
     {"name": "Wireless Internet", "url": "wifi.png"},
     {"name": "Super Host", "url": "super.png"},
@@ -22,10 +22,9 @@ $(function() {
     {"name": "Cable TV", "url": "tv.png"},
     {"name": "Gym", "url": "gym.png"},
     {"name": "Kitchen", "url": "kitchen.png"},
-    {"name": "Instantly Bookable", "url": "instant.png"},
-    {"name": "Cleaning Fee", "url": "cleaning.png"}
+    {"name": "Fast Book", "url": "instant.png"}
   ]
-  
+
   amenities.forEach((data) => {
     $('#amenity-grid').append('\
     <div class="amenity-box" style="background-image: url(assets/img/'+data.url+')">\
@@ -33,34 +32,34 @@ $(function() {
     </div>\
     ')
   })
-  
+
   $(".amenity-box" ).click(function() {
     if ($(this).hasClass("selected-amenity")) {
       $(this).removeClass("selected-amenity")
     } else {
       $(this).addClass("selected-amenity")
     }
-    
+
     var str = "";
 
     $('.selected-amenity').each(function(){
       str += $.trim(($(this).text() + ","));
     })
-    
+
     filter_string = getFilterParams(str.split(','))
     let selected_city = $('.picked-city').val();
-    
-    selected_city = 'Brussels'; 
-    let metric = $('#dd-list').find(":selected").text();
-    
+
+    selected_city = 'Brussels';
+    let metric = $('#dd-list').find(":selected").val();
+
     console.log("Doing a post for the seelcted city of " + filter_string);
-    
-      $.post( production_endpoint, { metric: ""+metric.toLowerCase()+"", city_name: selected_city, filters: filter_string} ) .done(function( data ) {
+
+      $.post( production_endpoint, { metric: ""+metric+"", city_name: selected_city, filters: filter_string} ) .done(function( data ) {
       console.log( data );
     }, "json");
-  
+
     let currentColor = rgb2hex($(this).css("background-color"));
-    
+
     // Add this to enable the proper hover technique
     //TO:DO Change this class from tester to something that makes more sense
     $(this).toggleClass('tester');
@@ -113,6 +112,6 @@ function getFilterParams(data) {
       }
     }
   })
-  
+
   return filter_params.substring(0, filter_params.length-1)
 }
