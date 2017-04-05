@@ -1,8 +1,4 @@
 <p align="center">
-  <b>Relevant Links:</b><br>
-  <a href="https://www.airbnb.com/">AirBnB</a> |
-  <a href="http://insideairbnb.com/">Data Set</a> |
-  <a href="https://github.com/Schachte/dataviz-backend">Backend</a>
   <br><br>
   <img src ="http://i.imgur.com/7dLa81i.png" />
 </p>
