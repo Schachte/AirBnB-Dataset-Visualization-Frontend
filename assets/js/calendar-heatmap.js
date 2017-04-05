@@ -98,7 +98,6 @@ function calendarHeatmap() {
   var total_avg_price=0
   var avg_tot_avg=0
 
-  console.log("inside calendar-heatmap now. Calling JSON")
 
   // var price_data
 
@@ -138,17 +137,17 @@ function calendarHeatmap() {
     if (min === null)
       { min = d3.min(chart.data().dataPoints, function (d) { return d.average_price; });}
 
-    console.log("min is")
-    console.log(chart.data().maxPrice)
-    console.log("max is ")
-    console.log(chart.data().minPrice)
+    // console.log("min is")
+    // console.log(chart.data().maxPrice)
+    // console.log("max is ")
+    // console.log(chart.data().minPrice)
 
 //     var max = d3.max(data, function(d) {
 //   return d3.max(d.Checkintimes, function(e) { return d3.max(e); });
 // });
 
-    console.log("chart.data is")
-    console.log(chart.data().dataPoints)
+    // console.log("chart.data is")
+    // console.log(chart.data().dataPoints)
 
 
     // color range

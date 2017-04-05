@@ -32,7 +32,7 @@ function renderPCPlot(data) {
 
   parcoords.on("brush", function(data) {
     console.log("BRUSHED")
-    console.log(data)
+    // console.log(data)
   })
 
 }

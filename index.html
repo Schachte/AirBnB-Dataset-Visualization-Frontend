@@ -46,8 +46,11 @@
   <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
 	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
 	<script type="text/javascript" src="assets/js/calendar-heatmap.js"></script>
-	<!-- <script type="text/javascript" src="assets/js/heatmapRender.js"></script> -->
+	<script type="text/javascript" src="assets/js/heatmapRender.js"></script>
 	<script type="text/javascript" src="assets/js/googleChartsRender.js"></script>
+	<script type="text/javascript" src="assets/js/d3.layout.cloud.js"></script>
+	<script type="text/javascript" src="assets/js/underscore-min.js"></script>
+	<script type="text/javascript" src="assets/js/renderWordCloud.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -106,7 +109,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="amentity-section">
@@ -170,9 +172,7 @@
 	          <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
 	        </div>
 	        <div class="card-block" style="width: 100%;">
-	          <div style="width: 100%; margin: 0 auto; overflow: hidden;">
-	            <div id="example" class="parcoords" style="height: 150px; margin-left: -15%"></div>
-	          </div>
+	           <div class='heatmap'></div>
 	        </div>
 	      </div>
       </div>
@@ -180,14 +180,12 @@
 
     <div class="wordcloud-section">
       <div class = "wordcloud-split">
-				<div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 250px">
+				<div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 1000px;">
 	        <div class="card-header">
 	          <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
 	        </div>
 	        <div class="card-block" style="width: 100%;">
-	          <div style="width: 100%; margin: 0 auto; overflow: hidden;">
-	            <div id="example" class="parcoords" style="height: 150px; margin-left: -15%"></div>
-	          </div>
+						<div id='wordCloud'></div>
 	        </div>
 	      </div>
       </div>
@@ -211,6 +209,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
 
 	<script>
 		let cities = ['Amsterdam', 'Antwerp', 'Asheville', 'Athens', 'Austin',

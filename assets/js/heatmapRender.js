@@ -4,15 +4,10 @@ $(function() {
   // var now = moment().endOf('day').toDate();
   // var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
 
-  console.log("start heat-map")
 
   var price_data;
 
-    $.getJSON('http:localhost:8000/summaries/daily/Toronto/University', function(data) {
-      console.log("heatmap data")
-      // console.log(data.dataPoints)
-      console.log("average of average")
-      // console.log(data.avgPrice)
+    $.getJSON('http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/University', function(data) {
 
     price_data = data.dataPoints.map((obj) => {
       obj.date = new Date(obj.date)
@@ -20,12 +15,6 @@ $(function() {
       return obj
     })
 
-    console.log("Su data fetched and date converted")
-    
-
-
-    console.log("epoch date is")
-    // console.log(new Date(2017,06,27).getTime() / 1000)
 
     var heatmap = calendarHeatmap()
                     .data(data)
