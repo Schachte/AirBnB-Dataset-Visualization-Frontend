@@ -50,7 +50,6 @@ html {
   position: relative;
   height: 250px;
   width: 100%;
-  border: 1px solid black;
   float: left;
   opacity: .7;
   /*background-image: url('../img/wordcloud.png');*/
