@@ -22,8 +22,7 @@ $(function() {
     {"name": "Cable TV", "url": "tv.png"},
     {"name": "Gym", "url": "gym.png"},
     {"name": "Kitchen", "url": "kitchen.png"},
-    {"name": "Instantly Bookable", "url": "instant.png"},
-    {"name": "Cleaning Fee", "url": "cleaning.png"}
+    {"name": "Fast Book", "url": "instant.png"}
   ]
 
   amenities.forEach((data) => {
