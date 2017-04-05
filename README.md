@@ -10,6 +10,19 @@
   <img src ="https://img.shields.io/badge/578-Arizona%20State-orange.svg" />
   </center>
 </p>
+
+<p align="center">
+  <b>Group Members</b><br>
+  <a href="#">Ryan Schachte</a> |
+  <a href="#">Spencer Smith</a> |
+  <a href="#">Sagarika Kadambi</a> |
+  <a href="#">Fatima Naveed</a> |
+  <a href="#">Suhasini Ramakrishnan</a>
+  <br><br>
+  <img src="https://media.licdn.com/media/AAEAAQAAAAAAAATRAAAAJDk3OGI1NWRmLWRlYjktNDU0Ni1iMTM4LTQyOWM4ZWY1YmViNA.png" height="100">
+</p>
+
+
 <hr/>
 ### How To Run
 This frontend is a simple statically ran site. In order to test the functionality against a server, you can head over to our <a href="https://github.com/Schachte/dataviz-backend">backend repository</a>. This is hitting an `EC2 instance` running over at `ec2-52-38-115-147.us-west-2.compute.amazonaws.com`.
