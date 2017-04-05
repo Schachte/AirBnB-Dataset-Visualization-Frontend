@@ -51,7 +51,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.selectpicker').selectpicker();
+
       $(".continue" ).click(function() {
         $.fn.fullpage.moveSectionDown();
       })
@@ -64,9 +64,6 @@
         autoScrolling: false,
 			});
 		});
-
-
-
 	</script>
 </head>
 <body>
@@ -88,22 +85,16 @@
 	</div>
 
 	<div class="section fp-normal-scroll " id="section1">
-		<!-- <div>
-			<select class="selectpicker">
-			  <optgroup label="Picnic">
-			    <option>Mustard</option>
-			    <option>Ketchup</option>
-			    <option>Relish</option>
-			  </optgroup>
-			  <optgroup label="Camping">
-			    <option>Tent</option>
-			    <option>Flashlight</option>
-			    <option>Toilet Paper</option>
-			  </optgroup>
-			</select>
-
-
-		</div> -->
+		<div style="margin: 20px">
+			<span style='font-size: 30px; color: blue;'>Visualize AirBnB Data for: </span>
+			<div class="btn-group dropdown">
+			  <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    City
+			  </button>
+			  <div class="dropdown-menu scrollable-menu" id="city_dropdown_menu" aria-labelledby="dropdownMenuButton">
+			  </div>
+			</div>
+		</div>
     <div class = "polar-split"  style="height: 300px;">
       <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 250px">
         <div class="card-header">
@@ -206,6 +197,26 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+	<script>
+		let cities = ['Amsterdam', 'Antwerp', 'Asheville', 'Athens', 'Austin',
+		'Barcelona', 'Berlin', 'Boston', 'Brussels', 'Chicago', 'Copenhagen', 'Denver', 'Dublin', 'Edinburgh',
+		'Geneva', 'Hong Kong', 'London', 'Los Angeles', 'Madrid', 'Mallorca', 'Manchester', 'Melbourne', 'Montreal',
+		'Nashville','New Orleans','New York City','Northern Rivers','Oakland','Paris','Portland', 'Quebec City',
+		'San Diego', 'San Francisco', 'Santa Cruz County', 'Seattle', 'Sydney', 'Toronto', 'Trentino',
+		'Vancouver', 'Venice', 'Victoria', 'Vienna', 'Washington DC']
+		let city_dropdown = document.getElementById('city_dropdown_menu')
+		cities.forEach((city) => {
+			city_dropdown.innerHTML += '<a class="dropdown-item" role="button">'+city+'</a>'
+		})
+
+		$("#city_dropdown_menu a").click( function() {
+			let city = $(this).text()
+			$("#dropdownMenuButton").text(city);
+    	$("#dropdownMenuButton").val(city);
+			console.log(city.replace(/\s+/g, '_'))
+		});
+	</script>
 </body>
 
 </html>

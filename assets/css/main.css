@@ -63,3 +63,9 @@ html {
   height: 750px !important;
   background-color: #F0F8FF !important;
 }
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
