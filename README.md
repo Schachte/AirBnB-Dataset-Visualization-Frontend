@@ -1,13 +1,18 @@
 <p align="center">
-
-  <center>
+  <b>Relevant Links:</b><br>
+  <a href="https://www.airbnb.com/">AirBnB</a> |
+  <a href="http://insideairbnb.com/">Data Set</a> |
+  <a href="https://github.com/Schachte/dataviz-backend">Backend</a>
+  <br><br>
+  <img src ="http://i.imgur.com/7dLa81i.png" />
+</p>
+<p align="center">
   <b>Relevant Links:</b><br>
   <a href="https://www.airbnb.com/">AirBnB</a> |
   <a href="http://insideairbnb.com/">Data Set</a> |
   <a href="https://github.com/Schachte/dataviz-backend">Backend</a>
   <br><br>
   <img src ="https://img.shields.io/badge/578-Arizona%20State-orange.svg" />
-  </center>
 </p>
 
 <p align="center">
