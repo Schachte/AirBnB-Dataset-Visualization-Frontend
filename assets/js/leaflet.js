@@ -6,7 +6,7 @@
  *  Use update_map_criteria(criteria, binData) to color the regions and create the tooltips.
  */ 
 
-
+var geojsonUrl = "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/geojson/";
 
 mapboxAccessToken = 'pk.eyJ1IjoiYXN1c21rcyIsImEiOiJjajBvdG81MXAwMDllMnFtcnljaTNlbDYzIn0.rZRcpOORbLfDgSu8OCz6yA';
 divergentColors = ['#b2182b','#ef8a62','#fddbc7','#f7f7f7','#d1e5f0','#67a9cf','#2166ac']
@@ -29,9 +29,19 @@ function create_map() {
     }).addTo(mymap);
 }
 
+function update_city(cityName) {
+
+    var escapedCityName = cityName.replace(" ", "_");
+    $.get(geojsonUrl + escapedCityName, function(response) {
+        update_geojson(response);
+    }).error(function() {
+        "Could not get geojson data from the webservice.";
+    });
+
+}
 //Remove the old layer and draw the new city and zoom to it.
-function update_city(geojsonData) {
-    currentCityGeojson = geojsonData;
+function update_geojson(geojsonData) {
+    currentCityGeojson = JSON.parse(geojsonData);
     if(!mymap)
         create_map(geojsonData);
 
@@ -89,6 +99,7 @@ function modifyData( newNeighbourhoodData ) {
 
 
 //Called for each neighbourhood to define its style
+//TODO: If no bin exists, default to 4 (not being handled right now)
 function style(feature) {
     var binNumber = 4;
 
@@ -210,9 +221,8 @@ legend.onAdd = function (map) {
         div.innerHTML += 'Percent difference above average<br>'
                             
         //Loop through each color in the bin        
-        for (var i = 0; i < currentLegendData.length - 1; i++) {
-            div.innerHTML +=
-                '<i style="background:' + getColor(i + 1) + '"></i> ' + currentLegendData[i] + ' to ' + currentLegendData[i + 1] + '<br>';
+        for (var i = currentLegendData.length - 2; i >= 0 ; i--) {
+            div.innerHTML += '<i style="background:' + getColor(i + 1) + '"></i> ' + currentLegendData[i] + ' to ' + currentLegendData[i + 1] + '<br>';
         }
 
     }
