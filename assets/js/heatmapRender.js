@@ -8,7 +8,7 @@ $(function() {
 
   var price_data;
 
-    $.getJSON('http:localhost:8000/summaries/daily/Toronto/University', function(data) {
+    $.getJSON('http:localhost:8000/summaries/daily/Toronto/All', function(data) {
       console.log("heatmap data")
       // console.log(data.dataPoints)
       console.log("average of average")
@@ -21,7 +21,7 @@ $(function() {
     })
 
     console.log("Su data fetched and date converted")
-    
+
 
 
     console.log("epoch date is")

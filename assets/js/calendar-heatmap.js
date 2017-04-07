@@ -234,7 +234,7 @@ function calendarHeatmap() {
 
 
       if (chart.legendEnabled()) {
-        var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
+        var colorRange = ["#ff0000", "#ff7f7f", "#ffffff", "#b2abd2", "#0000ff"];
         // //console.log("color color color")
         // //console.log(colorRange)
         // colorRange.push("#ff0000")
