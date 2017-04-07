@@ -1,12 +1,12 @@
 
 function calendarHeatmap() {
   // defaults
-  var width = 750;
-  var height = 110;
-  var legendWidth = 150;
+  var width = 1500;
+  var height = 180;
+  var legendWidth = 250;
   var selector = 'body';
-  var SQUARE_LENGTH = 11;
-  var SQUARE_PADDING = 2;
+  var SQUARE_LENGTH = 22;
+  var SQUARE_PADDING = 4;
   var MONTH_LABEL_PADDING = 6;
   var now = moment().endOf('day').toDate();
   var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();

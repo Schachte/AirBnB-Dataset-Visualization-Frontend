@@ -1,15 +1,13 @@
 $(function() {
 
   frequency_list = [{"size": 30, "text": "describedpictured"}, {"size": 8, "text": "stain"}, {"size": 2, "text": "place"}, {"size": 9, "text": "perfect"}, {"size": 12, "text": "day"}, {"size": 1, "text": "exceptionally"}, {"size": 3, "text": "trentes"}, {"size": 23, "text": "two"}, {"size": 12, "text": "blanket"}, {"size": 2, "text": "brussels"}, {"size": 1, "text": "everything"}, {"size": 16, "text": "one"}, {"size": 9, "text": "clean"}, {"size": 10, "text": "aside"}, {"size": 3, "text": "stay"}];
+
     //find the max and min of the frequency_list:
   //  memostuff = _.reduce(frequency_list,function(memo,frequency_list){return memo});
     maxstuff = _.max(frequency_list, function(object){return object.size})
     maxFreq = maxstuff.size
     minstuff = _.min(frequency_list, function(object){return object.size})
     minFreq = minstuff.size
-    console.log("This is the min and max:")
-    console.log(maxFreq)
-    console.log(minFreq)
 
     var color = d3.scale.linear()
                   .domain([minFreq,maxFreq])

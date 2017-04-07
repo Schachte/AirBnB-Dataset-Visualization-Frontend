@@ -27,34 +27,25 @@ html {
   width: 100%;
   /*border: 1px solid black;*/
   opacity: .7;
-  /*background-image: url('../img/polar.png');*/
-  background-repeat: repeat-y; /* for vertical repeat */
-  background-repeat: repeat-x; /* for horizontal repeat */
   background-color: #F0F8FF !important;
 }
 
 .heatmap-split {
   position: relative;
-  height: 250px;
+  height: 100%;
   width: 100%;
   /*border: 1px solid black;*/
   float: left;
   opacity: .7;
-  /*background-image: url('../img/heatmap.png');*/
-  background-repeat: repeat-y; /* for vertical repeat */
-  background-repeat: repeat-x; /* for horizontal repeat */
   background-color: #F0F8FF !important;
 }
 
 .wordcloud-split {
   position: relative;
-  height: 250px;
+  height: 100%;
   width: 100%;
   float: left;
   opacity: .7;
-  /*background-image: url('../img/wordcloud.png');*/
-  background-repeat: repeat-y; /* for vertical repeat */
-  background-repeat: repeat-x; /* for horizontal repeat */
   background-color: #F0F8FF !important;
 }
 
