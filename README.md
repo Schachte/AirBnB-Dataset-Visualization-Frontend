@@ -30,7 +30,7 @@ This frontend is a simple statically ran site. In order to test the functionalit
 
 <hr/>
 
-###Project Purpose
+### Project Purpose
 The purpose of this project was to successfully develop a visualize to explore details about a dataset not visible to the naked eye. This tool enables a homeowner to understand complex features of a city or neighborhood by analyzing various features of a typical AirBnB rental.
 
 <hr/>
