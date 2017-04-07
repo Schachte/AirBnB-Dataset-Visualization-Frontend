@@ -20,9 +20,13 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/dropdown.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/d3.parcoords.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/cards.css">
 	<link rel="stylesheet" type="text/css" href="./assets/css/calendar-heatmap.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/leaflet.css">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"> -->
@@ -39,6 +43,7 @@
 
 	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
 	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
 	<script type="text/javascript" src="assets/js/dropdown.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -88,22 +93,6 @@
 	</div>
 
 	<div class="section fp-normal-scroll " id="section1">
-		<!-- <div>
-			<select class="selectpicker">
-			  <optgroup label="Picnic">
-			    <option>Mustard</option>
-			    <option>Ketchup</option>
-			    <option>Relish</option>
-			  </optgroup>
-			  <optgroup label="Camping">
-			    <option>Tent</option>
-			    <option>Flashlight</option>
-			    <option>Toilet Paper</option>
-			  </optgroup>
-			</select>
-
-
-		</div> -->
     <div class = "polar-split"  style="height: 300px;">
       <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 250px">
         <div class="card-header">
@@ -155,22 +144,17 @@
 
       <div id = "choropleth-split">
 
-        <div class="card" style="width: 95%; padding: 0px; margin-top: 20px; height: 550px; position: relative;">
+        <div class="card" style="width: 95%; padding: 0px; margin-top: 20px; height: 750px; position: relative;">
           <div class="card-header">
             <b>Filter Region on Amenities</b><br>
             <small>The neighborhood regions for the city will be altered based on the selected amenities chosen below.</small>
           </div>
           <div class="card-block" style="width: 100%; height: 100%">
-              <iframe
-                width="100%"
-                height="90%"
-                frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCG38TWTK2KjZkTXnt01bgi8Ycx2MuAxW8
-                  &q=Space+Needle,Seattle+WA" allowfullscreen>
-              </iframe>
+            <div id="mapid" style="width: 100%; height: 95%;">
+              <!-- Map is rendered here -->
+            </div>
           </div>
         </div>
-
 
       </div>
     </div>
@@ -206,6 +190,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  <script src="assets/js/leaflet.js"></script> 
+ 
 </body>
 
 </html>
