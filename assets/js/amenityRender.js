@@ -1,5 +1,5 @@
-// let production_endpoint = "http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/amenities/"
-let production_endpoint = "http://localhost:8000/amenities/"
+let production_endpoint = "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/amenities"
+// let production_endpoint = "http://localhost:8000/amenities/"
 
 function rgb2hex(orig){
  var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
@@ -49,14 +49,17 @@ $(function() {
     filter_string = getFilterParams(str.split(','))
     let selected_city = $('.picked-city').val();
 
-    selected_city = 'Brussels';
+    selected_city = 'austin';
     let metric = $('#dd-list').find(":selected").val();
+    metric="price"
 
     console.log("Doing a post for the seelcted city of " + filter_string);
-
-      $.post( production_endpoint, { metric: ""+metric+"", city_name: selected_city, filters: filter_string} ) .done(function( data ) {
-      console.log( data );
-    }, "json");
+  
+  
+    $.post( "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/amenities/", { "city_name": ""+selected_city+"", "metric": ""+metric+"", "filters": filter_string }, function( data ) {
+       update_map_criteria(metric, data);
+       console.log(data);
+    });
 
     let currentColor = rgb2hex($(this).css("background-color"));
 

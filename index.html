@@ -55,12 +55,12 @@
 	<script type="text/javascript" src="assets/js/googleChartsRender.js"></script>
 
 	<script type="text/javascript">
+  
 		$(document).ready(function() {
 			$('.selectpicker').selectpicker();
       $(".continue" ).click(function() {
         $.fn.fullpage.moveSectionDown();
       })
-
 
 			$('#fullpage').fullpage({
 				verticalCentered: true,
@@ -68,6 +68,11 @@
         fitToSection: false,
         autoScrolling: false,
 			});
+            
+      setTimeout(function() {
+        update_map_criteria('price', austinDefaultData);
+     }, 1000);
+      
 		});
 
 	</script>
@@ -87,7 +92,7 @@
       Show Me Statisitics Within: 
       <div class="btn-group dropdown">
         <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          City
+          Amsterdam (Select To Change)
         </button>
         <div class="dropdown-menu scrollable-menu" id="city_dropdown_menu" aria-labelledby="dropdownMenuButton">
         </div>
@@ -133,7 +138,7 @@
               </select>
             </div>
 
-            <div id = "amenity-grid">
+            <div id = "amenity-grid" style="width: 60%;">
             <!-- GRID ITEMS WILL GET RENDERED HERE   -->
             </div>
 
@@ -219,7 +224,10 @@
      $("#dropdownMenuButton").text(city);
      $("#dropdownMenuButton").val(city);
      console.log(city.replace(/\s+/g, '_'))
-   });
+   }) 
+   
+  update_city("austin");
+   
  </script>
  
 </body>
