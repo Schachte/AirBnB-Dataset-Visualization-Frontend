@@ -30,9 +30,14 @@ function renderPCPlot(data) {
 
   d3.select('#btnReset').on('click', function() {parcoords.brushReset();})
 
-  parcoords.on("brush", function(data) {
-    console.log("BRUSHED")
-    // console.log(data)
+  parcoords.on("brushend", function(data) {
+    let price_max = Math.max.apply(Math,data.map(function(o){return o['Price'];}))
+    let price_min = Math.min.apply(Math,data.map(function(o){return o['Price'];}))
+    let income_max = Math.max.apply(Math,data.map(function(o){return o['Estimated Monthly Income'];}))
+    let income_min = Math.min.apply(Math,data.map(function(o){return o['Estimated Monthly Income'];}))
+    let stay_max = Math.max.apply(Math,data.map(function(o){return o['Estimated Montly Stay'];}))
+    let stay_min = Math.min.apply(Math,data.map(function(o){return o['Estimated Montly Stay'];}))
+
   })
 
 }
