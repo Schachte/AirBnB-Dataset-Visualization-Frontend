@@ -370,7 +370,7 @@ function calendarHeatmap() {
       var dateStr = moment(d).format('ddd, MMM Do YYYY');
       var count = countForDate(d);
       // return '<span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + '</span>'+ ' <span> '+'Holidays : '+holidayForDate(d) +'</span><span>'+ 'Events : '+ eventForDate(d)+ '</span>';
-      window.alert("Holidays : "+holidayForDate(d)+"\nEvents : "+eventForDate(d));
+      window.alert(dateStr+"\nHolidays : "+holidayForDate(d)+"\nEvents : "+eventForDate(d));
 
     }
 
