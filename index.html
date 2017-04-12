@@ -118,7 +118,7 @@
           <div style="width: 100%; margin: 0 auto;">
             <div id="example" class="parcoords" style="height: 150px; margin-left: -15%;"></div>
 						<div style="float: right; margin-right: 5%">
-							<button id="btnReset">Reset Brushes</button>
+							<button id="btnReset">Reset Filters</button>
 						</div>
           </div>
         </div>
@@ -230,9 +230,17 @@
      city = city.replace(/\s+/g, '_')
 
 		 post_amenities(city, getFilterParams(), $("#dd-list").val())
+		 renderParallelCoorPlot(city, null, 'has_internet,has_pool')
+		 renderHeatMap(city, 'all')
+		 renderWorldCloud(city)
    })
 
   update_city("austin");
+
+	renderParallelCoorPlot('Toronto', null, 'has_internet,has_pool')
+	renderHeatMap('Toronto', 'University')
+	renderWorldCloud('Toronto')
+
 
  </script>
 

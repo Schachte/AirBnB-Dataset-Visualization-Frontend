@@ -1,4 +1,4 @@
-$(function() {
+function renderWorldCloud(city) {
 
   frequency_list = [{"size": 30, "text": "describedpictured"}, {"size": 8, "text": "stain"}, {"size": 2, "text": "place"}, {"size": 9, "text": "perfect"}, {"size": 12, "text": "day"}, {"size": 1, "text": "exceptionally"}, {"size": 3, "text": "trentes"}, {"size": 23, "text": "two"}, {"size": 12, "text": "blanket"}, {"size": 2, "text": "brussels"}, {"size": 1, "text": "everything"}, {"size": 16, "text": "one"}, {"size": 9, "text": "clean"}, {"size": 10, "text": "aside"}, {"size": 3, "text": "stay"}];
 
@@ -38,4 +38,4 @@ $(function() {
 
 
     }
-})
+}
