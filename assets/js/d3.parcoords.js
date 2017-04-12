@@ -44,7 +44,7 @@ d3.parcoords = function(config) {
 var pc = function(selection) {
   selection = pc.selection = d3.select(selection);
 
-  __.width = selection[0][0].clientWidth;
+  __.width = selection[0][0].clientWidth * 1.15;
   __.height = selection[0][0].clientHeight;
 
   // canvas data layers
@@ -1067,7 +1067,7 @@ function brushPredicate(predicate) {
 
   predicate = String(predicate).toUpperCase();
   if (predicate !== "AND" && predicate !== "OR") {
-    throw new Error("Invalid predicate " + predicate);
+    throw "Invalid predicate " + predicate;
   }
 
   brush.predicate = predicate;
@@ -1086,7 +1086,7 @@ pc.brushMode = function(mode) {
   }
 
   if (pc.brushModes().indexOf(mode) === -1) {
-    throw new Error("pc.brushmode: Unsupported brush mode: " + mode);
+    throw "pc.brushmode: Unsupported brush mode: " + mode;
   }
 
   // Make sure that we don't trigger unnecessary events by checking if the mode
@@ -1168,7 +1168,7 @@ pc.brushMode = function(mode) {
             return within[__.dimensions[p].type](d,p,dimension);
           });
         default:
-          throw new Error("Unknown brush predicate " + __.brushPredicate);
+          throw "Unknown brush predicate " + __.brushPredicate;
         }
       });
   };
@@ -1508,7 +1508,7 @@ pc.brushMode = function(mode) {
       case "OR":
         return ids.some(function(id) { return crossesStrum(d, id); });
       default:
-        throw new Error("Unknown brush predicate " + __.brushPredicate);
+        throw "Unknown brush predicate " + __.brushPredicate;
       }
     });
   }
@@ -1710,7 +1710,7 @@ pc.brushMode = function(mode) {
             });
         });
       default:
-        throw new Error("Unknown brush predicate " + __.brushPredicate);
+        throw "Unknown brush predicate " + __.brushPredicate;
       }
     });
   };
@@ -2135,7 +2135,7 @@ pc.brushMode = function(mode) {
       case "OR":
         return ids.some(function(id) { return crossesStrum(d, id); });
       default:
-        throw new Error("Unknown brush predicate " + __.brushPredicate);
+        throw "Unknown brush predicate " + __.brushPredicate;
       }
     });
   }

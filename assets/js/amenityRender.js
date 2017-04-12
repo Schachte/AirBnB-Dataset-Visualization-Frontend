@@ -1,5 +1,5 @@
 // let production_endpoint = "http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/amenities/"
-let production_endpoint = "http://localhost:8000/amenities/"
+// let production_endpoint = "http://localhost:8000/amenities/"
 
 function rgb2hex(orig){
  var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
@@ -22,8 +22,7 @@ $(function() {
     {"name": "Cable TV", "url": "tv.png"},
     {"name": "Gym", "url": "gym.png"},
     {"name": "Kitchen", "url": "kitchen.png"},
-    {"name": "Instantly Bookable", "url": "instant.png"},
-    {"name": "Cleaning Fee", "url": "cleaning.png"}
+    {"name": "Fast Book", "url": "instant.png"}
   ]
 
   amenities.forEach((data) => {

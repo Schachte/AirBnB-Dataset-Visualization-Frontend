@@ -1,12 +1,12 @@
 
 function calendarHeatmap() {
   // defaults
-  var width = 750;
-  var height = 110;
-  var legendWidth = 150;
+  var width = 1000;
+  var height = 180;
+  var legendWidth = 220;
   var selector = 'body';
-  var SQUARE_LENGTH = 11;
-  var SQUARE_PADDING = 2;
+  var SQUARE_LENGTH = 15;
+  var SQUARE_PADDING = 3;
   var MONTH_LABEL_PADDING = 6;
   var now = moment().endOf('day').toDate();
   var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
@@ -14,10 +14,11 @@ function calendarHeatmap() {
   var data = [];
   var max = null;
   var min = null;
-  var colorRange = ['#D8E6E7', '#218380'];
+  // var colorRange = ['#D8E6E7', '#218380'];
   var tooltipEnabled = true;
   var tooltipUnit = 'contribution';
   var legendEnabled = true;
+  var onClickEnabled = true;
   var onClick = null;
   var weekStart = 0; //0 for Sunday, 1 for Monday
   var locale = {
@@ -69,6 +70,12 @@ function calendarHeatmap() {
     return chart;
   };
 
+  chart.onClickEnabled = function (value) {
+    if (!arguments.length) { return onClickEnabled; }
+    onClickEnabled = value;
+    return chart;
+  };
+
   chart.tooltipUnit = function (value) {
     if (!arguments.length) { return tooltipUnit; }
     tooltipUnit = value;
@@ -98,7 +105,6 @@ function calendarHeatmap() {
   var total_avg_price=0
   var avg_tot_avg=0
 
-  console.log("inside calendar-heatmap now. Calling JSON")
 
   // var price_data
 
@@ -138,17 +144,17 @@ function calendarHeatmap() {
     if (min === null)
       { min = d3.min(chart.data().dataPoints, function (d) { return d.average_price; });}
 
-    console.log("min is")
-    console.log(chart.data().maxPrice)
-    console.log("max is ")
-    console.log(chart.data().minPrice)
+    // console.log("min is")
+    // console.log(chart.data().maxPrice)
+    // console.log("max is ")
+    // console.log(chart.data().minPrice)
 
 //     var max = d3.max(data, function(d) {
 //   return d3.max(d.Checkintimes, function(e) { return d3.max(e); });
 // });
 
-    console.log("chart.data is")
-    console.log(chart.data().dataPoints)
+    // console.log("chart.data is")
+    // console.log(chart.data().dataPoints)
 
 
     // color range
@@ -202,10 +208,29 @@ function calendarHeatmap() {
           return MONTH_LABEL_PADDING + formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING);
         });
 
+
+
+
       if (typeof onClick === 'function') {
         dayRects.on('click', function (d) {
           var count = countForDate(d);
-          onClick({ date: d, average_price: count});
+          onClick({ date: d, average_price: count, Holidays: holidayForDate(d), Events: eventForDate(d)});
+        });
+      }
+
+      if (chart.onClickEnabled()) {
+        dayRects.on('click', function (d, i) {
+          tooltipclick = d3.select(chart.selector())
+            .append('div')
+            .attr('class', 'day-cell-tooltipclick')
+            .html(onClickHTMLForDate(d))
+            .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
+            .style('top', function () {
+              return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
+            });
+        })
+        .on('mouseout', function (d, i) {
+          // tooltip.remove();
         });
       }
 
@@ -224,7 +249,7 @@ function calendarHeatmap() {
           tooltip.remove();
         });
       }
-      //Suhasini
+      // Suhasini
       // if (chart.legendEnabled()) {
       //   var colorRange = [color(0)];
       //   for (var i = 3; i > 0; i--) {
@@ -235,14 +260,21 @@ function calendarHeatmap() {
 
       if (chart.legendEnabled()) {
         var colorRange = ["#ff0000", "#ff7f7f", "#ffffff", "#b2abd2", "#0000ff"];
-        // //console.log("color color color")
-        // //console.log(colorRange)
+        // var color = ["#ff0000", "#ff7f7f", "#ffffff", "#b2abd2", "#0000ff"];
+        // var colorRange = [color(0)];
+        // console.log("color color color")
+        // console.log(colorRange)
         // colorRange.push("#ff0000")
-        // colorRange.push
+        // colorRange.push("#ff0000")
+        // colorRange.push("#ff7f7f")
+        // colorRange.push("#ffffff")
+        // colorRange.push("#b2abd2")
+        // colorRange.push("#0000ff")
 
-        // for (var i = 2; i > 0; i--) {
-        //   colorRange.push(color(max/i));
-        // }
+      // //
+      //   for (var i = 2; i > 0; i--) {
+      //     colorRange.push(color(max/i));
+      //   }
 
         var legendGroup = svg.append('g');
         legendGroup.selectAll('.calendar-heatmap-legend')
@@ -252,20 +284,20 @@ function calendarHeatmap() {
             .attr('class', 'calendar-heatmap-legend')
             .attr('width', SQUARE_LENGTH)
             .attr('height', SQUARE_LENGTH)
-            .attr('x', function (d, i) { return (width - legendWidth) + (i + 1) * 13; })
-            .attr('y', height + SQUARE_PADDING)
+            .attr('x', function (d, i) { return (width - legendWidth) + (i + 1) * 20; })
+            .attr('y', height + SQUARE_PADDING - 40)
             .attr('fill', function (d) { return d; });
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
-          .attr('x', width - legendWidth - 60)
-          .attr('y', height + SQUARE_LENGTH)
+          .attr('x', width - legendWidth - 50)
+          .attr('y', height + SQUARE_LENGTH - 40)
           .text(locale.Less);
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-more')
-          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 13)
-          .attr('y', height + SQUARE_LENGTH)
+          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 20)
+          .attr('y', height + SQUARE_LENGTH - 40)
           .text(locale.More);
       }
 
@@ -302,20 +334,21 @@ function calendarHeatmap() {
       });
     }
 
-    function pluralizedTooltipUnit (count) {
-      if ('string' === typeof tooltipUnit) {
-        return (tooltipUnit + (count === 1 ? '' : 's'));
-      }
-      for (var i in tooltipUnit) {
-        var _rule = tooltipUnit[i];
-        var _min = _rule.min;
-        var _max = _rule.max || _rule.min;
-        _max = _max === 'Infinity' ? Infinity : _max;
-        if (count >= _min && count <= _max) {
-          return _rule.unit;
-        }
-      }
-    }
+    // function pluralizedTooltipUnit (count) {
+    //   console.log("when are you ever called?")
+    //   if ('string' === typeof tooltipUnit) {
+    //     return (tooltipUnit + (count === 1 ? '' : 's'));
+    //   }
+    //   for (var i in tooltipUnit) {
+    //     var _rule = tooltipUnit[i];
+    //     var _min = _rule.min;
+    //     var _max = _rule.max || _rule.min;
+    //     _max = _max === 'Infinity' ? Infinity : _max;
+    //     if (count >= _min && count <= _max) {
+    //       return _rule.unit;
+    //     }
+    //   }
+    // }
 
     function tooltipHTMLForDate(d) {
       // //console.log(d)
@@ -324,9 +357,21 @@ function calendarHeatmap() {
       // //console.log(dateStr)
       var count = countForDate(d);
       //console.log(count);
-      // return '<span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + ' ' + color(countForDate(d)) + '</span>';
-      return '<p><span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + '</span>'+ ' <span> '+'Holidays : '+holidayForDate(d) +'</span><span>'+ 'Events : '+ eventForDate(d)+ '</span></p>';
+      return '<span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + '</span>';
+      // return '<p><span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + '</span>'+ ' <span> '+'Holidays : '+holidayForDate(d) +'</span><span>'+ 'Events : '+ eventForDate(d)+ '</span></p>';
       // return '<span>'+count+'</span>'
+    }
+    var h = "Holidays"
+    var e = "Events"
+
+    function onClickHTMLForDate(d) {
+      console.log("click works")
+      // console.log(holidayForDate(d))
+      var dateStr = moment(d).format('ddd, MMM Do YYYY');
+      var count = countForDate(d);
+      // return '<span><strong>$' + (count ? count : locale.No) + ' ' + '</strong> ' + locale.on + ' ' + dateStr + '</span>'+ ' <span> '+'Holidays : '+holidayForDate(d) +'</span><span>'+ 'Events : '+ eventForDate(d)+ '</span>';
+      window.alert("Holidays : "+holidayForDate(d)+"\nEvents : "+eventForDate(d));
+
     }
 
     function countForDate(d) {
