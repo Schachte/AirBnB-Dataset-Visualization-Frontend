@@ -1,3 +1,15 @@
+@font-face {
+    font-family: bloggerSansBold;
+    src: url(../fonts/blogger_sans_bold.otf);
+}
+
+@font-face {
+    font-family: bloggerSansRegular;
+    src: url(../fonts/blogger_sans_regular.otf);
+}
+
+
+
 html {
   background: url(../img/bg.jpeg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -58,4 +70,17 @@ html {
   height: auto;
   max-height: 200px;
   overflow-x: hidden;
+}
+
+#header-wrap {
+    font-family: bloggerSansRegular;
+    color: white;
+    font-size: 25px;
+    background: #34495e;
+    position: fixed;
+    width: 100%;
+    height: auto;
+    top: 0;
+    padding: 10px;
+    z-index: 1;
 }
