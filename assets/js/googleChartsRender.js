@@ -1,4 +1,16 @@
 $(function() {
+
+
+  function renderBarGraphPlot(selected_city, selected_neighborhood, filter_string) {
+      document.getElementById('example').innerHTML = ''
+      $.post( 'http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/parallelcoord/', { city_name: "Brussels", metric: "price", filters: "has_pool", min_price: 12, max_price: 100, min_staycount: 1, max_staycount: 100, min_est_monthly_income: 1, max_est_monthly_income: 10000} ) .done(function( data ) {
+        bar_data = data
+        renderBarPlot(data)
+      }, "json");
+  }
+
+  function renderBarPlot(data) {
+
   google.charts.load("current", {packages:["corechart", "bar"]});
   google.charts.setOnLoadCallback(drawChart);
   google.charts.setOnLoadCallback(drawChart2);
@@ -7,8 +19,8 @@ $(function() {
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ["Element", "Price", { role: "style" } ],
-      ["$ With Amenities", 8.94, "#87D37C"],
-      ["$ Without Amenities", 10.49, "#fa8666"],
+      ["$ With Amenities", data.priceWithCriteria, "#87D37C"],
+      ["$ Without Amenities", data.priceWithoutCriteria, "#fa8666"],
     ]);
 
     var view = new google.visualization.DataView(data);
@@ -135,4 +147,5 @@ $(function() {
     var chart2 = new google.visualization.BarChart(document.getElementById("monthly_income_chart"));
     chart2.draw(view, options);
   }
+}
 })
