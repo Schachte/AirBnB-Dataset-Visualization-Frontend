@@ -9,6 +9,13 @@ function rgb2hex(orig){
   ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : orig;
 }
 
+function deselectAllAmenities() {
+  $('.amenity-box').each(function() {
+    $(this).removeClass("tester");   //TODO: Why is this class called tester and doesn't use selected-amenities?
+    $(this).removeClass("selected-amenity"); 
+  })
+}
+
 $(function() {
 
   let amenities = [
