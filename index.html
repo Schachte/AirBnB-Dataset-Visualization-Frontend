@@ -217,6 +217,7 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
   <script src="assets/js/leaflet.js"></script>
 	<script src="assets/js/update_functions.js"></script>
+  <script src="assets/js/events.js"></script>
 
  <script>
    let cities = ['Amsterdam', 'Antwerp', 'Asheville', 'Athens', 'Austin',
@@ -230,23 +231,12 @@
      city_dropdown.innerHTML += '<a class="dropdown-item" role="button">'+city+'</a>'
    })
 
-   $("#city_dropdown_menu a").click( function() {
-     let city = $(this).text()
-     $("#dropdownMenuButton").text(city);
-     $("#dropdownMenuButton").val(city);
-     city = city.replace(/\s+/g, '_')
+   $("#city_dropdown_menu a").click(onCityChange)
 
-		 post_amenities(city, getFilterParams(), $("#dd-list").val())
-		 renderParallelCoorPlot(city, null, 'has_internet,has_pool')
-		 renderHeatMap(city, 'all')
-		 renderWorldCloud(city)
-   })
-
-  update_city("austin");
-
-	renderParallelCoorPlot('Toronto', null, 'has_internet,has_pool')
-	renderHeatMap('Toronto', 'University')
-	renderWorldCloud('Toronto')
+	renderParallelCoorPlot('Amsterdam', null, '')
+	renderHeatMap('Amsterdam', 'all')
+	renderWorldCloud('Amsterdam')
+	postAmenities('Amsterdam', '')
 
 
  </script>

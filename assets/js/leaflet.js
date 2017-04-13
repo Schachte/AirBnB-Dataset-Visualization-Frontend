@@ -199,12 +199,22 @@ function resetHighlight(e) {
     info.update();
 }
 
+//Notify everyone else that a region was clicked
+function notifyOfRegionClick(e) {
+    console.log(e);
+    regionName = e.target.feature.properties.neighbourhood;
+    didClickChoroplethMap(regionName);
+}
+
 function addMouseListeners(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
-        mouseout: resetHighlight
+        mouseout: resetHighlight,
+        click: notifyOfRegionClick
     });
 }
+
+
 
 /*
  *  Add the legend
