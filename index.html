@@ -51,16 +51,19 @@
   <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
 	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
 	<script type="text/javascript" src="assets/js/calendar-heatmap.js"></script>
-	<!-- <script type="text/javascript" src="assets/js/heatmapRender.js"></script> -->
+	<script type="text/javascript" src="assets/js/heatmapRender.js"></script>
 	<script type="text/javascript" src="assets/js/googleChartsRender.js"></script>
+	<script type="text/javascript" src="assets/js/d3.layout.cloud.js"></script>
+	<script type="text/javascript" src="assets/js/underscore-min.js"></script>
+	<script type="text/javascript" src="assets/js/renderWordCloud.js"></script>
 
 	<script type="text/javascript">
+
 		$(document).ready(function() {
-			$('.selectpicker').selectpicker();
+
       $(".continue" ).click(function() {
         $.fn.fullpage.moveSectionDown();
       })
-
 
 			$('#fullpage').fullpage({
 				verticalCentered: true,
@@ -68,8 +71,12 @@
         fitToSection: false,
         autoScrolling: false,
 			});
-		});
 
+      setTimeout(function() {
+        update_map_criteria('price', austinDefaultData);
+     }, 1000);
+
+		});
 	</script>
 </head>
 <body>
@@ -82,12 +89,12 @@
 		<div class="layer">
       <img src="https://amex.withairbnb.com/images/airbnb_logo_white.png" height="400px"/>
 		</div>
-    
+
     <div id="header-wrap">
-      Show Me Statisitics Within: 
+      Show Me Statisitics Within:
       <div class="btn-group dropdown">
         <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          City
+          Amsterdam (Select To Change)
         </button>
         <div class="dropdown-menu scrollable-menu" id="city_dropdown_menu" aria-labelledby="dropdownMenuButton">
         </div>
@@ -103,13 +110,16 @@
 
 	<div class="section fp-normal-scroll " id="section1">
     <div class = "polar-split"  style="height: 300px;">
-      <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 250px">
+      <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 285px; overflow: hidden;">
         <div class="card-header">
           <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
         </div>
         <div class="card-block" style="width: 100%;">
-          <div style="width: 100%; margin: 0 auto; overflow: hidden;">
-            <div id="example" class="parcoords" style="height: 150px; margin-left: -15%"></div>
+          <div style="width: 100%; margin: 0 auto;">
+            <div id="example" class="parcoords" style="height: 150px; margin-left: -15%;"></div>
+						<div style="float: right; margin-right: 5%">
+							<button id="btnReset">Reset Filters</button>
+						</div>
           </div>
         </div>
       </div>
@@ -133,7 +143,7 @@
               </select>
             </div>
 
-            <div id = "amenity-grid">
+            <div id = "amenity-grid" style="width: 95%;">
             <!-- GRID ITEMS WILL GET RENDERED HERE   -->
             </div>
 
@@ -151,7 +161,6 @@
       </div>
 
       <div id = "choropleth-split">
-
         <div class="card" style="width: 95%; padding: 0px; margin-top: 20px; height: 750px; position: relative;">
           <div class="card-header">
             <b>Filter Region on Amenities</b><br>
@@ -163,46 +172,46 @@
             </div>
           </div>
         </div>
-
       </div>
-    </div>
+
 
     <div class="heatmap-section" style="margin-top: 40px;">
       <div class = "heatmap-split">
-        [ HEATMAP  HERE ]
-      
-        
-				<div class='heatmap'></div>
+				<div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 350px">
+	        <div class="card-header">
+	          <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
+	        </div>
+	        <div class="card-block" style="width: 100%;">
+	           <div class='heatmap'></div>
+	        </div>
+	      </div>
       </div>
     </div>
 
     <div class="wordcloud-section">
       <div class = "wordcloud-split">
-        [ WORDCLOUD HERE ]
+				<div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 500px;">
+	        <div class="card-header">
+	          <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
+	        </div>
+	        <div class="card-block" style="width: 100%;">
+						<div id='wordCloud'></div>
+	        </div>
+	      </div>
       </div>
     </div>
 	</div>
 </div>
-	<!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-	<script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
-	<script type="text/javascript" src="assets/js/amenityRender.js"></script>
-	<script type="text/javascript" src="assets/js/dropdown.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript" src="assets/js/d3.svg.multibrush.js"></script>
-  <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
-	<script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script> -->
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" charset="utf-8"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  <script src="assets/js/leaflet.js"></script>
+	<script src="assets/js/update_functions.js"></script>
   <script src="assets/js/events.js"></script> 
-  <script src="assets/js/leaflet.js"></script> 
- 
+
  <script>
    let cities = ['Amsterdam', 'Antwerp', 'Asheville', 'Athens', 'Austin',
    'Barcelona', 'Berlin', 'Boston', 'Brussels', 'Chicago', 'Copenhagen', 'Denver', 'Dublin', 'Edinburgh',
@@ -219,9 +228,22 @@
      let city = $(this).text()
      $("#dropdownMenuButton").text(city);
      $("#dropdownMenuButton").val(city);
-     console.log(city.replace(/\s+/g, '_'))
-   });
+     city = city.replace(/\s+/g, '_')
+
+		 post_amenities(city, getFilterParams(), $("#dd-list").val())
+		 renderParallelCoorPlot(city, null, 'has_internet,has_pool')
+		 renderHeatMap(city, 'all')
+		 renderWorldCloud(city)
+   })
+
+  update_city("austin");
+
+	renderParallelCoorPlot('Toronto', null, 'has_internet,has_pool')
+	renderHeatMap('Toronto', 'University')
+	renderWorldCloud('Toronto')
+
+
  </script>
- 
+
 </body>
 </html>
