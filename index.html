@@ -148,10 +148,10 @@
             </div>
 
 						<div style='width: 100%; height: 25px; margin-left: 5%; display: flex; justify-content: center'>
-							<div style='width: 5%; height: 100%; background-color:#87D37C; display: inline-block'></div>
+							<div style='width: 5%; height: 100%; background-color:#795548; display: inline-block'></div>
 							<div style='display: flex'>With Selected Amenities</div>
-							<div style='width: 5%; height: 100%; background-color:#fa8666; display: inline-block'></div>
-							<div style='display: flex'>Without Selected Amenities</div>
+							<div style='width: 5%; height: 100%; background-color:#607D8B; display: inline-block'></div>
+							<div style='display: flex'>Total Average</div>
 						</div>
 
 						<div>
@@ -219,7 +219,6 @@
 	<script src="assets/js/update_functions.js"></script>
   <script src="assets/js/events.js"></script>
 
-
  <script>
    let cities = ['Amsterdam', 'Antwerp', 'Asheville', 'Athens', 'Austin',
    'Barcelona', 'Berlin', 'Boston', 'Brussels', 'Chicago', 'Copenhagen', 'Denver', 'Dublin', 'Edinburgh',
@@ -238,7 +237,7 @@
 	renderHeatMap('Amsterdam', 'all')
 	renderWorldCloud('Amsterdam')
 	postAmenities('Amsterdam', '')
-
+	renderBarGraphPlot('Brussels')
 
  </script>
 

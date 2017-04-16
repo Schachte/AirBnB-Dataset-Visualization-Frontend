@@ -62,6 +62,7 @@ function onClickAmenity() {
   } else {
     renderParallelCoorPlot(selected_city, selected_neighborhood, filter_string)
   }
+  renderBarGraphPlot(selected_city)
 }
 
 function onCityChange() {
@@ -76,6 +77,7 @@ function onCityChange() {
   renderParallelCoorPlot(city, null, getFilterParams())
   renderHeatMap(city_delimited, 'all')
   renderWorldCloud(city)
+  renderBarGraphPlot(selected_city)
   selected_neighborhood = 'all'
 }
 
@@ -83,6 +85,7 @@ function onParallelCoordinatePlotBrush () {
   // let parallelcoordState = d3.parcoords()("#example").state
   // console.log(parallelcoordState)
   postAmenities(selected_city, getFilterParams())
+  renderBarGraphPlot(selected_city)
 }
 
 function onClickMetric() {
@@ -96,4 +99,22 @@ function update_filter_ranges(price_max, price_min, income_max, income_min, stay
   selected_income_min = income_min
   selected_stay_max = stay_max
   selected_stay_min = stay_min
+}
+
+function renderBarGraphPlot(city) {
+  let metric = $("#dd-list").val()
+  $.post( 'http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/updateBars/', {
+    city_name: city,
+    metric: metric,
+    filters: getFilterParams(),
+    "min_price": selected_price_min,
+    "max_price": selected_price_max,
+    "min_staycount": selected_stay_min,
+    "max_staycount": selected_stay_max,
+    "min_est_monthly_income": selected_income_min,
+    "max_est_monthly_income": selected_income_max
+  } ) .done(function( data ) {
+    bar_data = data
+    renderBarPlot(data)
+  }, "json");
 }
