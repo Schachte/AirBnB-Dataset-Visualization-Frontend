@@ -99,31 +99,8 @@ function calendarHeatmap() {
   var avg_tot_avg=0
 
 
-  // var price_data
 
-  // $.getJSON('http:localhost:8000/summaries/daily/Toronto/University', function(data) {
-  //   // console.log(data)
-  //   averageOfAverage = data.avgPrice;
-  //
-  //   price_data = data.dataPoints.map((obj) => {
-  //     // obj.date = new Date(obj.date)
-  //
-  //     obj.date = new Date(Date.parse(obj.date)).toUTCString()
-  //
-  //     return obj
-  //   })
-  //
-  //
-  //   // for (i=0; i< price_data.length;i++) {
-  //   //   total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
-  //   //   // console.log(total_avg_price)
-  //   // }
-  //   //
-  //   // avg_tot_avg = total_avg_price/i;
-  //
-  //   console.log("bla bla bla average price of entire city is -")
-  //   console.log(averageOfAverage)
-  // });
+
 
   function chart() {
 
@@ -233,15 +210,9 @@ function calendarHeatmap() {
 
 
       if (chart.legendEnabled()) {
-        var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
-        // //console.log("color color color")
-        // //console.log(colorRange)
-        // colorRange.push("#ff0000")
-        // colorRange.push
+        // var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
+        var colorRange = ["#a6611a", "#dfc27d", "#f5f5f5", "#80cdc1", "#018571"]
 
-        // for (var i = 2; i > 0; i--) {
-        //   colorRange.push(color(max/i));
-        // }
 
         var legendGroup = svg.append('g');
         legendGroup.selectAll('.calendar-heatmap-legend')
@@ -251,19 +222,19 @@ function calendarHeatmap() {
             .attr('class', 'calendar-heatmap-legend')
             .attr('width', SQUARE_LENGTH)
             .attr('height', SQUARE_LENGTH)
-            .attr('x', function (d, i) { return (width - legendWidth) + (i + 1) * 13; })
-            .attr('y', height + SQUARE_PADDING)
+            .attr('x', function (d, i) { return (width - legendWidth - 1200) + (i + 1) * 28; })
+            .attr('y', height + SQUARE_PADDING+10)
             .attr('fill', function (d) { return d; });
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
-          .attr('x', width - legendWidth - 60)
+          .attr('x', width - legendWidth-1250)
           .attr('y', height + SQUARE_LENGTH)
           .text(locale.Less);
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-more')
-          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 13)
+          .attr('x', (width - legendWidth + SQUARE_PADDING - 1110) + (colorRange.length + 1) * 13)
           .attr('y', height + SQUARE_LENGTH)
           .text(locale.More);
       }
