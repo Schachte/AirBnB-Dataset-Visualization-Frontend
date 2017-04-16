@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1c94de3b-bf0c-4aed-a266-65c4130a068a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/calendar-heatmap.css" afterPath="$PROJECT_DIR$/assets/css/calendar-heatmap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="AirBnB-Dataset-Visualization-Frontend.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -324,7 +322,7 @@
       <workItem from="1492123323140" duration="2496000" />
       <workItem from="1492365657692" duration="1442000" />
       <workItem from="1492367125894" duration="1700000" />
-      <workItem from="1492370000694" duration="5927000" />
+      <workItem from="1492370000694" duration="6021000" />
     </task>
     <task id="LOCAL-00001" summary="commit so i call pull to fix wordcloud">
       <created>1492366122651</created>
@@ -344,7 +342,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13293000" />
+    <option name="totallyTimeSpent" value="13387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
