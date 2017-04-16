@@ -322,7 +322,7 @@
       <workItem from="1492123323140" duration="2496000" />
       <workItem from="1492365657692" duration="1442000" />
       <workItem from="1492367125894" duration="1700000" />
-      <workItem from="1492370000694" duration="6525000" />
+      <workItem from="1492370000694" duration="6534000" />
     </task>
     <task id="LOCAL-00001" summary="commit so i call pull to fix wordcloud">
       <created>1492366122651</created>
@@ -345,11 +345,18 @@
       <option name="project" value="LOCAL" />
       <updated>1492377050418</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added heatmap table, styling still needed for vertical alignment">
+      <created>1492377511692</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1492377511692</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13891000" />
+    <option name="totallyTimeSpent" value="13900000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
