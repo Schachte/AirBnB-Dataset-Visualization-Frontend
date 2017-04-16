@@ -1,9 +1,16 @@
 
 function calendarHeatmap() {
   // defaults
+<<<<<<< HEAD
   var width = 1500;
   var height = 170;
   var legendWidth = 730;
+=======
+  var width = document.getElementsByClassName('card-block')[0].clientWidth;
+  var height = document.getElementsByClassName('card-block')[0].clientHeight;
+  console.log("this is the width and heigh",width,height)
+  var legendWidth = 250;
+>>>>>>> ef6272b4b99547dac7b98a6ec0b0664471e2b257
   var selector = 'body';
   var SQUARE_LENGTH = 13;
   var SQUARE_PADDING = 4;
