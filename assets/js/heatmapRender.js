@@ -8,12 +8,12 @@ function renderHeatMap(city, neighborhood) {
         obj.date = new Date(obj.date)
         return obj
       })
-
+// var colorRange = ["#a6611a", "#dfc27d", "#f5f5f5", "#80cdc1", "#018571"]
       var heatmap = calendarHeatmap()
                       .data(data)
                       .selector('.heatmap')
                       .tooltipEnabled(true)
-                      .colorRange(["#ff0000", "#ffffff", "#0000ff"])
+                      .colorRange(["#a6611a", "#f5f5f5", "#018571"])
                       .startDate(price_data[0].date)
                       .onClick(function (data) {
                       });
