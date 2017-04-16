@@ -31,6 +31,30 @@ p span
   display: block;
 }
 
-.calendar-heatmap {
-  overflow: auto;
+.heatmap {
+  overflow: auto !important;
+  width: 70%;
+  float: left;
+  height: 100%;
+}
+
+.heatmap-table{
+  width: 28%;
+  height: 100%;
+  border-color: #cccccc !important;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 25px;
+  padding: 10px;
+  float: right;
+  margin-right: 5px;
+}
+.heatmap-container{
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.heatmap-table-price{
+  font-weight: bold;
 }
