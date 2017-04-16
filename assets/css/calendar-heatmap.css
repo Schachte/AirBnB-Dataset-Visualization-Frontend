@@ -30,3 +30,7 @@ p span
 {
   display: block;
 }
+
+.calendar-heatmap {
+  overflow: auto;
+}
