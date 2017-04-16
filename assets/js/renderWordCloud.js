@@ -52,9 +52,6 @@ function renderWorldCloud(city) {
   maxFreq = parseFloat(maxstuff.size)
   minstuff = _.min(frequency_list, function(object){return object.size})
   minFreq = parseFloat(minstuff.size)
-  console.log("This is the min and max:")
-  console.log(maxFreq)
-  console.log(minFreq)
 
   var randomColor = (function(){
     var golden_ratio_conjugate = 0.618033988749895;
@@ -104,11 +101,9 @@ function renderWorldCloud(city) {
       .start()
 
   function draw(words) {
-    console.log('in draw')
-    d3.select("body").append("svg")
+    d3.select("#wordCloud").append("svg")
         .attr("width",1500)
         .attr("height",500)
-        .attr("class","wordcloud")
         .append("g")
         .attr("transform","translate(320,200)")
         .selectAll("text")
@@ -116,9 +111,6 @@ function renderWorldCloud(city) {
         .enter().append("text")
         .style("font-size",function(d){
           var normalized = parseFloat((parseFloat(d.size)-minFreq)/(maxFreq-minFreq));
-          console.log("THIS IS THE NORMALIZED VALUE");
-          console.log(normalized);
-          console.log(d.text)
           var sizing = Math.ceil(normalized*100)
           return (d.size)+"px";})
         .style("fill",function(d,i){return randomColor();})
