@@ -2,10 +2,10 @@
 function calendarHeatmap() {
   // defaults
   var width = 1500;
-  var height = 180;
-  var legendWidth = 250;
+  var height = 170;
+  var legendWidth = 730;
   var selector = 'body';
-  var SQUARE_LENGTH = 22;
+  var SQUARE_LENGTH = 13;
   var SQUARE_PADDING = 4;
   var MONTH_LABEL_PADDING = 6;
   var now = moment().endOf('day').toDate();
@@ -232,8 +232,13 @@ function calendarHeatmap() {
 
 
 
+      // if (chart.legendEnabled()) {
+      //   var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
+
       if (chart.legendEnabled()) {
-        var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
+        // var colorRange = ["#ff0000", "#ff7f7f", "#ffffff", "#b2abd2", "#0000ff"];
+        var colorRange = ["#a6611a", "#dfc27d", "#f5f5f5", "#80cdc1", "#018571"]
+
         // //console.log("color color color")
         // //console.log(colorRange)
         // colorRange.push("#ff0000")
@@ -251,20 +256,20 @@ function calendarHeatmap() {
             .attr('class', 'calendar-heatmap-legend')
             .attr('width', SQUARE_LENGTH)
             .attr('height', SQUARE_LENGTH)
-            .attr('x', function (d, i) { return (width - legendWidth) + (i + 1) * 13; })
-            .attr('y', height + SQUARE_PADDING)
+            .attr('x', function (d, i) { return (width - legendWidth +10) + (i + 1) * 16; })
+            .attr('y', height + SQUARE_PADDING - 40)
             .attr('fill', function (d) { return d; });
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
-          .attr('x', width - legendWidth - 60)
-          .attr('y', height + SQUARE_LENGTH)
+          .attr('x', width - legendWidth - 50)
+          .attr('y', height + SQUARE_LENGTH - 40)
           .text(locale.Less);
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-more')
-          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 13)
-          .attr('y', height + SQUARE_LENGTH)
+          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 18)
+          .attr('y', height + SQUARE_LENGTH - 40)
           .text(locale.More);
       }
 
