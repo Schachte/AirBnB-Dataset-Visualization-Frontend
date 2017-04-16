@@ -99,7 +99,7 @@ function calendarHeatmap() {
   var avg_tot_avg=0
 
 
-  
+
 
 
   function chart() {
@@ -222,19 +222,19 @@ function calendarHeatmap() {
             .attr('class', 'calendar-heatmap-legend')
             .attr('width', SQUARE_LENGTH)
             .attr('height', SQUARE_LENGTH)
-            .attr('x', function (d, i) { return (width - legendWidth) + (i + 1) * 13; })
-            .attr('y', height + SQUARE_PADDING)
+            .attr('x', function (d, i) { return (width - legendWidth - 1200) + (i + 1) * 28; })
+            .attr('y', height + SQUARE_PADDING+10)
             .attr('fill', function (d) { return d; });
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
-          .attr('x', width - legendWidth - 60)
+          .attr('x', width - legendWidth-1250)
           .attr('y', height + SQUARE_LENGTH)
           .text(locale.Less);
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-more')
-          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 13)
+          .attr('x', (width - legendWidth + SQUARE_PADDING - 1110) + (colorRange.length + 1) * 13)
           .attr('y', height + SQUARE_LENGTH)
           .text(locale.More);
       }
