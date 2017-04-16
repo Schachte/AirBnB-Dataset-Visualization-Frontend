@@ -62,8 +62,8 @@
       <file leaf-file-name="calendar-heatmap.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/css/calendar-heatmap.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="36" column="14" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+            <state relative-caret-position="664">
+              <caret line="59" column="1" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -322,7 +322,7 @@
       <workItem from="1492123323140" duration="2496000" />
       <workItem from="1492365657692" duration="1442000" />
       <workItem from="1492367125894" duration="1700000" />
-      <workItem from="1492370000694" duration="6021000" />
+      <workItem from="1492370000694" duration="6525000" />
     </task>
     <task id="LOCAL-00001" summary="commit so i call pull to fix wordcloud">
       <created>1492366122651</created>
@@ -338,20 +338,27 @@
       <option name="project" value="LOCAL" />
       <updated>1492366274490</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added heatmap table, styling still needed for vertical alignment">
+      <created>1492377050418</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1492377050418</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13387000" />
+    <option name="totallyTimeSpent" value="13891000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10417768" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32960895" sideWeight="0.50185084" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32960895" sideWeight="0.49814913" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2055866" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -386,6 +393,24 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
@@ -400,7 +425,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit so i call pull to fix wordcloud" />
     <MESSAGE value="Merge branch 'feature/interactions' of https://github.com/Schachte/AirBnB-Dataset-Visualization-Frontend into dynamic_heatmap&#10;&#10;# Conflicts:&#10;#&#9;assets/js/renderWordCloud.js&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'feature/interactions' of https://github.com/Schachte/AirBnB-Dataset-Visualization-Frontend into dynamic_heatmap&#10;&#10;# Conflicts:&#10;#&#9;assets/js/renderWordCloud.js&#10;" />
+    <MESSAGE value="added heatmap table, styling still needed for vertical alignment" />
+    <option name="LAST_COMMIT_MESSAGE" value="added heatmap table, styling still needed for vertical alignment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -577,8 +603,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/calendar-heatmap.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="36" column="14" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+        <state relative-caret-position="664">
+          <caret line="59" column="1" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="1" />
           <folding />
         </state>
       </provider>
