@@ -13,7 +13,7 @@ function renderHeatMap(city, neighborhood) {
                       .data(data)
                       .selector('.heatmap')
                       .tooltipEnabled(true)
-                      .colorRange(["#ff0000", "#ffffff", "#0000ff"])
+                      .colorRange(["#a6611a", "#f5f5f5", "#018571"]) //"#ff0000", "#ffffff", "#0000ff"
                       .startDate(price_data[0].date)
                       .onClick(function (data) {
                       });
