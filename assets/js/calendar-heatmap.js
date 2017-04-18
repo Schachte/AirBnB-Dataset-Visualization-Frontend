@@ -14,6 +14,8 @@ function calendarHeatmap() {
   var data = [];
   var max = null;
   var min = null;
+  var maxDate = null;
+  var minDate = null;
   var colorRange = ['#D8E6E7', '#218380'];
   var tooltipEnabled = true;
   var tooltipUnit = 'contribution';
@@ -114,6 +116,14 @@ function calendarHeatmap() {
     if (min === null)
       { min = d3.min(chart.data().dataPoints, function (d) { return d.average_price; });}
 
+    console.log('THIS IS SOMETHING..APPARENTLY')
+    console.log(chart.data().minPrice, chart.data().minDate, chart.data().maxPrice, chart.data().maxDate)
+
+    d3.select("#minPrice").append("text").text("$"+chart.data().minPrice)
+    d3.select("#minPriceDate").append("text").text(chart.data().minDate)
+    d3.select("#maxPrice").append("text").text("$"+chart.data().maxPrice)
+    d3.select("#maxPriceDate").append("text").text(chart.data().maxDate)
+
     // console.log("min is")
     // console.log(chart.data().maxPrice)
     // console.log("max is ")
@@ -125,15 +135,14 @@ function calendarHeatmap() {
 
     // console.log("chart.data is")
     // console.log(chart.data().dataPoints)
-
-
+//HOW TO ACCESS
     // color range
     //Suhasini
     // midpt = (min+max)/2;
     var color = d3.scale.linear()
       .range(chart.colorRange())
       // .domain([min, midpt, max]);
-      .domain([chart.data().minPrice,chart.data().avgPrice,chart.data().maxPrice])
+      .domain([chart.data().minPrice, chart.data().avgPrice, chart.data().maxPrice])
 
 
     // var color = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"]
