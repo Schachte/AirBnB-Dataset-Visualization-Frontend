@@ -33,13 +33,13 @@ p span
 
 .heatmap {
   overflow: auto !important;
-  width: 70%;
+  width: 80%;
   float: left;
   height: 100%;
 }
 
 .heatmap-table{
-  width: 28%;
+  width: 18%;
   height: 100%;
   border-color: #cccccc !important;
   border-width: 1px;
@@ -58,4 +58,3 @@ p span
 .heatmap-table-price{
   font-weight: bold;
 }
-
