@@ -97,7 +97,11 @@ function renderWorldCloud(city) {
       .domain([minFreq,maxFreq])
       .range(['#ece7f2','#2b8cbe'])
   d3.layout.cloud().size([1400,400])
-      .words(frequency_list)
+      .words(frequency_list.map(function(d) {
+        console.log('CHECKING WORDS()')
+        var normalized = ((parseFloat(d.size)-minFreq)/(maxFreq-minFreq))*100;
+        console.log(normalized)
+        return {text: d.text, size: ((parseFloat(d.size)-minFreq)/(maxFreq-minFreq))*100};}))
       .rotate(0)
       .fontSize(function(d){return d.size;})
       .on("end",draw)
@@ -114,7 +118,11 @@ function renderWorldCloud(city) {
         .enter().append("text")
         .style("font-size",function(d){
           var normalized = parseFloat((parseFloat(d.size)-minFreq)/(maxFreq-minFreq));
+          console.log('WORDCLOUD STUFFS')
+          console.log(d.size)
+          console.log(normalized)
           var sizing = Math.ceil(normalized*100)
+          console.log(sizing)
           return (d.size)+"px";})
         .style("fill",function(d,i){return randomColor();})
         .attr("transform",function(d){
