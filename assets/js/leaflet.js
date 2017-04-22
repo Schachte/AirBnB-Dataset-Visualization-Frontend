@@ -235,11 +235,11 @@ legend.onAdd = function (map) {
 
     if( currentLegendData.length == 8 ) {
 
-        div.innerHTML += 'Percent difference above average<br>'
+        div.innerHTML += 'Percent difference above average<br><br>'
 
         //Loop through each color in the bin
         for (var i = currentLegendData.length - 2; i >= 0 ; i--) {
-            div.innerHTML += '<i style="background:' + getColor(i + 1) + '"></i> ' + currentLegendData[i] + '% to ' + currentLegendData[i + 1] + '%<br>';
+            div.innerHTML += '<i style="background:' + getColor(i + 1) + '"></i><div> ' + currentLegendData[i] + '% to ' + currentLegendData[i + 1] + '%</div><br>';
         }
 
     }
