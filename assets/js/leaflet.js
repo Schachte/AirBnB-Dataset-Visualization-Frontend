@@ -34,6 +34,7 @@ function update_city(cityName) {
     var escapedCityName = cityName.replace(" ", "_");
     $.get(geojsonUrl + escapedCityName, function(response) {
         update_geojson(response);
+
     }).error(function() {
         "Could not get geojson data from the webservice.";
     });
