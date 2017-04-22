@@ -72,9 +72,9 @@
         autoScrolling: false,
 			});
 
-      setTimeout(function() {
-        update_map_criteria('price', austinDefaultData);
-     }, 1000);
+    //   setTimeout(function() {
+    //     update_map_criteria('price', austinDefaultData);
+    //  }, 1000);
 
 		});
 	</script>
@@ -232,12 +232,14 @@
    })
 
    $("#city_dropdown_menu a").click(onCityChange)
-
-	renderParallelCoorPlot('Amsterdam', null, '')
-	renderHeatMap('Amsterdam', 'all')
-	renderWorldCloud('Amsterdam')
-	postAmenities('Amsterdam', '')
-	renderBarGraphPlot('Brussels')
+	 $("#dd-list").change(onClickMetric)
+	 
+	 renderParallelCoorPlot('Amsterdam', null, '', () => {
+		 renderHeatMap('Amsterdam', 'all');
+	   renderWorldCloud('Amsterdam');
+	   postAmenities('Amsterdam', '');
+	   renderBarGraphPlot('Brussels');
+	 });
 
  </script>
 
