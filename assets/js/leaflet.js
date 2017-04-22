@@ -15,6 +15,7 @@ var mymap;
 var info, geojsonLayer
 var currentCityGeojson, neighbourhoodData, currentCriteria;
 var legend, currentLegendData = new Array();
+var selectedRegion;
 
 /*
  * Functions to create and update the map
@@ -60,7 +61,10 @@ function update_geojson(geojsonData) {
 function update_map_criteria(criteria, newNeighbourhoodData) {
     currentCriteria = criteria;
     if( newNeighbourhoodData ) {
-        mymap.removeLayer(geojsonLayer);
+
+        if(geojsonLayer)
+            mymap.removeLayer(geojsonLayer);
+
         neighbourhoodData = modifyData( newNeighbourhoodData.Data );
         geojsonLayer = L.geoJson(currentCityGeojson, {
             style : style,
@@ -161,7 +165,7 @@ info.update = function (region) {
 
     var html = "";
 
-    if( region ) {
+    if( region && neighbourhoodData ) {
         //If it's a valid region that we could find in the geojson
         if( region.neighbourhood && neighbourhoodData[region.neighbourhood] ) {
             regionName = region.neighbourhood;
@@ -178,7 +182,7 @@ info.update = function (region) {
         }
     //Nothing has been selected
     } else {
-        html = 'Please hover over a region to see details.';
+        html = 'Please select a region to see details.';
     }
 
     this._div.innerHTML = html;
@@ -199,25 +203,37 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
-    info.update(layer.feature.properties);
 }
 
 function resetHighlight(e) {
-    geojsonLayer.resetStyle(e.target);
+
+    geojsonLayer.eachLayer(function(l){geojsonLayer.resetStyle(l);});
     info.update();
 }
 
 //Notify everyone else that a region was clicked
 function notifyOfRegionClick(e) {
-    console.log(e);
-    regionName = e.target.feature.properties.neighbourhood;
-    didClickChoroplethMap(regionName);
+    newSelectedRegion = e.target.feature.properties.neighbourhood;
+
+    if(selectedRegion == newSelectedRegion) { //Deselected the region
+        selectedRegion = null;
+        resetHighlight(e);
+        didDeselectRegionOnMap();
+    } else {
+        selectedRegion = newSelectedRegion;
+        resetHighlight(e);
+        highlightFeature(e);
+        if(e.target)
+            info.update(e.target.feature.properties);
+
+        didClickChoroplethMap(selectedRegion);
+    }
 }
 
 function addMouseListeners(feature, layer) {
     layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
+        //mouseover: highlightFeature,
+        //mouseout: resetHighlight,
         click: notifyOfRegionClick
     });
 }
