@@ -24,17 +24,17 @@ function didClickChoroplethMap(neighborhood) {
 }
 
 function postAmenities(city, filters) {
-  console.log("HEREB")
-  console.log("HERE2")
-  console.log('Post Amenities')
-  console.log(selected_price_min)
-  console.log(selected_price_max)
-  console.log(selected_stay_min)
-  console.log(selected_stay_max)
-  console.log(selected_income_min)
-  console.log(selected_income_max)
+  // console.log("HEREB")
+  // console.log("HERE2")
+  // console.log('Post Amenities')
+  // console.log(selected_price_min)
+  // console.log(selected_price_max)
+  // console.log(selected_stay_min)
+  // console.log(selected_stay_max)
+  // console.log(selected_income_min)
+  // console.log(selected_income_max)
   let metric = $("#dd-list").val()
-  console.log(city, metric, filters)
+  // console.log(city, metric, filters)
   $.post( "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/amenities/", {
     "city_name": city,
     "metric": metric,
@@ -48,12 +48,12 @@ function postAmenities(city, filters) {
   }, function( data ) {
     update_city(city);
      update_map_criteria(metric, data);
-     console.log(data);
+    //  console.log(data);
   });
 }
 
 function onClickAmenity() {
-  console.log('Amenity Click!')
+  // console.log('Amenity Click!')
   let filter_string = getFilterParams()
   let neighbourhood_delimited = selected_neighborhood.replace(/\s+/g, '_')
 
@@ -67,7 +67,7 @@ function onClickAmenity() {
 }
 
 function onCityChange() {
-  console.log("city change!")
+  // console.log("city change!")
   let city = $(this).text()
   selected_city = city
   $("#dropdownMenuButton").text(city);
