@@ -1,12 +1,6 @@
 // $(function() {
 
-  function renderBarGraphPlot(selected_city) {
-      document.getElementById('example').innerHTML = ''
-      $.post( 'http://localhost:8000/updateBars/', { city_name: "Brussels", metric: "price", filters: "has_pool", min_price: 12, max_price: 100, min_staycount: 1, max_staycount: 100, min_est_monthly_income: 1, max_est_monthly_income: 10000} ) .done(function( data ) {
-        bar_data = data
-        renderBarPlot(data)
-      }, "json");
-  }
+
 
   function renderBarPlot(data1) {
 
@@ -20,8 +14,8 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ["Element", "Price", { role: "style" } ],
-      ["$ With Amenities", parseFloat(data1[0].priceWithCriteria), "#87D37C"],
-      ["$ Without Amenities", parseFloat(data1[0].priceWithoutCriteria), "#fa8666"],
+      ["$ With Amenities", parseFloat(data1[0].priceWithCriteria), "#795548"],
+      ["$ Without Amenities", parseFloat(data1[0].priceWithoutCriteria), "#607D8B"],
     ]);
 
     var view = new google.visualization.DataView(data);
@@ -33,7 +27,7 @@
                      2]);
 
     var options = {
-      title: "Average Rental Price Based on Amenities In Brussels",
+      title: "Average Rental Price",
       bar: {groupWidth: "100%"},
       legend: { position: "none" },
       chartArea: {width: '80%', height: '40%'},
@@ -53,8 +47,8 @@
   function drawChart2() {
     var data = google.visualization.arrayToDataTable([
       ["Element", "Stays", { role: "style" } ],
-      ["Stays With Amenities", parseFloat(data1[0].rpmWithCriteria), "#87D37C"],
-      ["Stays Without Amenities", parseFloat(data1[0].rpmWithoutCriteria), "#fa8666"],
+      ["Stays With Amenities", parseFloat(data1[0].rpmWithCriteria), "#795548"],
+      ["Stays Without Amenities", parseFloat(data1[0].rpmWithoutCriteria), "#607D8B"],
     ]);
 
     var view = new google.visualization.DataView(data);
@@ -66,7 +60,7 @@
                      2]);
 
     var options = {
-      title: "Average Monthly Stays Based on Amenities In Brussels",
+      title: "Average Monthly Stays",
       bar: {groupWidth: "100%"},
       legend: { position: "none" },
       chartArea: {width: '80%', height: '40%'},
@@ -86,8 +80,8 @@
   function drawChart3() {
     var data = google.visualization.arrayToDataTable([
       ["Element", "Listings", { role: "style" } ],
-      ["Listings With Amenities", parseFloat(data1[0].listingWithCriteria), "#87D37C"],
-      ["Listings Without Amenities", parseFloat(data1[0].listingWithoutCriteria), "#fa8666"],
+      ["Listings With Amenities", parseFloat(data1[0].listingWithCriteria), "#795548"],
+      ["Listings Without Amenities", parseFloat(data1[0].listingWithoutCriteria), "#607D8B"],
     ]);
 
     var view = new google.visualization.DataView(data);
@@ -99,7 +93,7 @@
                      2]);
 
     var options = {
-      title: "Number of Listings Based on Amenities In Brussels",
+      title: "Number of Listings",
       bar: {groupWidth: "100%"},
       legend: { position: "none" },
       chartArea: {width: '80%', height: '40%'},
@@ -119,8 +113,8 @@
   function drawChart4() {
     var data = google.visualization.arrayToDataTable([
       ["Element", "Estimated Monthly Income", { role: "style" } ],
-      ["Monthly Income With Amenities", parseFloat(data1[0].emiWithCriteria), "#87D37C"],
-      ["Monthly Income Without Amenities", parseFloat(data1[0].emiWithoutCriteria), "#fa8666"],
+      ["Monthly Income With Amenities", parseFloat(data1[0].emiWithCriteria), "#795548"],
+      ["Monthly Income Without Amenities", parseFloat(data1[0].emiWithoutCriteria), "#607D8B"],
     ]);
 
     var view = new google.visualization.DataView(data);
@@ -132,7 +126,7 @@
                      2]);
 
     var options = {
-      title: "Estimated Monthly Income Based on Amenities In Brussels",
+      title: "Estimated Monthly Income",
       bar: {groupWidth: "100%"},
       legend: { position: "none" },
       chartArea: {width: '80%', height: '40%'},

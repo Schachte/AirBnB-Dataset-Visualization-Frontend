@@ -1,6 +1,3 @@
-let production_endpoint = "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/amenities"
-// let production_endpoint = "http://localhost:8000/amenities/"
-
 function rgb2hex(orig){
  var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
  return (rgb && rgb.length === 4) ? "#" +
@@ -47,26 +44,12 @@ $(function() {
       $(this).addClass("selected-amenity")
     }
 
-    filter_string = getFilterParams()
-    let selected_city = $('.picked-city').val();
-
-    selected_city = 'austin';
-    let metric = $('#dd-list').find(":selected").val();
-    metric="price"
-
-    console.log("Doing a post for the seelcted city of " + filter_string);
-
-
-    $.post( "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/amenities/", { "city_name": ""+selected_city+"", "metric": ""+metric+"", "filters": filter_string }, function( data ) {
-       update_map_criteria(metric, data);
-       console.log(data);
-    });
-
     let currentColor = rgb2hex($(this).css("background-color"));
-
     // Add this to enable the proper hover technique
     //TO:DO Change this class from tester to something that makes more sense
     $(this).toggleClass('tester');
+
+    onClickAmenity()
   });
 })
 

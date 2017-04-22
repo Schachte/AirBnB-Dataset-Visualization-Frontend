@@ -54,8 +54,8 @@
 	<script type="text/javascript" src="assets/js/heatmapRender.js"></script>
 	<script type="text/javascript" src="assets/js/googleChartsRender.js"></script>
 	<script type="text/javascript" src="assets/js/d3.layout.cloud.js"></script>
-	<!-- <script type="text/javascript" src="assets/js/underscore-min.js"></script> -->
-	<!-- <script type="text/javascript" src="assets/js/renderWordCloud.js"></script> -->
+	<script type="text/javascript" src="assets/js/underscore-min.js"></script>
+	<script type="text/javascript" src="assets/js/renderWordCloud.js"></script>
 
 	<script type="text/javascript">
 
@@ -147,6 +147,13 @@
             <!-- GRID ITEMS WILL GET RENDERED HERE   -->
             </div>
 
+						<div style='width: 100%; height: 25px; margin-left: 5%; display: flex; justify-content: center'>
+							<div style='width: 5%; height: 100%; background-color:#795548; display: inline-block'></div>
+							<div style='display: flex'>With Selected Amenities</div>
+							<div style='width: 5%; height: 100%; background-color:#607D8B; display: inline-block'></div>
+							<div style='display: flex'>Total Average</div>
+						</div>
+
 						<div>
 							<div id="avg_price_chart" style="width: 50%; height: 50%; float: left;"></div>
 							<div id="avg_monthly_stays_chart" style="width: 50%; float: left;"></div>
@@ -224,26 +231,13 @@
      city_dropdown.innerHTML += '<a class="dropdown-item" role="button">'+city+'</a>'
    })
 
-   $("#city_dropdown_menu a").click( function() {
-     let city = $(this).text()
-     $("#dropdownMenuButton").text(city);
-     $("#dropdownMenuButton").val(city);
-     city = city.replace(/\s+/g, '_')
+   $("#city_dropdown_menu a").click(onCityChange)
 
-		 post_amenities(city, getFilterParams(), $("#dd-list").val())
-		 renderParallelCoorPlot(city, null, 'has_internet,has_pool')
-		 renderHeatMap(city, 'all')
-		 renderWorldCloud(city)
-		//  renderBarGraphPlot('Brussels')
-   })
-
-  update_city("austin");
-
-	renderParallelCoorPlot('Toronto', null, 'has_internet,has_pool')
-	renderHeatMap('Toronto', 'University')
+	renderParallelCoorPlot('Amsterdam', null, '')
+	renderHeatMap('Amsterdam', 'all')
+	renderWorldCloud('Amsterdam')
+	postAmenities('Amsterdam', '')
 	renderBarGraphPlot('Brussels')
-	// renderWorldCloud('Toronto')
-
 
  </script>
 

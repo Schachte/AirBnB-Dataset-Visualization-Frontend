@@ -1,10 +1,10 @@
 
 /*
  * The only two functions that should be called from outside of this file are the following:
- * 
+ *
  *  Use update_city(geojson) to zoom to a new city and draw its neighbourhoods
  *  Use update_map_criteria(criteria, binData) to color the regions and create the tooltips.
- */ 
+ */
 
 var geojsonUrl = "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/geojson/";
 
@@ -37,7 +37,7 @@ function update_city(cityName) {
     }).error(function() {
         "Could not get geojson data from the webservice.";
     });
-    
+
 }
 //Remove the old layer and draw the new city and zoom to it.
 function update_geojson(geojsonData) {
@@ -51,7 +51,7 @@ function update_geojson(geojsonData) {
     geojsonLayer = L.geoJson(currentCityGeojson, {
         style: style,
         onEachFeature: addMouseListeners
-    }).addTo(mymap);    
+    }).addTo(mymap);
     mymap.fitBounds(geojsonLayer.getBounds());
 }
 
@@ -125,7 +125,7 @@ function style(feature) {
 function getColor(binNumber) {
 
     if( !binNumber ) return divergentColors[4];
-    
+
     if( binNumber < 1 || binNumber > 7) {
         console.log("Invalid value passed to getColor, value between 1 and 7 expected.");
         return divergentColors[4];
@@ -217,7 +217,7 @@ function addMouseListeners(feature, layer) {
 
 
 /*
- *  Add the legend 
+ *  Add the legend
  */
 legend = L.control({position:'bottomright'});
 
@@ -225,12 +225,12 @@ legend = L.control({position:'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend')
-    
+
     if( currentLegendData.length == 8 ) {
 
         div.innerHTML += 'Percent difference above average<br>'
-                            
-        //Loop through each color in the bin        
+
+        //Loop through each color in the bin
         for (var i = currentLegendData.length - 2; i >= 0 ; i--) {
             div.innerHTML += '<i style="background:' + getColor(i + 1) + '"></i> ' + currentLegendData[i] + ' to ' + currentLegendData[i + 1] + '<br>';
         }
