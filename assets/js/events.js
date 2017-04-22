@@ -89,7 +89,9 @@ function onParallelCoordinatePlotBrush () {
 }
 
 function onClickMetric() {
-
+    let metric = $("#dd-list").val()
+    renderBarGraphPlot(selected_city)
+    postAmenities(selected_city, getFilterParams())
 }
 
 function update_filter_ranges(price_max, price_min, income_max, income_min, stay_max, stay_min) {

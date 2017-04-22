@@ -7,9 +7,7 @@ function renderParallelCoorPlot(city, selected_neighborhood, filter_string, call
       console.log(selected_neighborhood)
       console.log(city)
       console.log(filter_string)
-      renderPCPlot(data, () => {
-        callback()
-      })
+      renderPCPlot(data, callback)
     }, "json");
 
 }
@@ -29,15 +27,14 @@ function renderPCPlot(data, callback) {
 
   d3.select('#btnReset').on('click', function() {
     parcoords.brushReset();
-    get_filter_ranges(data)
+    get_filter_ranges(data, () => {})
+    onParallelCoordinatePlotBrush()
   })
 
-  get_filter_ranges(data, () => {
-    callback()
-  })
+  get_filter_ranges(data, callback)
 
   parcoords.on("brushend", function(data) {
-    get_filter_ranges(data)
+    get_filter_ranges(data, () => {})
     onParallelCoordinatePlotBrush()
   })
 
