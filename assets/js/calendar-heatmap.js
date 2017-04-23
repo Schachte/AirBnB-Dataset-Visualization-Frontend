@@ -209,7 +209,7 @@ function calendarHeatmap() {
             });
 
           })
-          .on('mouseout', function (d, i) {
+          .on('mousemove', function (d, i) {
             if(tooltip)
               tooltip.remove();
           });
