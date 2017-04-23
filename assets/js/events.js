@@ -16,7 +16,7 @@ var selected_stay_min = 0
 /*
  *  This will be called when a region is selected.  If one region is selected and the user
  *  selects a different region this will be called with the name of the newly selected region
- */ 
+ */
 function didClickChoroplethMap(neighborhood) {
     selected_neighborhood = neighborhood
 
@@ -31,9 +31,14 @@ function didClickChoroplethMap(neighborhood) {
 /*
  *  This will be called when the currently selected region on the map is deselected
  *  meaning that there are now no regions selected.
- */ 
+ */
 function didDeselectRegionOnMap() {
     console.log("Deselected the region");
+
+    let city_delimited = selected_city.replace(/\s+/g, '_')
+    let neighbourhood_delimited = 'all'
+
+    renderHeatMap(city_delimited, neighbourhood_delimited)
 }
 
 function postAmenities(city, filters) {
