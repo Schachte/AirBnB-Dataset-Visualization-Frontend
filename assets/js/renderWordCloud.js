@@ -102,7 +102,7 @@ function renderWorldCloud(city) {
 
   function draw(words) {
     d3.select("#wordCloud").append("svg")
-        .attr("width",1500)
+        .attr("width",800)
         .attr("height",500)
         .append("g")
         .attr("transform","translate(320,200)")
