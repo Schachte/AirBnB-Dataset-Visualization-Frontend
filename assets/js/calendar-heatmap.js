@@ -119,6 +119,13 @@ function calendarHeatmap() {
     console.log('THIS IS SOMETHING..APPARENTLY')
     console.log(chart.data().minPrice, chart.data().minDate, chart.data().maxPrice, chart.data().maxDate)
 
+    
+    //Clear the innerHTML of the jquery so it doesnt append values
+    $("#minPrice").empty();
+    $("#minPriceDate").empty();
+    $("#maxPrice").empty();
+    $("#maxPriceDate").empty();
+    
     d3.select("#minPrice").append("text").text("$"+chart.data().minPrice)
     d3.select("#minPriceDate").append("text").text(chart.data().minDate)
     d3.select("#maxPrice").append("text").text("$"+chart.data().maxPrice)
