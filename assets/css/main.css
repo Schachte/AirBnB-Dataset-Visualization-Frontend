@@ -48,8 +48,6 @@ html {
   width: 100%;
   /*border: 1px solid black;*/
   float: left;
-  opacity: .7;
-  background-color: #F0F8FF !important;
 }
 
 .wordcloud-split {
