@@ -119,6 +119,13 @@ function calendarHeatmap() {
     console.log('THIS IS SOMETHING..APPARENTLY')
     console.log(chart.data().minPrice, chart.data().minDate, chart.data().maxPrice, chart.data().maxDate)
 
+    
+    //Clear the innerHTML of the jquery so it doesnt append values
+    $("#minPrice").empty();
+    $("#minPriceDate").empty();
+    $("#maxPrice").empty();
+    $("#maxPriceDate").empty();
+    
     d3.select("#minPrice").append("text").text("$"+chart.data().minPrice)
     d3.select("#minPriceDate").append("text").text(chart.data().minDate)
     d3.select("#maxPrice").append("text").text("$"+chart.data().maxPrice)
@@ -187,28 +194,52 @@ function calendarHeatmap() {
           return MONTH_LABEL_PADDING + formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING);
         });
 
-      if (typeof onClick === 'function') {
-        dayRects.on('click', function (d) {
-          var count = countForDate(d);
-          onClick({ date: d, average_price: count});
-        });
-      }
+      // if (typeof onClick === 'function') {
+      //   dayRects.on('click', function (d) {
+      //     var count = countForDate(d);
+      //     onClick({ date: d, average_price: count});
+      //   });
+      // }
 
-      if (chart.tooltipEnabled()) {
-        dayRects.on('mouseover', function (d, i) {
-          tooltip = d3.select(chart.selector())
-            .append('div')
-            .attr('class', 'day-cell-tooltip')
-            .html(tooltipHTMLForDate(d))
-            .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
-            .style('top', function () {
-              return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
+      // if (typeof onClick === 'function') {
+        if (chart.tooltipEnabled()) {
+          dayRects.on('click', function (d, i) {
+            var count = countForDate(d);
+            console.log("clicked")
+            tooltip = d3.select(chart.selector())
+                      .append('div')
+                      .attr('class', 'day-cell-tooltip')
+                      .html(tooltipHTMLForDate(d))
+                      .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
+                      .style('top', function () {
+                        return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
             });
-        })
-        .on('mouseout', function (d, i) {
-          tooltip.remove();
-        });
-      }
+
+          })
+          .on('mousemove', function (d, i) {
+            if(tooltip)
+              tooltip.remove();
+          });
+          // tooltip.remove();
+          // onClick({ date: d, average_price: count});
+        }
+      // }
+
+      // if (chart.tooltipEnabled()) {
+      //   dayRects.on('mouseover', function (d, i) {
+      //     tooltip = d3.select(chart.selector())
+      //       .append('div')
+      //       .attr('class', 'day-cell-tooltip')
+      //       .html(tooltipHTMLForDate(d))
+      //       .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
+      //       .style('top', function () {
+      //         return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
+      //       });
+      //   })
+      //   .on('mouseout', function (d, i) {
+      //     tooltip.remove();
+      //   });
+      // }
       //Suhasini
       // if (chart.legendEnabled()) {
       //   var colorRange = [color(0)];
@@ -238,7 +269,7 @@ function calendarHeatmap() {
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
           .attr('x', width - legendWidth-1250)
-          .attr('y', height + SQUARE_LENGTH)
+          .attr('y', height + SQUARE_LENGTH+10)
           .text(locale.Less);
 
         legendGroup.append('text')
