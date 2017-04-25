@@ -1,60 +1,266 @@
 <!DOCTYPE html>
-<html>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="d3.layout.cloud.js"></script>
-<script src="underscore-min.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <title>Word Cloud</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AirBnB - Data Visualization</title>
+    <meta name="description" content="AirBnB Data Analysis - All Around The World" />
+    <meta name="keywords"  content="airbnb visualization data analysis machine learning" />
+    <meta name="Resource-type" content="Document" />
+
+    <link rel="icon"
+          type="image/png"
+          href="http://www.iconninja.com/files/608/626/549/airbnb-icon.png">
+
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script> -->
+
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.fullPage.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/video.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/amenities.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/d3.parcoords.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/cards.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/calendar-heatmap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/leaflet.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"> -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!--[if IE]>
+    <script type="text/javascript">
+        var console = { log: function() {} };
+    </script>
+    <![endif]-->
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="assets/js/scrolloverflow.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script type="text/javascript" src="assets/js/amenityRender.js"></script>
+    <script type="text/javascript" src="assets/js/dropdown.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="assets/js/d3.svg.multibrush.js"></script>
+    <script type="text/javascript" src="assets/js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="assets/js/parallelCoorPlotRender.js"></script>
+    <script type="text/javascript" src="assets/js/calendar-heatmap.js"></script>
+    <script type="text/javascript" src="assets/js/heatmapRender.js"></script>
+    <script type="text/javascript" src="assets/js/googleChartsRender.js"></script>
+    <script type="text/javascript" src="assets/js/d3.layout.cloud.js"></script>
+    <script type="text/javascript" src="assets/js/underscore-min.js"></script>
+    <script type="text/javascript" src="assets/js/renderWordCloud.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $(".continue" ).click(function() {
+                $.fn.fullpage.moveSectionDown();
+            })
+
+            $('#fullpage').fullpage({
+                verticalCentered: true,
+                sectionsColor: ['#1bbc9b', '#fff', '#7BAABE'],
+                fitToSection: false,
+                autoScrolling: false,
+            });
+
+            //   setTimeout(function() {
+            //     update_map_criteria('price', austinDefaultData);
+            //  }, 1000);
+
+        });
+    </script>
 </head>
 <body>
 
+<div id="fullpage">
+    <div class="section " id="section0">
+        <video id="myVideo" loop muted data-autoplay>
+            <source src="http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com/assets/video/Video.mp4" type="video/webm">
+        </video>
+        <div class="layer">
+            <img src="https://amex.withairbnb.com/images/airbnb_logo_white.png" height="400px"/>
+        </div>
+
+        <div id="header-wrap">
+            Show Me Statisitics Within:
+            <div class="btn-group dropdown">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Amsterdam (Select To Change)
+                </button>
+                <div class="dropdown-menu scrollable-menu" id="city_dropdown_menu" aria-labelledby="dropdownMenuButton">
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-text">
+      <span class="blogger-small">Welcome to the AirBnB data exploration tool. This data tool will help in exploring the deep facets of AirBnB and their data throughout cities around the world. As a homeowner,
+        you'll be able to understand monthly income, helpful amenities and overall neighborhood pricing trends through 40+ cities around the world. This tool is experimental tool not associated with AirBnB.</span>
+            <div class="continue">Continue To Visualization</div>
+        </div>
+    </div>
+
+    <div class="section fp-normal-scroll " id="section1">
+        <div class = "polar-split"  style="height: 300px;">
+            <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 285px; overflow: hidden;">
+                <div class="card-header">
+                    <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
+                </div>
+                <div class="card-block" style="width: 100%;">
+                    <div style="width: 100%; margin: 0 auto;">
+                        <div id="example" class="parcoords" style="height: 150px; margin-left: -15%;"></div>
+                        <div style="float: right; margin-right: 5%">
+                            <button id="btnReset">Reset Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="amentity-section">
+            <div id = "amenity-split">
+                <div class="card" style="width: 102%; margin-left: 30px; padding: 0px; margin-top: 20px; height: 100%; position: relative;">
+                    <div class="card-header">
+                        <b>Filter Region on Amenities</b><br>
+                        <small>The neighborhood regions for the city will be altered based on the selected amenities chosen below.</small>
+                    </div>
+                    <div class="card-block" style="width: 100%;">
+                        <div>
+                            <h2 align="left" id="text">Select Some Offered Amenities Based On: </h2>
+                            <select id="dd-list">
+                                <option value="num_listings">Number of Listings</option>
+                                <option value="price">Price</option>
+                                <option value="est_monthly_income">Average Monthly Income</option>
+                                <option value="reviews_per_month">Stay Count</option>
+                            </select>
+                        </div>
+
+                        <div id = "amenity-grid" style="width: 95%;">
+                            <!-- GRID ITEMS WILL GET RENDERED HERE   -->
+                        </div>
+
+                        <div style='width: 100%; height: 25px; margin-left: 5%; display: flex; justify-content: center'>
+                            <div style='width: 5%; height: 100%; background-color:#795548; display: inline-block'></div>
+                            <div style='display: flex'>With Selected Amenities</div>
+                            <div style='width: 5%; height: 100%; background-color:#607D8B; display: inline-block'></div>
+                            <div style='display: flex'>Total Average</div>
+                        </div>
+
+                        <div>
+                            <div id="avg_price_chart" style="width: 50%; height: 50%; float: left;"></div>
+                            <div id="avg_monthly_stays_chart" style="width: 50%; float: left;"></div>
+                        </div>
+                        <div>
+                            <div id="num_listings" style="width: 50%; height: 50%; float: left;"></div>
+                            <div id="monthly_income_chart" style="width: 50%; float: left;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id = "choropleth-split">
+                <div class="card" style="width: 95%; padding: 0px; margin-top: 20px; height: 750px; position: relative;">
+                    <div class="card-header">
+                        <b>Filter Region on Amenities</b><br>
+                        <small>The neighborhood regions for the city will be altered based on the selected amenities chosen below.</small>
+                    </div>
+                    <div class="card-block" style="width: 100%; height: 100%">
+                        <div id="mapid" style="width: 100%; height: 95%; z-index: 0;">
+                            <!-- Map is rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="heatmap-section" style="margin-top: 40px;">
+                <div class = "heatmap-split">
+                    <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 100px; height: 350px">
+                        <div class="card-header">
+                            <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
+                        </div>
+                        <div class="card-block" style="width: 100%;">
+                            <div class="heatmap-container">
+                                <div class='heatmap'></div>
+                                <div class='heatmap-table'>
+
+                                    <h4 class="heatmap-table-price">Min Price:<p id="minPrice"></p></h4>
+                                    <div class="inline-block"><h5>Date(s): <p id="minPriceDate"></p></h5></div>
+                                    <h4 class="heatmap-table-price">Max Price:<p id="maxPrice"></p></h4>
+                                    <div class="inline-block"><h5>Date(s):<p id="maxPriceDate"></p></h5></div>
+                                    <!-- <h4 class="heatmap-table-price">Min Price:</h4>
+                                    <h5>Date(s):</h5>
+                                    <h4 class="heatmap-table-price">Max Price:</h4>
+                                    <h5>Date(s):</h5> -->
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wordcloud-section">
+                <div class = "wordcloud-split">
+                    <div class="card" style="width: 93.5%; margin: 0 auto; padding: 0px; margin-top: 20px; height: 500px;">
+                        <div class="card-header">
+                            <b>Select Your Critera</b><br><small>The polar coordinate plot below will allow you to make filtered selections based on the current data.</small>
+                        </div>
+                        <div class="card-block" style="width: 100%;">
+                            <div id='wc'>
+                                <center>
+                <span id='wordCloud'>
+                </span>
+                                </center>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="assets/js/leaflet.js"></script>
+    <script src="assets/js/update_functions.js"></script>
+    <script src="assets/js/events.js"></script>
+
+    <script>
+        let cities = ['Amsterdam', 'Antwerp', 'Asheville', 'Athens', 'Austin',
+            'Barcelona', 'Berlin', 'Boston', 'Brussels', 'Chicago', 'Copenhagen', 'Denver', 'Dublin', 'Edinburgh',
+            'Geneva', 'Hong Kong', 'London', 'Los Angeles', 'Madrid', 'Mallorca', 'Manchester', 'Melbourne', 'Montreal',
+            'Nashville','New Orleans','New York City','Northern Rivers','Oakland','Paris','Portland', 'Quebec City',
+            'San Diego', 'San Francisco', 'Santa Cruz County', 'Seattle', 'Sydney', 'Toronto', 'Trentino',
+            'Vancouver', 'Venice', 'Victoria', 'Vienna', 'Washington DC']
+        let city_dropdown = document.getElementById('city_dropdown_menu')
+        cities.forEach((city) => {
+            city_dropdown.innerHTML += '<a class="dropdown-item" role="button">'+city+'</a>'
+        })
+
+        $("#city_dropdown_menu a").click(onCityChange)
+        $("#dd-list").change(onClickMetric)
+
+        renderParallelCoorPlot('Amsterdam', null, '', () => {
+            renderHeatMap('Amsterdam', 'all');
+        renderWorldCloud('Amsterdam');
+        postAmenities('Amsterdam', '');
+        renderBarGraphPlot('Brussels');
+        });
+
+    </script>
+
 </body>
-<script>
-  //first read in data:
-  frequency_list = [{"size": 30, "text": "describedpictured"}, {"size": 8, "text": "stain"}, {"size": 2, "text": "place"}, {"size": 9, "text": "perfect"}, {"size": 12, "text": "day"}, {"size": 1, "text": "exceptionally"}, {"size": 3, "text": "trentes"}, {"size": 23, "text": "two"}, {"size": 12, "text": "blanket"}, {"size": 2, "text": "brussels"}, {"size": 1, "text": "everything"}, {"size": 16, "text": "one"}, {"size": 9, "text": "clean"}, {"size": 10, "text": "aside"}, {"size": 3, "text": "stay"}];
-
-  //Read in the json file:
-
-  //find the max and min of the frequency_list:
-//  memostuff = _.reduce(frequency_list,function(memo,frequency_list){return memo});
-  maxstuff = _.max(frequency_list, function(object){return object.size})
-  maxFreq = maxstuff.size
-  minstuff = _.min(frequency_list, function(object){return object.size})
-  minFreq = minstuff.size
-  console.log("This is the min and max:")
-  console.log(maxFreq)
-  console.log(minFreq)
-
-  var color = d3.scale.linear()
-                .domain([minFreq,maxFreq])
-                .range(['#eff3ff','#084594'])
-  d3.layout.cloud().size([800,300])
-            .words(frequency_list)
-            .rotate(0)
-            .fontSize(function(d){return d.size;})
-            .on("end",draw)
-            .start()
-
-  function draw(words) {
-    d3.select("body").append("svg")
-      .attr("width",850)
-      .attr("height",350)
-      .attr("class","wordcloud")
-      .append("g")
-      .attr("transform","translate(320,200)")
-      .selectAll("text")
-      .data(words)
-      .enter().append("text")
-      .style("font-size",function(d){ return (d.size)+"px";})
-      .style("fill",function(d,i){return color(i);})
-      .attr("transform",function(d){
-              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-      })
-      .text(function(d) { return d.text; });
-
-
-  }
-
-</script>
-
 </html>
