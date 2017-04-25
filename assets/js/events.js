@@ -6,34 +6,53 @@
 
 var selected_neighborhood = 'all'
 var selected_city = 'Amsterdam'
-var selected_price_max = ''
-var selected_price_min = ''
-var selected_income_max = ''
-var selected_income_min = ''
-var selected_stay_max = ''
-var selected_stay_min = ''
+var selected_price_max = 10000000
+var selected_price_min = 0
+var selected_income_max = 10000000
+var selected_income_min = 0
+var selected_stay_max = 10000000
+var selected_stay_min = 0
 
+/*
+ *  This will be called when a region is selected.  If one region is selected and the user
+ *  selects a different region this will be called with the name of the newly selected region
+ */
 function didClickChoroplethMap(neighborhood) {
     selected_neighborhood = neighborhood
 
     let city_delimited = selected_city.replace(/\s+/g, '_')
-    let neighbourhood_delimited = regionName.replace(/\s+/g, '_')
+    let neighbourhood_delimited = selected_neighborhood.replace(/\s+/g, '_')
 
-    renderParallelCoorPlot(selected_city, regionName, getFilterParams())
+    renderParallelCoorPlot(selected_city, selected_neighborhood, getFilterParams(), () => {})
     renderHeatMap(city_delimited, neighbourhood_delimited)
 
 }
 
+/*
+ *  This will be called when the currently selected region on the map is deselected
+ *  meaning that there are now no regions selected.
+ */
+function didDeselectRegionOnMap() {
+    console.log("Deselected the region");
+
+    let city_delimited = selected_city.replace(/\s+/g, '_')
+    let neighbourhood_delimited = 'all'
+
+    renderHeatMap(city_delimited, neighbourhood_delimited)
+}
+
 function postAmenities(city, filters) {
-  console.log('Post Amenities')
-  console.log(selected_price_min)
-  console.log(selected_price_max)
-  console.log(selected_stay_min)
-  console.log(selected_stay_max)
-  console.log(selected_income_min)
-  console.log(selected_income_max)
+  // console.log("HEREB")
+  // console.log("HERE2")
+  // console.log('Post Amenities')
+  // console.log(selected_price_min)
+  // console.log(selected_price_max)
+  // console.log(selected_stay_min)
+  // console.log(selected_stay_max)
+  // console.log(selected_income_min)
+  // console.log(selected_income_max)
   let metric = $("#dd-list").val()
-  console.log(city, metric, filters)
+  // console.log(city, metric, filters)
   $.post( "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/amenities/", {
     "city_name": city,
     "metric": metric,
@@ -47,49 +66,50 @@ function postAmenities(city, filters) {
   }, function( data ) {
     update_city(city);
      update_map_criteria(metric, data);
-     console.log(data);
+    //  console.log(data);
   });
 }
 
 function onClickAmenity() {
-  console.log('Amenity Click!')
+  // console.log('Amenity Click!')
   let filter_string = getFilterParams()
   let neighbourhood_delimited = selected_neighborhood.replace(/\s+/g, '_')
 
   postAmenities(selected_city, filter_string)
   if (selected_neighborhood == 'all') {
-    renderParallelCoorPlot(selected_city, null, filter_string)
+    renderParallelCoorPlot(selected_city, null, filter_string, () => {})
   } else {
-    renderParallelCoorPlot(selected_city, selected_neighborhood, filter_string)
+    renderParallelCoorPlot(selected_city, selected_neighborhood, filter_string, () => {})
   }
   renderBarGraphPlot(selected_city)
 }
 
 function onCityChange() {
-  console.log("city change!")
+  // console.log("city change!")
   let city = $(this).text()
   selected_city = city
   $("#dropdownMenuButton").text(city);
   $("#dropdownMenuButton").val(city);
   let city_delimited = city.replace(/\s+/g, '_')
 
-  postAmenities(city, getFilterParams())
-  renderParallelCoorPlot(city, null, getFilterParams())
-  renderHeatMap(city_delimited, 'all')
-  renderWorldCloud(city)
-  renderBarGraphPlot(selected_city)
-  selected_neighborhood = 'all'
+  renderParallelCoorPlot(city, null, getFilterParams(), () => {
+    postAmenities(city, getFilterParams())
+    renderHeatMap(city_delimited, 'all')
+    renderWorldCloud(city)
+    renderBarGraphPlot(selected_city)
+    selected_neighborhood = 'all'
+  })
 }
 
 function onParallelCoordinatePlotBrush () {
-  // let parallelcoordState = d3.parcoords()("#example").state
-  // console.log(parallelcoordState)
   postAmenities(selected_city, getFilterParams())
   renderBarGraphPlot(selected_city)
 }
 
 function onClickMetric() {
-
+    let metric = $("#dd-list").val()
+    renderBarGraphPlot(selected_city)
+    postAmenities(selected_city, getFilterParams())
 }
 
 function update_filter_ranges(price_max, price_min, income_max, income_min, stay_max, stay_min) {
