@@ -64,8 +64,12 @@ function update_map_criteria(criteria, newNeighbourhoodData) {
 
         if(geojsonLayer)
             mymap.removeLayer(geojsonLayer);
+        
+        if( newNeighbourhoodData.Data)
+            neighbourhoodData = modifyData( newNeighbourhoodData.Data );
+        else
+            neighbourhoodData = modifyData( newNeighbourhoodData );
 
-        neighbourhoodData = modifyData( newNeighbourhoodData.Data );
         geojsonLayer = L.geoJson(currentCityGeojson, {
             style : style,
             onEachFeature: addMouseListeners
@@ -120,7 +124,7 @@ function style(feature) {
     if( neighbourhoodData ){
         var neighbourhoodName = feature.properties.neighbourhood;
         var dataFromService = neighbourhoodData[neighbourhoodName];
-        if( dataFromService )
+        if( dataFromService && dataFromService.bin )
             binNumber = dataFromService.bin;
     }
 
