@@ -30,3 +30,48 @@ p span
 {
   display: block;
 }
+
+.heatmap {
+  overflow: auto !important;
+  width: 80%;
+  float: left;
+  height: 100%;
+}
+
+.heatmap-table{
+  width: 18%;
+  height: 60%;
+  border-color: #cccccc !important;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 25px;
+  padding: 10px;
+  float: right;
+  margin-right: 5px;
+}
+.heatmap-container{
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.heatmap-table-price{
+  font-weight: bold;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.block {
+  display: block;
+}
+
+.helpBlock {
+  height: 20%;
+  float: right;
+}
+
+.heatmap-summary-container {
+  display: block;
+}

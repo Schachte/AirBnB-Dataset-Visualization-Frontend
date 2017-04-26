@@ -1,12 +1,16 @@
-// let production_endpoint = "http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/amenities/"
-let production_endpoint = "http://localhost:8000/amenities/"
-
 function rgb2hex(orig){
  var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
  return (rgb && rgb.length === 4) ? "#" +
   ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
   ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
   ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : orig;
+}
+
+function deselectAllAmenities() {
+  $('.amenity-box').each(function() {
+    $(this).removeClass("tester");   //TODO: Why is this class called tester and doesn't use selected-amenities?
+    $(this).removeClass("selected-amenity"); 
+  })
 }
 
 $(function() {
@@ -40,36 +44,26 @@ $(function() {
       $(this).addClass("selected-amenity")
     }
 
-    var str = "";
-
-    $('.selected-amenity').each(function(){
-      str += $.trim(($(this).text() + ","));
-    })
-
-    filter_string = getFilterParams(str.split(','))
-    let selected_city = $('.picked-city').val();
-
-    selected_city = 'Brussels';
-    let metric = $('#dd-list').find(":selected").val();
-
-    console.log("Doing a post for the seelcted city of " + filter_string);
-
-      $.post( production_endpoint, { metric: ""+metric+"", city_name: selected_city, filters: filter_string} ) .done(function( data ) {
-      console.log( data );
-    }, "json");
-
     let currentColor = rgb2hex($(this).css("background-color"));
-
     // Add this to enable the proper hover technique
     //TO:DO Change this class from tester to something that makes more sense
     $(this).toggleClass('tester');
+
+    onClickAmenity()
   });
 })
 
-function getFilterParams(data) {
+function getFilterParams() {
+  var str = "";
   let filter_params = ""
 
-  data.forEach((item) => {
+  $('.selected-amenity').each(function(){
+    str += $.trim(($(this).text() + ","));
+  })
+
+  let amenities_array = str.split(',')
+
+  amenities_array.forEach((item) => {
     if (item!=""){
       item = $.trim(item);
       switch (item) {
@@ -103,7 +97,7 @@ function getFilterParams(data) {
         case "Kitchen":
           filter_params = filter_params + 'has_kitchen,';
           break;
-        case "Instantly Bookable":
+        case "Fast Book":
           filter_params = filter_params + 'instant_bookable,';
           break;
         default:

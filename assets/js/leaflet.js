@@ -1,10 +1,10 @@
 
 /*
  * The only two functions that should be called from outside of this file are the following:
- * 
+ *
  *  Use update_city(geojson) to zoom to a new city and draw its neighbourhoods
  *  Use update_map_criteria(criteria, binData) to color the regions and create the tooltips.
- */ 
+ */
 
 var geojsonUrl = "http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/geojson/";
 
@@ -15,6 +15,7 @@ var mymap;
 var info, geojsonLayer
 var currentCityGeojson, neighbourhoodData, currentCriteria;
 var legend, currentLegendData = new Array();
+var selectedRegion;
 
 /*
  * Functions to create and update the map
@@ -34,6 +35,7 @@ function update_city(cityName) {
     var escapedCityName = cityName.replace(" ", "_");
     $.get(geojsonUrl + escapedCityName, function(response) {
         update_geojson(response);
+
     }).error(function() {
         "Could not get geojson data from the webservice.";
     });
@@ -51,7 +53,7 @@ function update_geojson(geojsonData) {
     geojsonLayer = L.geoJson(currentCityGeojson, {
         style: style,
         onEachFeature: addMouseListeners
-    }).addTo(mymap);    
+    }).addTo(mymap);
     mymap.fitBounds(geojsonLayer.getBounds());
 }
 
@@ -59,8 +61,15 @@ function update_geojson(geojsonData) {
 function update_map_criteria(criteria, newNeighbourhoodData) {
     currentCriteria = criteria;
     if( newNeighbourhoodData ) {
-        mymap.removeLayer(geojsonLayer);
-        neighbourhoodData = modifyData( newNeighbourhoodData.Data );
+
+        if(geojsonLayer)
+            mymap.removeLayer(geojsonLayer);
+        
+        if( newNeighbourhoodData.Data)
+            neighbourhoodData = modifyData( newNeighbourhoodData.Data );
+        else
+            neighbourhoodData = modifyData( newNeighbourhoodData );
+
         geojsonLayer = L.geoJson(currentCityGeojson, {
             style : style,
             onEachFeature: addMouseListeners
@@ -73,16 +82,20 @@ function update_map_criteria(criteria, newNeighbourhoodData) {
 
 //Set the new legend data, remove the legend, and readd it which will put the new values in the legend.
 function update_legend(legendData) {
-    currentLegendData = new Array();
-    //Create an array that holds the bin intervals
-    minValue = parseInt(legendData.min);
-    interval = parseInt(legendData.interval);
-    for(var i = 0; i <= 7; i++)
-        currentLegendData.push(minValue + interval * i);
 
-    //Remove the legend then add it back with the new values
     mymap.removeControl(legend);
-    legend.addTo(mymap);
+
+    if(legendData) {
+      currentLegendData = new Array();
+      //Create an array that holds the bin intervals
+      minValue = parseInt(legendData.min);
+      interval = parseInt(legendData.interval);
+      for(var i = 0; i <= 7; i++)
+          currentLegendData.push(minValue + interval * i);
+
+      //Remove the legend then add it back with the new values
+      legend.addTo(mymap);
+    }
 }
 
 
@@ -90,9 +103,13 @@ function update_legend(legendData) {
 function modifyData( newNeighbourhoodData ) {
     dataDict = [];
 
-    for(var i = 0; i < newNeighbourhoodData.length; i++ ) {
-        var regionData = newNeighbourhoodData[i];
-        dataDict[regionData.neighborhood] = regionData;
+    if(newNeighbourhoodData) {
+      for(var i = 0; i < newNeighbourhoodData.length; i++ ) {
+          var regionData = newNeighbourhoodData[i];
+          dataDict[regionData.neighborhood] = regionData;
+      }
+    } else {
+      return dataDict;
     }
     return dataDict;
 }
@@ -107,7 +124,7 @@ function style(feature) {
     if( neighbourhoodData ){
         var neighbourhoodName = feature.properties.neighbourhood;
         var dataFromService = neighbourhoodData[neighbourhoodName];
-        if( dataFromService )
+        if( dataFromService && dataFromService.bin )
             binNumber = dataFromService.bin;
     }
 
@@ -125,7 +142,7 @@ function style(feature) {
 function getColor(binNumber) {
 
     if( !binNumber ) return divergentColors[4];
-    
+
     if( binNumber < 1 || binNumber > 7) {
         console.log("Invalid value passed to getColor, value between 1 and 7 expected.");
         return divergentColors[4];
@@ -152,8 +169,7 @@ info.update = function (region) {
 
     var html = "";
 
-
-    if( region ) {
+    if( region && neighbourhoodData ) {
         //If it's a valid region that we could find in the geojson
         if( region.neighbourhood && neighbourhoodData[region.neighbourhood] ) {
             regionName = region.neighbourhood;
@@ -170,7 +186,7 @@ info.update = function (region) {
         }
     //Nothing has been selected
     } else {
-        html = 'Please hover over a region to see details.';
+        html = 'Please select a region to see details.';
     }
 
     this._div.innerHTML = html;
@@ -191,25 +207,37 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
-    info.update(layer.feature.properties);
 }
 
 function resetHighlight(e) {
-    geojsonLayer.resetStyle(e.target);
+
+    geojsonLayer.eachLayer(function(l){geojsonLayer.resetStyle(l);});
     info.update();
 }
 
 //Notify everyone else that a region was clicked
 function notifyOfRegionClick(e) {
-    console.log(e);
-    regionName = e.target.feature.properties.neighbourhood;
-    didClickChoroplethMap(regionName);
+    newSelectedRegion = e.target.feature.properties.neighbourhood;
+
+    if(selectedRegion == newSelectedRegion) { //Deselected the region
+        selectedRegion = null;
+        resetHighlight(e);
+        didDeselectRegionOnMap();
+    } else {
+        selectedRegion = newSelectedRegion;
+        resetHighlight(e);
+        highlightFeature(e);
+        if(e.target)
+            info.update(e.target.feature.properties);
+
+        didClickChoroplethMap(selectedRegion);
+    }
 }
 
 function addMouseListeners(feature, layer) {
     layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
+        //mouseover: highlightFeature,
+        //mouseout: resetHighlight,
         click: notifyOfRegionClick
     });
 }
@@ -217,22 +245,21 @@ function addMouseListeners(feature, layer) {
 
 
 /*
- *  Add the legend 
+ *  Add the legend
  */
 legend = L.control({position:'bottomright'});
-
 
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend')
-    
+
     if( currentLegendData.length == 8 ) {
 
-        div.innerHTML += 'Percent difference above average<br>'
-                            
-        //Loop through each color in the bin        
+        div.innerHTML += 'Percent difference above average<br><br>'
+
+        //Loop through each color in the bin
         for (var i = currentLegendData.length - 2; i >= 0 ; i--) {
-            div.innerHTML += '<i style="background:' + getColor(i + 1) + '"></i> ' + currentLegendData[i] + ' to ' + currentLegendData[i + 1] + '<br>';
+            div.innerHTML += '<i style="background:' + getColor(i + 1) + '"></i><div> ' + currentLegendData[i] + '% to ' + currentLegendData[i + 1] + '%</div><br>';
         }
 
     }

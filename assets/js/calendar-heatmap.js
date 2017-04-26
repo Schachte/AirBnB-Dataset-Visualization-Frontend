@@ -1,12 +1,12 @@
 
 function calendarHeatmap() {
   // defaults
-  var width = 750; 
-  var height = 110;
-  var legendWidth = 150;
+  var width = 1500;
+  var height = 180;
+  var legendWidth = 250;
   var selector = 'body';
-  var SQUARE_LENGTH = 11;
-  var SQUARE_PADDING = 2;
+  var SQUARE_LENGTH = 22;
+  var SQUARE_PADDING = 4;
   var MONTH_LABEL_PADDING = 6;
   var now = moment().endOf('day').toDate();
   var yearAgo = moment().startOf('day').subtract(1, 'year').toDate();
@@ -14,6 +14,8 @@ function calendarHeatmap() {
   var data = [];
   var max = null;
   var min = null;
+  var maxDate = null;
+  var minDate = null;
   var colorRange = ['#D8E6E7', '#218380'];
   var tooltipEnabled = true;
   var tooltipUnit = 'contribution';
@@ -33,6 +35,8 @@ function calendarHeatmap() {
   chart.data = function (value) {
     if (!arguments.length) { return data; }
     data = value;
+    // console.log("check data in calendar-heatmap")
+    // console.log(data)
     return chart;
   };
 
@@ -92,32 +96,13 @@ function calendarHeatmap() {
   };
 
   //Suhasini
-  var price_data
+
   var total_avg_price=0
-  // $.getJSON('http://ec2-35-167-247-179.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
-  $.getJSON('http://ec2-52-38-115-147.us-west-2.compute.amazonaws.com:8000/summaries/daily/Toronto/', function(data) {
-    console.log(data)
-    price_data = data.map((obj) => {
-      // obj.date = new Date(obj.date)
-
-      obj.date = new Date(Date.parse(obj.date)).toUTCString()
-
-      return obj
-    })
+  var avg_tot_avg=0
 
 
-    for (i=0; i< price_data.length;i++) {
-      total_avg_price = total_avg_price + parseFloat(price_data[i].average_price)
-      // console.log(total_avg_price)
-    }
-
-    avg_tot_avg = total_avg_price/i;
 
 
-    //
-    console.log("bla bla bla average price of entire city is -")
-    console.log(avg_tot_avg)
-  });
 
   function chart() {
 
@@ -126,18 +111,46 @@ function calendarHeatmap() {
     var dateRange = d3.time.days(yearAgo, now); // generates an array of date objects within the specified range
     var monthRange = d3.time.months(moment(yearAgo).startOf('month').toDate(), now); // it ignores the first month if the 1st date is after the start of the month
     var firstDate = moment(dateRange[0]);
-    if (max === null) { max = d3.max(chart.data(), function (d) { return d.average_price; }); } // max data value
-    if (min === null) { min = d3.min(chart.data(), function (d) { return d.average_price; });}
+    if (max === null)
+      { max = d3.max(chart.data().dataPoints, function (d) { return d.average_price; }); } // max data value
+    if (min === null)
+      { min = d3.min(chart.data().dataPoints, function (d) { return d.average_price; });}
 
+    console.log('THIS IS SOMETHING..APPARENTLY')
+    console.log(chart.data().minPrice, chart.data().minDate, chart.data().maxPrice, chart.data().maxDate)
 
+    
+    //Clear the innerHTML of the jquery so it doesnt append values
+    $("#minPrice").empty();
+    $("#minPriceDate").empty();
+    $("#maxPrice").empty();
+    $("#maxPriceDate").empty();
+    
+    d3.select("#minPrice").append("text").text("$"+chart.data().minPrice)
+    d3.select("#minPriceDate").append("text").text(chart.data().minDate)
+    d3.select("#maxPrice").append("text").text("$"+chart.data().maxPrice)
+    d3.select("#maxPriceDate").append("text").text(chart.data().maxDate)
 
+    // console.log("min is")
+    // console.log(chart.data().maxPrice)
+    // console.log("max is ")
+    // console.log(chart.data().minPrice)
+
+//     var max = d3.max(data, function(d) {
+//   return d3.max(d.Checkintimes, function(e) { return d3.max(e); });
+// });
+
+    // console.log("chart.data is")
+    // console.log(chart.data().dataPoints)
+//HOW TO ACCESS
     // color range
     //Suhasini
-    midpt = (min+max)/2;
+    // midpt = (min+max)/2;
     var color = d3.scale.linear()
       .range(chart.colorRange())
       // .domain([min, midpt, max]);
-      .domain([min,avg_tot_avg,max])
+      .domain([chart.data().minPrice, chart.data().avgPrice, chart.data().maxPrice])
+
 
     // var color = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"]
     // export {default as interpolateRdBu, scheme as schemeRdBu} from "./d3-scale-chromatic-master/src/diverging/RdBu";
@@ -181,28 +194,52 @@ function calendarHeatmap() {
           return MONTH_LABEL_PADDING + formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING);
         });
 
-      if (typeof onClick === 'function') {
-        dayRects.on('click', function (d) {
-          var count = countForDate(d);
-          onClick({ date: d, average_price: count});
-        });
-      }
+      // if (typeof onClick === 'function') {
+      //   dayRects.on('click', function (d) {
+      //     var count = countForDate(d);
+      //     onClick({ date: d, average_price: count});
+      //   });
+      // }
 
-      if (chart.tooltipEnabled()) {
-        dayRects.on('mouseover', function (d, i) {
-          tooltip = d3.select(chart.selector())
-            .append('div')
-            .attr('class', 'day-cell-tooltip')
-            .html(tooltipHTMLForDate(d))
-            .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
-            .style('top', function () {
-              return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
+      // if (typeof onClick === 'function') {
+        if (chart.tooltipEnabled()) {
+          dayRects.on('click', function (d, i) {
+            var count = countForDate(d);
+            console.log("clicked")
+            tooltip = d3.select(chart.selector())
+                      .append('div')
+                      .attr('class', 'day-cell-tooltip')
+                      .html(tooltipHTMLForDate(d))
+                      .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
+                      .style('top', function () {
+                        return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
             });
-        })
-        .on('mouseout', function (d, i) {
-          tooltip.remove();
-        });
-      }
+
+          })
+          .on('mousemove', function (d, i) {
+            if(tooltip)
+              tooltip.remove();
+          });
+          // tooltip.remove();
+          // onClick({ date: d, average_price: count});
+        }
+      // }
+
+      // if (chart.tooltipEnabled()) {
+      //   dayRects.on('mouseover', function (d, i) {
+      //     tooltip = d3.select(chart.selector())
+      //       .append('div')
+      //       .attr('class', 'day-cell-tooltip')
+      //       .html(tooltipHTMLForDate(d))
+      //       .style('left', function () { return Math.floor(i / 7) * SQUARE_LENGTH + 'px'; })
+      //       .style('top', function () {
+      //         return formatWeekday(d.getDay()) * (SQUARE_LENGTH + SQUARE_PADDING) + MONTH_LABEL_PADDING * 2 + 'px';
+      //       });
+      //   })
+      //   .on('mouseout', function (d, i) {
+      //     tooltip.remove();
+      //   });
+      // }
       //Suhasini
       // if (chart.legendEnabled()) {
       //   var colorRange = [color(0)];
@@ -213,15 +250,9 @@ function calendarHeatmap() {
 
 
       if (chart.legendEnabled()) {
-        var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
-        // //console.log("color color color")
-        // //console.log(colorRange)
-        // colorRange.push("#ff0000")
-        // colorRange.push
+        // var colorRange = ["#ff0000", "#ff0000", "#ffffff", "#0000ff", "#0000ff"];
+        var colorRange = ["#a6611a", "#dfc27d", "#f5f5f5", "#80cdc1", "#018571"]
 
-        // for (var i = 2; i > 0; i--) {
-        //   colorRange.push(color(max/i));
-        // }
 
         var legendGroup = svg.append('g');
         legendGroup.selectAll('.calendar-heatmap-legend')
@@ -231,19 +262,19 @@ function calendarHeatmap() {
             .attr('class', 'calendar-heatmap-legend')
             .attr('width', SQUARE_LENGTH)
             .attr('height', SQUARE_LENGTH)
-            .attr('x', function (d, i) { return (width - legendWidth) + (i + 1) * 13; })
-            .attr('y', height + SQUARE_PADDING)
+            .attr('x', function (d, i) { return (width - legendWidth - 1200) + (i + 1) * 28; })
+            .attr('y', height + SQUARE_PADDING+10)
             .attr('fill', function (d) { return d; });
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-less')
-          .attr('x', width - legendWidth - 60)
-          .attr('y', height + SQUARE_LENGTH)
+          .attr('x', width - legendWidth-1250)
+          .attr('y', height + SQUARE_LENGTH+10)
           .text(locale.Less);
 
         legendGroup.append('text')
           .attr('class', 'calendar-heatmap-legend-text calendar-heatmap-legend-text-more')
-          .attr('x', (width - legendWidth + SQUARE_PADDING) + (colorRange.length + 1) * 13)
+          .attr('x', (width - legendWidth + SQUARE_PADDING - 1110) + (colorRange.length + 1) * 13)
           .attr('y', height + SQUARE_LENGTH)
           .text(locale.More);
       }
@@ -310,7 +341,7 @@ function calendarHeatmap() {
 
     function countForDate(d) {
       var count = 0;
-      var match = chart.data().find(function (element, index) {
+      var match = chart.data().dataPoints.find(function (element, index) {
         return moment.utc(element.date).isSame(d, 'day');
         // return new Date(Date.parse(obj.date)).toUTCString()
 
@@ -323,7 +354,7 @@ function calendarHeatmap() {
 
     function holidayForDate(d) {
       var count='No holidays'
-      var match = chart.data().find(function (element, index) {
+      var match = chart.data().dataPoints.find(function (element, index) {
         return moment.utc(element.date).isSame(d, 'day');
         // return new Date(Date.parse(obj.date)).toUTCString()
 
@@ -339,7 +370,7 @@ function calendarHeatmap() {
 
     function eventForDate(d) {
       var count='No events'
-      var match = chart.data().find(function (element, index) {
+      var match = chart.data().dataPoints.find(function (element, index) {
         return moment.utc(element.date).isSame(d, 'day');
         // return new Date(Date.parse(obj.date)).toUTCString()
 
@@ -368,14 +399,15 @@ function calendarHeatmap() {
       return weekDay;
     }
 
-    var daysOfChart = chart.data().map(function (day) {
+    var daysOfChart = chart.data().dataPoints.map(function (day) {
       return day.date.toDateString();
+      // return day.date;
     });
 
     dayRects.filter(function (d) {
       return daysOfChart.indexOf(d.toDateString()) > -1;
     }).attr('fill', function (d, i) {
-      return color(chart.data()[i].average_price);
+      return color(chart.data().dataPoints[i].average_price);
     });
   }
   return chart;
