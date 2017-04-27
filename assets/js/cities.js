@@ -39,5 +39,4 @@ exports.cities = ['Amsterdam',
 'Vancouver',
 'Venice',
 'Victoria',
-'Vienna',
-'Washington DC']
+'Vienna']

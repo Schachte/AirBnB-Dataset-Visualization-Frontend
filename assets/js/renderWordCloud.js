@@ -68,10 +68,10 @@ document.getElementById('wordCloud').innerHTML = ''
 
         function draw(words) {
           d3.select("#wordCloud").append("svg")
-              .attr("width",1500)
+              .attr("width",1200)
               .attr("height",500)
               .append("g")
-              .attr("transform","translate(320,200)")
+              .attr("transform","translate(600,200)")
               .selectAll("text")
               .data(words)
               .enter().append("text")
